@@ -1,5 +1,5 @@
+import operator, re
 from nltk.corpus import reuters, stopwords
-import operator
 from random import randint 
 
 '''
@@ -42,10 +42,8 @@ class Document:
         return reuters.words
     
     def remove_stops(self):
-        special_char = [".", ",", ":", "", "_", "-", "&", "%", "<", ">", "!", "?", "="]
-        cleaned = [x.lower() for x in self.words if x not in special_char and x.lower() not in stopwords.words('english')]
-        return ' '.join(cleaned)
-    
+        return ' '.join([s for s in self.words if not re.match(r"[.,:;_\-&%<>!?=]",s) and s.lower() not in stopwords.words('english')])
+
     def set_features(self, n=4):
         '''returns the complete list of contigous letter combinations of length n'''
         self.features = set()
@@ -67,7 +65,6 @@ class Document:
         return 'category: ' + self.category + '\n'\
         + 'index: ' + str(self.index) + '\n'\
         +'----------------------------\n RAW DOCUMENT:'\
-        +reuters.raw(self.id)
 
 # example of use
 ker = Kernel(4, 10, Document("earn", 0))
