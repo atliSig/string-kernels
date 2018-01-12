@@ -22,12 +22,12 @@ class Kernel:
         self.document.set_features(n)
         self.document.set_freq_features()
         self.set_selected_features()
-    
     def __repr__(self):
         print('A kernel with n: '+ str(self.n))
 
     def set_selected_features(self):
         self.selected_features = self.document.get_top_features(self.m)
+        self.selected_features_counts = self.document.get_top_features_counts(self.m)
 
 class Document:
     '''A class for a document from the Reuters data-set'''
@@ -57,9 +57,13 @@ class Document:
             tuples[f] = self.clean_data.count(f)
         tuples_sorted = sorted(tuples, key=tuples.get, reverse=True)
         self.freq_features = tuples_sorted
-
+        self.freq_features_counts = [tuples[tuples_sorted[i]] for i in range(len(tuples_sorted))]
+    
     def get_top_features(self, m):
         return self.freq_features[:m]
+
+    def get_top_features_counts(self, m):
+        return self.freq_features_counts[:m]
 
     def __repr__(self):
         return 'category: ' + self.category + '\n'\
