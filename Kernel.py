@@ -10,15 +10,24 @@ categories = reuters.categories()
 
 class Kernel:
     '''A SSK kernel class'''
-    def __init__(self, n, document):
+    def __init__(self, n, m, document):
+        '''
+            n: the length of features
+            m: the number of features used in the Kernel
+            document: an object of type Document
+        '''
         self.n = n
+        self.m = m
         self.document = document
         self.document.set_features(n)
         self.document.set_freq_features()
-        print(self.document.freq_features)
+        self.set_selected_features()
     
     def __repr__(self):
         print('A kernel with n: '+ str(self.n))
+
+    def set_selected_features(self):
+        self.selected_features = self.document.get_top_features(self.m)
 
 class Document:
     '''A class for a document from the Reuters data-set'''
@@ -51,8 +60,14 @@ class Document:
         tuples_sorted = sorted(tuples, key=tuples.get, reverse=True)
         self.freq_features = tuples_sorted
 
+    def get_top_features(self, m):
+        return self.freq_features[:m]
+
     def __repr__(self):
         return 'category: ' + self.category + '\n'\
         + 'index: ' + str(self.index) + '\n'\
         +'----------------------------\n RAW DOCUMENT:'\
         +reuters.raw(self.id)
+
+# example of use
+ker = Kernel(4, 10, Document("earn", 0))
