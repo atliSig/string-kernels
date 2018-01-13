@@ -2,6 +2,7 @@ import operator, re, random, sys
 import numpy as np
 from nltk.corpus import reuters, stopwords
 from random import randint
+from math import sqrt
 
 '''
 train_docs = list(filter(lambda doc: doc.startswith("train"), reuters.fileids()))
@@ -114,6 +115,8 @@ class SSK:
                 self.kernel_matrix[i,j] = self.calc_kernel(self.testing_list[i], self.testing_list[j])*self.testing_list[i][2]*self.testing_list[j][2]
                 self.kernel_matrix[j,i] = self.kernel_matrix[i,j]
 
+        self.normalize_kernel()
+
     def calc_kernel(self, doc_1, doc_2):
         doc_1_words = Document(doc_1[0], doc_1[1], self.max_features, self.k).words
         doc_2_words = Document(doc_2[0], doc_2[1], self.max_features, self.k).words
@@ -123,6 +126,11 @@ class SSK:
             j = doc_2_words.count(feature)
             total+= l*j*self.lamda**(2 * self.k)
         return total
+
+    def normalize_kernel(self):
+        for i in range(len(self.testing_list)):
+            for j in range(len(self.testing_list)):
+                self.kernel_matrix[i,j] = self.kernel_matrix[i,j]/sqrt(self.kernel_matrix[i,i]*self.kernel_matrix[j,j])
 
 ss = SSK("earn","corn", 4, 4, 4, 4, 10, 3, 0.8)
 ss.set_matrix()
