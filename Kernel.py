@@ -11,16 +11,21 @@ categories = reuters.categories()
 
 class Document:
     '''A class for a document from the Reuters data-set'''
-    def __init__(self, category, index, m):
-        self.m = m 
+    def __init__(self, category, index, m, n):
+        '''
+            m: the number of top features
+            n: the length of each feature 
+        '''
+        self.m = m
+        self.n = n
         self.category = category
         self.index = index
         self.id = reuters.fileids(category)[index]
         self.words = reuters.words(self.id)
         self.clean_data = self.remove_stops()
         self.features = set()
-        for i in range(len(self.clean_data)-self.m+1):
-            self.features.add(self.clean_data[i:i+self.m])
+        for i in range(len(self.clean_data)-self.n+1):
+            self.features.add(self.clean_data[i:i+self.n])
         tuples = {}
         for f in self.features:
             tuples[f] = self.clean_data.count(f)
@@ -34,11 +39,11 @@ class Document:
     def remove_stops(self):
         return ' '.join([s for s in self.words if not re.match(r"[.,:;_\-&%<>!?=]",s) and s.lower() not in stopwords.words('english')])
 
-    def set_features(self, n=4):
+    def set_features(self):
         '''Sets the complete list of contigous letter combinations of length n'''
         self.features = set()
-        for i in range(len(self.clean_data)-n+1):
-            self.features.add(self.clean_data[i:i+n])
+        for i in range(len(self.clean_data)-self.n+1):
+            self.features.add(self.clean_data[i:i+self.n])
 
     def set_freq_features(self):
         '''returns features in the order of number of occurrences'''
@@ -82,7 +87,7 @@ class SSK:
         self.k = k
         self.lamda = lamda
         self.max_features = max_features
-        self.kernel_matrix = np.zeros([cat_a_training_count+cat_b_training_count,cat_a_training_count+cat_b_training_count])
+        self.kernel_matrix = np.zeros([cat_a_training_count+cat_b_training_count, cat_a_training_count+cat_b_training_count])
         self.top_feature_list = set()
         self.count_of_occurances = []
         self.seed = seed
@@ -97,9 +102,9 @@ class SSK:
 
         for doc in self.testing_list:
             if(doc[0]==self.cat_a):
-                doc_obj = Document(self.cat_a, doc[1], self.k)
+                doc_obj = Document(self.cat_a, doc[1], self.max_features, self.k)
             else:
-                doc_obj = Document(self.cat_b, doc[1], self.k)
+                doc_obj = Document(self.cat_b, doc[1], self.max_features, self.k)
             
             for feature in doc_obj.get_top_features():
                self.top_feature_list.add(feature)
@@ -110,8 +115,8 @@ class SSK:
                 self.kernel_matrix[j,i] = self.kernel_matrix[i,j]
 
     def calc_kernel(self, doc_1, doc_2):
-        doc_1_words = Document(doc_1[0], doc_1[1], self.k).words
-        doc_2_words = Document(doc_2[0], doc_2[1], self.k).words
+        doc_1_words = Document(doc_1[0], doc_1[1], self.max_features, self.k).words
+        doc_2_words = Document(doc_2[0], doc_2[1], self.max_features, self.k).words
         total = 0
         for feature in self.top_feature_list:
             l = doc_1_words.count(feature)
