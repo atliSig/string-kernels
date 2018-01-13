@@ -9,8 +9,6 @@ test_docs = list(filter(lambda doc: doc.startswith("test"), reuters.fileids()))
 categories = reuters.categories()
 '''
 
-abb
-
 class SSK:
     def __init__(self, cat_a, cat_b, m, n, max_features, k, lamda, seed=None):
         '''
