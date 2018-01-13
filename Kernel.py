@@ -34,6 +34,7 @@ class SSK:
         self.training_docs = []
         self.testing_docs = []
         self.top_feature_list = set()
+        self.count_of_occurances_lamda = []
         self.seed = seed
         self.set_docs()
 
@@ -56,18 +57,31 @@ class SSK:
             curr_doc.set_features(self.k)
             curr_doc.set_freq_features()
             top_features = curr_doc.get_top_features(self.max_features)
-            #top_features_count = curr_doc.get_top_features_counts(self.max_features)
+            top_features_count = [lamda**(curr_doc.get_top_features_counts(self.max_features))]
             top_feature_list.add(top_features)
+            count_of_occurances_lamda.add(top_features_count)
             curr_doc = Document(self.cat_b, doc)
             curr_doc.set_features(self.k)
             curr_doc.set_freq_features()
             top_features = curr_doc.get_top_features(self.max_features)
+            top_features_count = [lamda**(curr_doc.get_top_features_counts(self.max_features))]
+            top_feature_list.add(top_features)
+            count_of_occurances_lamda.add(top_features_count)
             #top_features_count = curr_doc.get_top_features_counts(self.max_features)
             top_features.add(top_features)
         # Create kernel matrix
         # N * N matrix from kernel documents
         # k = length of subsequence
-        Kernel = np.zeros(n,n)
+        kernel = np.zeros((n,n))
+        for i in range(n):
+            for j in range(n):
+                sum = 0
+                for m in range(m*m):
+                    ### Dot product to create the kernel ###
+                    sum += (count_of_occurances_lamda[j][i]*count_of_occurances_lamda[][])
+                    kernel[j][i]
+
+
 
 
 class Document:
