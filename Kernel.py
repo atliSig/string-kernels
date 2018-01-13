@@ -33,6 +33,7 @@ class SSK:
         self.matrix = np.zeros([])
         self.training_docs = []
         self.testing_docs = []
+        self.top_feature_list = set()
         self.seed = seed
         self.set_docs()
 
@@ -55,8 +56,19 @@ class SSK:
             curr_doc.set_features(self.k)
             curr_doc.set_freq_features()
             top_features = curr_doc.get_top_features(self.max_features)
-            top_features_count = curr_doc.get_top_features_counts(self.max_features)
-            ### Do something
+            #top_features_count = curr_doc.get_top_features_counts(self.max_features)
+            top_feature_list.add(top_features)
+            curr_doc = Document(self.cat_b, doc)
+            curr_doc.set_features(self.k)
+            curr_doc.set_freq_features()
+            top_features = curr_doc.get_top_features(self.max_features)
+            #top_features_count = curr_doc.get_top_features_counts(self.max_features)
+            top_features.add(top_features)
+        # Create kernel matrix
+        # N * N matrix from kernel documents
+        # k = length of subsequence
+        Kernel = np.zeros(n,n)
+
 
 class Document:
     '''A class for a document from the Reuters data-set'''
