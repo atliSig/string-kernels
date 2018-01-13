@@ -24,7 +24,7 @@ class SSK:
         self.cat_b = cat_b
         self.cat_a_count = len(reuters.fileids(cat_a))
         self.cat_b_count = len(reuters.fileids(cat_b))
-        if max(self.m, self.n) > min(self.cat_a_count, self.cat_b_count):
+        if self.m+self.n > min(self.cat_a_count, self.cat_b_count):
              print('number of trainig/testing documents exceeds number of articles')
              sys.exit(0)
         self.k = k
@@ -44,9 +44,9 @@ class SSK:
         index = []
         if(self.seed):
             random.seed(self.seed)
-            index = sorted([i for i in range(self.m+self.n)], key=lambda *args: random.random())
+            index = sorted(range(self.m+self.n), key=lambda *args: random.random())
         else:
-            index = sorted([i for i in range(self.m+self.n)], key=lambda *args: random.random())
+            index = sorted(range(self.m+self.n), key=lambda *args: random.random())
         self.training_docs = index[self.n:]
         self.testing_docs = index[:self.n]
 
