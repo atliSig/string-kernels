@@ -72,11 +72,14 @@ class SSK:
         # N * N matrix from kernel documents
         # k = length of subsequence
         kernel = np.zeros((self.n,self.n))
-        for n in range(len(2*self.testing_docs)):
-            for i in range(n,len(2*self.testing_docs)):
+        for n in range(len(self.testing_docs)):
+            for i in range(n,len(self.testing_docs)):
                 for m in range(len(top_features_list))
-                l = 
-                j =
+                l = Document(self.cat_a, )
+                j =Document(self.cat_b,)
+                if j.contains(m).count
+                if l.contains(m).count
+                kernel[][] = j*lamda**(4)+l*lamda**(4)
                 kernel[n][i] = 
 
        # for i in range(n):
