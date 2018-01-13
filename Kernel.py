@@ -1,6 +1,7 @@
-import operator, re
+import operator, re, random, sys   
+import numpy as np
 from nltk.corpus import reuters, stopwords
-from random import randint 
+from random import randint
 
 '''
 train_docs = list(filter(lambda doc: doc.startswith("train"), reuters.fileids()))
@@ -8,26 +9,54 @@ test_docs = list(filter(lambda doc: doc.startswith("test"), reuters.fileids()))
 categories = reuters.categories()
 '''
 
-class Kernel:
-    '''A SSK kernel class'''
-    def __init__(self, n, m, document):
+class SSK:
+    def __init__(self, cat_a, cat_b, m, n, max_features, k, lamda, seed=None):
         '''
-            n: the length of features
-            m: the number of features used in the Kernel
-            document: an object of type Document
+            catA: A category index for the Reuters data-set
+            catB: A category index for the Reuters data-set
+            m: The number of testing documents from catA and catB
+            n: The number of training document
+            k: the length of features
         '''
-        self.n = n
         self.m = m
-        self.document = document
-        self.document.set_features(n)
-        self.document.set_freq_features()
-        self.set_selected_features()
-    def __repr__(self):
-        print('A kernel with n: '+ str(self.n))
+        self.n = n
+        self.cat_a = cat_a
+        self.cat_b = cat_b
+        self.cat_a_count = len(reuters.fileids(cat_a))
+        self.cat_b_count = len(reuters.fileids(cat_b))
+        if max(self.m, self.n) > min(self.cat_a_count, self.cat_b_count):
+             print('number of trainig/testing documents exceeds number of articles')
+             sys.exit(0)
+        self.k = k
+        self.lamda = lamda
+        self.max_features = max_features
+        self.matrix = np.zeros([])
+        self.training_docs = []
+        self.testing_docs = []
+        self.seed = seed
+        self.set_docs()
 
-    def set_selected_features(self):
-        self.selected_features = self.document.get_top_features(self.m)
-        self.selected_features_counts = self.document.get_top_features_counts(self.m)
+
+    def set_docs(self):
+        '''A naive random split into training/testing'''
+        index = []
+        if(self.seed):
+            random.seed(self.seed)
+            index = sorted([i for i in range(self.m+self.n)], key=lambda *args: random.random())
+        else:
+            index = sorted([i for i in range(self.m+self.n)], key=lambda *args: random.random())
+        self.training_docs = index[self.n:]
+        self.testing_docs = index[:self.n]
+
+    def set_matrix(self):
+        '''Create the matrix here'''
+        for doc in self.testing_docs:
+            curr_doc = Document(self.cat_a, doc)
+            curr_doc.set_features(self.k)
+            curr_doc.set_freq_features()
+            top_features = curr_doc.get_top_features(self.max_features)
+            top_features_count = curr_doc.get_top_features_counts(self.max_features)
+            ### Do something
 
 class Document:
     '''A class for a document from the Reuters data-set'''
@@ -45,7 +74,7 @@ class Document:
         return ' '.join([s for s in self.words if not re.match(r"[.,:;_\-&%<>!?=]",s) and s.lower() not in stopwords.words('english')])
 
     def set_features(self, n=4):
-        '''returns the complete list of contigous letter combinations of length n'''
+        '''Sets the complete list of contigous letter combinations of length n'''
         self.features = set()
         for i in range(len(self.clean_data)-n+1):
             self.features.add(self.clean_data[i:i+n])
@@ -70,5 +99,5 @@ class Document:
         + 'index: ' + str(self.index) + '\n'\
         +'----------------------------\n RAW DOCUMENT:'\
 
-# example of use
-ker = Kernel(4, 10, Document("earn", 0))
+if __name__ == '__main__':
+    # Call stuff from here
