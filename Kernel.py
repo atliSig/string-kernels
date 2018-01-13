@@ -37,7 +37,7 @@ class Document:
         return reuters.words
     
     def remove_stops(self):
-        return ' '.join([s for s in self.words if not re.match(r"[.,:;_\-&%<>!?=]",s) and s.lower() not in stopwords.words('english')])
+        return ' '.join([s.lower() for s in self.words if not re.match(r"[.,:;_\-&%<>!?=]",s) and s.lower() not in stopwords.words('english')])
 
     def set_features(self):
         '''Sets the complete list of contigous letter combinations of length n'''
@@ -124,6 +124,6 @@ class SSK:
             total+= l*j*self.lamda**(2 * self.k)
         return total
 
-ss = SSK("earn","corn", 2, 2, 2, 2, 30, 3, 0.8)
+ss = SSK("earn","corn", 4, 4, 4, 4, 10, 3, 0.8)
 ss.set_matrix()
 print(ss.kernel_matrix)
