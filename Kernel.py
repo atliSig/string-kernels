@@ -34,7 +34,7 @@ class SSK:
         self.training_docs = []
         self.testing_docs = []
         self.top_feature_list = set()
-        self.count_of_occurances_lamda = []
+        self.count_of_occurances = []
         self.seed = seed
         self.set_docs()
 
@@ -57,16 +57,16 @@ class SSK:
             curr_doc.set_features(self.k)
             curr_doc.set_freq_features()
             top_features = curr_doc.get_top_features(self.max_features)
-            top_features_count = [lamda**(curr_doc.get_top_features_counts(self.max_features))]
+            top_features_count = [(curr_doc.get_top_features_counts(self.max_features))]
             top_feature_list.add(top_features)
-            count_of_occurances_lamda.add(top_features_count)
+            count_of_occurances.add(top_features_count)
             curr_doc = Document(self.cat_b, doc)
             curr_doc.set_features(self.k)
             curr_doc.set_freq_features()
             top_features = curr_doc.get_top_features(self.max_features)
-            top_features_count = [lamda**(curr_doc.get_top_features_counts(self.max_features))]
+            top_features_count = [(curr_doc.get_top_features_counts(self.max_features))]
             top_feature_list.add(top_features)
-            count_of_occurances_lamda.add(top_features_count)
+            count_of_occurances.add(top_features_count)
             #top_features_count = curr_doc.get_top_features_counts(self.max_features)
             top_features.add(top_features)
         # Create kernel matrix
