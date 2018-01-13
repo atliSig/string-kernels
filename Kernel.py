@@ -57,29 +57,35 @@ class SSK:
             curr_doc.set_features(self.k)
             curr_doc.set_freq_features()
             top_features = curr_doc.get_top_features(self.max_features)
-            top_features_count = [(curr_doc.get_top_features_counts(self.max_features))]
+           # top_features_count = [(curr_doc.get_top_features_counts(self.max_features))]
             top_feature_list.add(top_features)
-            count_of_occurances.add(top_features_count)
+            #count_of_occurances.add(top_features_count)
             curr_doc = Document(self.cat_b, doc)
             curr_doc.set_features(self.k)
             curr_doc.set_freq_features()
             top_features = curr_doc.get_top_features(self.max_features)
-            top_features_count = [(curr_doc.get_top_features_counts(self.max_features))]
+           # top_features_count = [(curr_doc.get_top_features_counts(self.max_features))]
             top_feature_list.add(top_features)
-            count_of_occurances.add(top_features_count)
+            #count_of_occurances.add(top_features_count)
             #top_features_count = curr_doc.get_top_features_counts(self.max_features)
-            top_features.add(top_features)
         # Create kernel matrix
         # N * N matrix from kernel documents
         # k = length of subsequence
-        kernel = np.zeros((n,n))
-        for i in range(n):
-            for j in range(n):
-                sum = 0
-                for m in range(m*m):
+        kernel = np.zeros((self.n,self.n))
+        for n in range(len(2*self.testing_docs)):
+            for i in range(n,len(2*self.testing_docs)):
+                for m in range(len(top_features_list))
+                l = 
+                j =
+                kernel[n][i] = 
+
+       # for i in range(n):
+       #     for j in range(n):
+       #         sum = 0
+       #         for m in range(m*m):
                     ### Dot product to create the kernel ###
-                    sum += (count_of_occurances_lamda[j][i]*count_of_occurances_lamda[][])
-                    kernel[j][i]
+       #             sum += (count_of_occurances_lamda[j][i]*count_of_occurances_lamda[][])
+        #            kernel[j][i]
 
 
 
