@@ -110,8 +110,8 @@ class SSK:
         if self.run_test:
             training_list_a = list(filter(lambda doc: doc.startswith("train"), self.cat_a))[:self.cat_a_tr_c]
             training_list_b = list(filter(lambda doc: doc.startswith("train"), self.cat_b))[:self.cat_a_tr_c]
-            testing_list_a = list(filter(lambda doc: doc.startswith("test"), self.cat_a))[:self.cat_a_tr_c]
-            testing_list_b = list(filter(lambda doc: doc.startswith("test"), self.cat_b))[:self.cat_a_tr_c]
+            testing_list_a = list(filter(lambda doc: doc.startswith("test"), self.cat_a))[:self.cat_b_tst_c]
+            testing_list_b = list(filter(lambda doc: doc.startswith("test"), self.cat_b))[:self.cat_b_tst_c]
             self.training_list = training_list_a + training_list_b
             self.testing_list = testing_list_a + testing_list_b
         else:
@@ -172,7 +172,7 @@ class SSK:
                 self.top_feature_list.add(feature)
 
         for i in range(len(self.training_list)):
-            for j in range(i, len(self.testing_list)):
+            for j in range(i, len(self.training_list)):
                 self.kernel_matrix[i, j] = self.calc_kernel(self.training_list[i],
                     self.training_list[j])*self.training_list[i][2]*\
                     self.training_list[j][2]
@@ -256,17 +256,21 @@ class SSK:
             # For the first class
             if case[2] == 1: #acq 
                 if estimate > 0:
+                    print("Correct")
                     a_tp += 1
                     b_tn += 1
                 else:
+                    print("Wrong")
                     a_fn += 1
                     b_fp += 1
             # For the second class
             else:
                 if estimate < 0:
+                    print("Correct")
                     b_tp += 1
                     a_tn += 1
                 else:
+                    print("Wrong")
                     b_fn += 1
                     a_fp += 1
 
@@ -305,6 +309,7 @@ class SSK:
         print("Recall: ", self.recall)
         '''
 
+
     def __repr__(self):
         return "i'm a SSK!"
 
@@ -317,6 +322,7 @@ if __name__ == '__main__':
     cat_b_tst_c = int(input("Number of testing samples from category B: "))
     lamda = float(input("Lambda value: "))
     if input('Running a specific case (1) or a test run? (2): ') == "1":
+        max_features = int(input("Number of features: "))
         feature_length = int(input("length of features: "))
         ssk = SSK(cat_a, cat_b, max_features, feature_length, lamda, cat_a_tr_c,
             cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, run_test=False)
