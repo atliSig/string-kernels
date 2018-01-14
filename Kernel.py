@@ -245,7 +245,7 @@ class SSK:
         print(self.kernel_matrix)
 
     def __repr__(self):
-        return "i'm an SSK!"
+        return "i'm a SSK!"
 
 
 if __name__ == '__main__':
