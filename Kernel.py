@@ -2,7 +2,9 @@ import operator, re, random, sys
 import numpy as np
 from nltk.corpus import reuters, stopwords
 from random import randint
-from math import sqrt
+from math import sqrt, pow
+from cvxopt.solvers import qp
+from cvxopt import matrix
 
 '''
 train_docs = list(filter(lambda doc: doc.startswith("train"), reuters.fileids()))
@@ -92,16 +94,21 @@ class SSK:
         self.top_feature_list = set()
         self.count_of_occurances = []
         self.seed = seed
-        self.testing_list = []
         self.training_list = []
+        self.testing_list = []
     
     def set_matrix(self):
         '''Create the matrix here'''
         # create list of lists where each inner-list is [1/-1,index]
-        self.testing_list = [[self.cat_a,i,-1] for i in range(self.cat_a_training_count)]+[[self.cat_b,i,1] for i in range(self.cat_b_training_count)]
+        self.training_list = [[self.cat_a,i,-1] for i in range(self.cat_a_training_count)]+[[self.cat_b,i,1] for i in range(self.cat_b_training_count)]
+        random.shuffle(self.training_list)
+
+        # create the testing list
+        self.testing_list = [[self.cat_a, i, -1] for i in range(self.cat_a_training_count+1, self.cat_a_training_count + self.cat_a_testing_count+1)] + \
+                            [[self.cat_b, i, 1] for i in range(self.cat_b_training_count+1, self.cat_b_training_count + self.cat_b_testing_count+1)]
         random.shuffle(self.testing_list)
 
-        for doc in self.testing_list:
+        for doc in self.training_list:
             if(doc[0]==self.cat_a):
                 doc_obj = Document(self.cat_a, doc[1], self.max_features, self.k)
             else:
@@ -110,12 +117,13 @@ class SSK:
             for feature in doc_obj.get_top_features():
                self.top_feature_list.add(feature)
 
-        for i in range(len(self.testing_list)):
-            for j in range(i, len(self.testing_list)):
-                self.kernel_matrix[i,j] = self.calc_kernel(self.testing_list[i], self.testing_list[j])*self.testing_list[i][2]*self.testing_list[j][2]
+        for i in range(len(self.training_list)):
+            for j in range(i, len(self.training_list)):
+                self.kernel_matrix[i,j] = self.calc_kernel(self.training_list[i], self.training_list[j])*self.training_list[i][2]*self.training_list[j][2]
                 self.kernel_matrix[j,i] = self.kernel_matrix[i,j]
 
-        self.normalize_kernel()
+        #self.normalize_kernel()
+        self.predict(self.kernel_matrix)
 
     def calc_kernel(self, doc_1, doc_2):
         doc_1_words = Document(doc_1[0], doc_1[1], self.max_features, self.k).words
@@ -128,10 +136,62 @@ class SSK:
         return total
 
     def normalize_kernel(self):
-        for i in range(len(self.testing_list)):
-            for j in range(len(self.testing_list)):
+        for i in range(len(self.training_list)):
+            for j in range(len(self.training_list)):
                 self.kernel_matrix[i,j] = self.kernel_matrix[i,j]/sqrt(self.kernel_matrix[i,i]*self.kernel_matrix[j,j])
 
-ss = SSK("earn","corn", 4, 4, 4, 4, 10, 3, 0.8)
+    def predict(self, kernel_matrix):
+        G = -np.eye(len(self.training_list))
+        G = np.append(G, np.eye(len(self.training_list)))
+        G.resize(2 * len(self.training_list), len(self.training_list))
+
+        C = 10
+        h = np.zeros(len(self.training_list))
+        h_alpha = np.ones(len(self.training_list)) * C
+
+        h = np.append(h, h_alpha)
+        h.resize(2 * len(self.training_list))
+
+        q = -np.ones((len(self.training_list)))
+
+        # Optimaizes the alpha values
+        r = qp(matrix(kernel_matrix), matrix(q), matrix(G), matrix(h))
+        alpha = list(r['x'])
+
+        # calculates the alphas that are larger than the threshold
+        alphaList = self.getAlpha(alpha, self.training_list, pow(10, -5))
+
+        # predictions
+        for x in self.testing_list:
+            estimate = self.ind(x, alphaList)
+            if (estimate > 0):
+                if(x[2]==1):
+                    print("Correct")
+                else:
+                    print("Wrong")
+            elif(estimate == 0):
+                print("uncertain")
+            else:
+                if (x[2] == -1):
+                    print("Correct")
+                else:
+                    print("Wrong")
+
+    def getAlpha(self, alpha, data, threshold):
+        alphaList = []
+        for i in range(len(alpha)):
+            if alpha[i] > threshold:
+                alphaList.append([data[i], alpha[i]])
+        return alphaList
+
+    def ind(self, x, alphaList):
+        sum = 0
+        for a in alphaList:
+            a_i = a[1]
+            t_i = a[0][2]
+            # sum += alpha_i * t_i * kernel(xStar, x_i)
+            sum += a_i * t_i * self.calc_kernel(a[0], x)
+        return sum
+
+ss = SSK("earn","corn", 20, 4, 20, 4, 7, 5, 0.5)
 ss.set_matrix()
-print(ss.kernel_matrix)
