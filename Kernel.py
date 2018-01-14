@@ -225,38 +225,53 @@ class SSK:
         precision = 0
         recall = 0
         f1 = 0
-        true_positives = 0
-        true_negatives = 0
-        false_positives = 0
-        false_negatives = 0
+        ### Recall
+        ### calculate F1
+        ### Class a is assigned positive values 
+        class_a_true_positives = 0
+        class_a_true_negatives = 0
+        class_a_false_positives = 0
+        class_a_false_negatives = 0
+        ### Class b is assigned negative values
+        class_b_true_positives = 0
+        class_b_true_negatives = 0
+        class_b_false_positives = 0
+        class_b_false_negatives = 0
+        ###
         for case in self.testing_list:
             estimate = self.ind(case, alpha_list)
-            if estimate > 0:
-                if case[2]==1:
-                    print("Correct")
-                    true_positives += 1
+            ### check for true/false positives/negatives for each class
+            # For the first class
+            if case[2] == 1: #acq 
+                if estimate > 0:
+                    class_a_true_positives += 1
+                    class_b_true_negatives += 1
                 else:
-                    print("Wrong")
-                    false_positives += 1
-            elif estimate == 0:
-                print("uncertain")
+                    class_a_false_negatives += 1
+                    class_b_false_positives += 1
+                    
+            # For the second class             
             else:
-                if case[2] == -1:
-                    print("Correct")
-                    true_negatives += 1
+                if estimate < 0:
+                    class_b_true_positives += 1
+                    class_a_true_negatives += 1
                 else:
-                    print("Wrong")
-                    false_negatives += 1
-        
-        '''
-        precision = true_positives/(true_positives+false_positives)
-        recall = true_positives/(true_positives+false_negatives)
-        f1 = 2*((precision*recall)/(precision+recall))
-        print("precision " + precision)
-        print("recall " + recall)
-        print("f1 " + f1)
-        '''
+                    class_b_false_negatives += 1
+                    class_a_false_positives += 1   
 
+        precision_category_a = class_a_true_positives/(class_a_true_positives+class_a_false_positives)
+        recall_category_a = class_a_true_positives/(class_a_true_positives+class_a_false_negatives)
+        f1_a = 2*((precision_category_a*recall_category_a)/(precision_category_a+recall_category_a))
+        print("precision a " + str(precision_category_a))
+        print("recall a " + str(recall_category_a))
+        print("f1 a " + str(f1_a))
+        ## Category B
+        precision_category_b = class_b_true_positives/(class_b_true_positives+class_b_false_positives)
+        recall_category_b = class_b_true_positives/(class_b_true_positives+class_b_false_negatives)
+        f1_b = 2*((precision_category_b*recall_category_b)/(precision_category_b+recall_category_b))
+        print("precision b " + str(precision_category_b))
+        print("recall b " + str(recall_category_b))
+        print("f1 b " + str(f1_b))
 
     def get_alpha(self, alpha, data, threshold):
         '''Returns the list of alphas [HUGO]'''
@@ -284,12 +299,6 @@ class SSK:
         return "i'm a SSK!"
 
 if __name__ == '__main__':
-    '''
-        Input arguments:
-        1. (string) Category A
-        2. (string) Category B
-        3. (int, optional) 
-    '''
     cat_a = input("Name of category A: ")
     cat_b = input("Name of category B: ")
     cat_a_tr_c = int(input("Number of training samples from category A: "))
@@ -320,24 +329,3 @@ if __name__ == '__main__':
             ssk.print_kernel()
             ssk.print_results()
             feature_length+=1
-            
-    '''
-    
-    if len(sys.argv) != 10:
-        print(len(sys.argv))
-        print('Incorrect number of input arguments!')
-        sys.exit(1)
-    else:
-        # figure out
-        feature_count = 3
-        for i in range(sys.argv[10]):
-
-    '''
-    '''
-    ssk = SSK(sys.argv[1], sys.argv[2], int(sys.argv[3]),
-        int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]),
-        int(sys.argv[7]), int(sys.argv[8]), float(sys.argv[9]))
-    ssk.set_matrix()
-    ssk.predict()
-    ssk.print_kernel()
-    '''
