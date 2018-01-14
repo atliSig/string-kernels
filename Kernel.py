@@ -125,7 +125,6 @@ class SSK:
         self.count_of_occurances = []
         self.seed = seed
         self.alpha_list_global = []
-
         if cat_a_tr_c+cat_a_tst_c > self.cat_a_count or \
             cat_b_tr_c+cat_b_tst_c > self.cat_b_count:
              print('number of training/testing documents exceeds number of articles')
@@ -150,7 +149,7 @@ class SSK:
         random.shuffle(self.training_list)
         random.shuffle(self.testing_list)
 
-        for doc in self.testing_list:
+        for doc in self.training_list:
             if doc[0] == self.cat_a:
                 doc_obj = Document(self.cat_a, doc[1], self.max_features, self.k)
             else:
@@ -159,11 +158,11 @@ class SSK:
             for feature in doc_obj.get_top_features():
                 self.top_feature_list.add(feature)
 
-        self.testing_list = [[self.cat_a, i, -1] for i in
+        self.training_list = [[self.cat_a, i, -1] for i in
             range(self.cat_a_tr_c)]+[[self.cat_b, i, 1] for i in range(self.cat_b_tr_c)]
         random.shuffle(self.testing_list)
 
-        for doc in self.testing_list:
+        for doc in self.training_list:
             if doc[0]==self.cat_a:
                 doc_obj = Document(self.cat_a, doc[1], self.max_features, self.k)
             else:
@@ -172,11 +171,11 @@ class SSK:
             for feature in doc_obj.get_top_features():
                 self.top_feature_list.add(feature)
 
-        for i in range(len(self.testing_list)):
+        for i in range(len(self.training_list)):
             for j in range(i, len(self.testing_list)):
-                self.kernel_matrix[i, j] = self.calc_kernel(self.testing_list[i],
-                    self.testing_list[j])*self.testing_list[i][2]*\
-                    self.testing_list[j][2]
+                self.kernel_matrix[i, j] = self.calc_kernel(self.training_list[i],
+                    self.training_list[j])*self.training_list[i][2]*\
+                    self.training_list[j][2]
                 self.kernel_matrix[j, i] = self.kernel_matrix[i, j]
 
         #Normalizing results in rank issues with cvxopt.qp
@@ -238,55 +237,52 @@ class SSK:
         np.set_printoptions(precision=3, suppress=True)
         print(self.kernel_matrix)
 
-    def print_results(self):
+    def set_results(self, verbose=True):
         '''Print results for this Kernel'''
-        ### Recall
-        ### calculate F1
-        ### Class a is assigned positive values 
-        class_a_true_positives = 0
-        class_a_true_negatives = 0
-        class_a_false_positives = 0
-        class_a_false_negatives = 0
-        ### Class b is assigned negative values
-        class_b_true_positives = 0
-        class_b_true_negatives = 0
-        class_b_false_positives = 0
-        class_b_false_negatives = 0
+        # Class a is assigned positive values 
+        a_tp = 0
+        a_tn = 0
+        a_fp = 0
+        a_fn = 0
+        # Class b is assigned negative values
+        b_tp = 0
+        b_tn = 0
+        b_fp = 0
+        b_fn = 0
         ###
         for case in self.testing_list:
             estimate = self.ind(case, self.alpha_list)
-            ### check for true/false positives/negatives for each class
+            #check for true/false positives/negatives for each class
             # For the first class
             if case[2] == 1: #acq 
                 if estimate > 0:
-                    class_a_true_positives += 1
-                    class_b_true_negatives += 1
+                    a_tp += 1
+                    b_tn += 1
                 else:
-                    class_a_false_negatives += 1
-                    class_b_false_positives += 1
-                    
-            # For the second class             
+                    a_fn += 1
+                    b_fp += 1
+            # For the second class
             else:
                 if estimate < 0:
-                    class_b_true_positives += 1
-                    class_a_true_negatives += 1
+                    b_tp += 1
+                    a_tn += 1
                 else:
-                    class_b_false_negatives += 1
-                    class_a_false_positives += 1   
+                    b_fn += 1
+                    a_fp += 1
 
-        precision_category_a = class_a_true_positives/(class_a_true_positives+class_a_false_positives)
-        recall_category_a = class_a_true_positives/(class_a_true_positives+class_a_false_negatives)
-        f1_a = 2*((precision_category_a*recall_category_a)/(precision_category_a+recall_category_a))
-        print("precision a " + str(precision_category_a))
-        print("recall a " + str(recall_category_a))
-        print("f1 a " + str(f1_a))
-        ## Category B
-        precision_category_b = class_b_true_positives/(class_b_true_positives+class_b_false_positives)
-        recall_category_b = class_b_true_positives/(class_b_true_positives+class_b_false_negatives)
-        f1_b = 2*((precision_category_b*recall_category_b)/(precision_category_b+recall_category_b))
-        print("precision b " + str(precision_category_b))
-        print("recall b " + str(recall_category_b))
-        print("f1 b " + str(f1_b))
+        self.precision_a = a_tp/(a_tp+a_fp)
+        self.recall_a = a_tp/(a_tp+a_fn)
+        self.f1_a = 2*((precision_a*recall_a)/(precision_a+recall_a))
+        self.precision_b = b_tp/(b_tp+b_fp)
+        self.recall_b = b_tp/(b_tp+b_fn)
+        self.f1_b = 2*((precision_b*recall_b)/(precision_b+recall_b))
+        if verbose:
+            print("precision a " + str(precision_a))
+            print("recall a " + str(recall_a))
+            print("f1 a " + str(f1_a))
+            print("precision b " + str(precision_b))
+            print("recall b " + str(recall_b))
+            print("f1 b " + str(f1_b))
 
     def get_alpha(self, alpha, data, threshold):
         '''Returns the list of alphas [HUGO]'''
@@ -308,7 +304,7 @@ class SSK:
         print("Precision: ", self.precision)
         print("Recall: ", self.recall)
         '''
-        
+
     def __repr__(self):
         return "i'm a SSK!"
 
@@ -320,7 +316,7 @@ if __name__ == '__main__':
     cat_a_tst_c = int(input("Number of testing samples from category A: "))
     cat_b_tst_c = int(input("Number of testing samples from category B: "))
     lamda = float(input("Lambda value: "))
-    if(input('Running a specific case (1) or a test run? (2): ')=="1"):
+    if input('Running a specific case (1) or a test run? (2): ') == "1":
         feature_length = int(input("length of features: "))
         ssk = SSK(cat_a, cat_b, max_features, feature_length, lamda, cat_a_tr_c,
             cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, run_test=False)
