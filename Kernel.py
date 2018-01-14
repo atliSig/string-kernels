@@ -2,6 +2,7 @@
 import re
 import random
 import sys
+import time
 from math import sqrt
 import numpy as np
 from nltk.corpus import reuters, stopwords
@@ -82,8 +83,8 @@ class Document:
 
 class SSK:
     '''A class for a lazy SSK implementation'''
-    def __init__(self, cat_a, cat_b, cat_a_tr_c, cat_a_tst_c,
-        cat_b_tr_c, cat_b_tst_c, max_features, k, lamda, seed=None):
+    def __init__(self, cat_a, cat_b, max_features, k, lamda, cat_a_tr_c=0, cat_a_tst_c=0, 
+        cat_b_tr_c=0, cat_b_tst_c=0, run_test=True, seed=None):
         '''
             :param cat_a: A category index for the Reuters data-set
             :param cat_b: A category index for the Reuters data-set
@@ -105,6 +106,17 @@ class SSK:
         self.cat_a_tst_c = cat_a_tst_c
         self.cat_b_tr_c = cat_b_tr_c
         self.cat_b_tst_c = cat_b_tst_c
+        self.run_test = run_test
+        if self.run_test:
+            training_list_a = list(filter(lambda doc: doc.startswith("train"), self.cat_a))[:self.cat_a_tr_c]
+            training_list_b = list(filter(lambda doc: doc.startswith("train"), self.cat_b))[:self.cat_a_tr_c]
+            testing_list_a = list(filter(lambda doc: doc.startswith("test"), self.cat_a))[:self.cat_a_tr_c]
+            testing_list_b = list(filter(lambda doc: doc.startswith("test"), self.cat_b))[:self.cat_a_tr_c]
+            self.training_list = training_list_a + training_list_b
+            self.testing_list = testing_list_a + testing_list_b
+        else:
+            self.training_list = []
+            self.testing_list = []
         self.k = k
         self.lamda = lamda
         self.max_features = max_features
@@ -112,12 +124,10 @@ class SSK:
         self.top_feature_list = set()
         self.count_of_occurances = []
         self.seed = seed
-        self.training_list = []
-        self.testing_list = []
 
         if cat_a_tr_c+cat_a_tst_c > self.cat_a_count or \
             cat_b_tr_c+cat_b_tst_c > self.cat_b_count:
-             print('number of trainig/testing documents exceeds number of articles')
+             print('number of training/testing documents exceeds number of articles')
              sys.exit(0)
         if lamda <= 0 or lamda > 1:
             print('lamda must be in ]0,1]')
@@ -126,16 +136,17 @@ class SSK:
     def set_matrix(self):
         '''Create the matrix here'''
         # create list of lists where each inner-list is [1/-1,index]
-        self.training_list = [[self.cat_a,i,-1] for i in
-            range(self.cat_a_tr_c)]+[[self.cat_b,i,1] for i in range(self.cat_b_tr_c)]
+        if not self.run_test:
+            self.training_list = [[self.cat_a,i,-1] for i in
+                range(self.cat_a_tr_c)]+[[self.cat_b,i,1] for i in range(self.cat_b_tr_c)]
+            # create the testing list
+            self.testing_list =\
+                [[self.cat_a, i, -1] for i in
+                    range(self.cat_a_tr_c+1, self.cat_a_tr_c + self.cat_a_tst_c+1)] +\
+                [[self.cat_b, i, 1] for i in
+                    range(self.cat_b_tr_c+1, self.cat_b_tr_c + self.cat_b_tst_c+1)]
+        
         random.shuffle(self.training_list)
-
-        # create the testing list
-        self.testing_list =\
-            [[self.cat_a, i, -1] for i in
-                range(self.cat_a_tr_c+1, self.cat_a_tr_c + self.cat_a_tst_c+1)] +\
-            [[self.cat_b, i, 1] for i in
-                range(self.cat_b_tr_c+1, self.cat_b_tr_c + self.cat_b_tst_c+1)]
         random.shuffle(self.testing_list)
 
         for doc in self.testing_list:
@@ -170,14 +181,12 @@ class SSK:
         #Normalizing results in rank issues with cvxopt.qp
         #self.normalize_kernel()
 
-
-
     def calc_kernel(self, doc_1, doc_2):
         '''Calculates the kernel matrix value for K[i,j]'''
         doc_1_words = Document(doc_1[0], doc_1[1], self.max_features, self.k).clean_data
         doc_2_words = Document(doc_2[0], doc_2[1], self.max_features, self.k).clean_data
-#        doc_1_words = Document(doc_1[0], doc_1[1], self.max_features, self.k).words
-#        doc_2_words = Document(doc_2[0], doc_2[1], self.max_features, self.k).words
+        # doc_1_words = Document(doc_1[0], doc_1[1], self.max_features, self.k).words
+        # doc_2_words = Document(doc_2[0], doc_2[1], self.max_features, self.k).words
 
         total = 0
         for feature in self.top_feature_list:
@@ -213,17 +222,9 @@ class SSK:
 
         # calculates the alphas that are larger than the threshold
         alpha_list = self.get_alpha(alpha, self.training_list, 10**-5)
-
-        # predictions
-
-
-        ### Implement F1 score
-        ### Precision
         precision = 0
         recall = 0
         f1 = 0
-        ### Recall
-        ### calculate F1
         true_positives = 0
         true_negatives = 0
         false_positives = 0
@@ -247,12 +248,15 @@ class SSK:
                     print("Wrong")
                     false_negatives += 1
         
+        '''
         precision = true_positives/(true_positives+false_positives)
         recall = true_positives/(true_positives+false_negatives)
         f1 = 2*((precision*recall)/(precision+recall))
         print("precision " + precision)
         print("recall " + recall)
         print("f1 " + f1)
+        '''
+
 
     def get_alpha(self, alpha, data, threshold):
         '''Returns the list of alphas [HUGO]'''
@@ -267,18 +271,73 @@ class SSK:
         np.set_printoptions(precision=3, suppress=True)
         print(self.kernel_matrix)
 
+    def print_results(self):
+        '''Print results for this Kernel'''
+        '''
+        print("F1 score: ", self.f1_score)
+        print("Precision: ", self.precision)
+        print("Recall: ", self.recall)
+        '''
+        print('RESSSSSULLLTTTSSSS')
+
     def __repr__(self):
         return "i'm a SSK!"
 
 if __name__ == '__main__':
+    '''
+        Input arguments:
+        1. (string) Category A
+        2. (string) Category B
+        3. (int, optional) 
+    '''
+    cat_a = input("Name of category A: ")
+    cat_b = input("Name of category B: ")
+    cat_a_tr_c = int(input("Number of training samples from category A: "))
+    cat_b_tr_c = int(input("Number of training samples from category B: "))
+    cat_a_tst_c = int(input("Number of testing samples from category A: "))
+    cat_b_tst_c = int(input("Number of testing samples from category B: "))
+    lamda = float(input("Lambda value: "))
+    if(input('Running a specific case (1) or a test run? (2): ')=="1"):
+        feature_length = int(input("length of features: "))
+        ssk = SSK(cat_a, cat_b, max_features, feature_length, lamda, cat_a_tr_c,
+            cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, run_test=False)
+        ssk.set_matrix()
+        ssk.predict()
+        ssk.print_kernel()
+    else:
+        max_features = int(input("Number of features: "))
+        feature_length = int(input("Initial length of features: "))
+        it_count = int(input("number of iterations: "))
+        for i in range(it_count):
+            print("run for length of feature: ", feature_length)
+            time_init = time.time()
+            ssk = SSK(cat_a, cat_b, max_features, feature_length, lamda, cat_a_tr_c,
+                cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, run_test=False)
+            ssk.set_matrix()
+            print("Feature fetching (sec): ", time.time()-time_init)
+            ssk.predict()
+            print("Prediction (sec): ", time.time()-time_init)
+            ssk.print_kernel()
+            ssk.print_results()
+            feature_length+=1
+            
+    '''
+    
     if len(sys.argv) != 10:
         print(len(sys.argv))
         print('Incorrect number of input arguments!')
         sys.exit(1)
     else:
-        ssk = SSK(sys.argv[1], sys.argv[2], int(sys.argv[3]),
-            int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]),
-            int(sys.argv[7]), int(sys.argv[8]), float(sys.argv[9]))
-        ssk.set_matrix()
-        ssk.predict()
-        ssk.print_kernel()
+        # figure out
+        feature_count = 3
+        for i in range(sys.argv[10]):
+
+    '''
+    '''
+    ssk = SSK(sys.argv[1], sys.argv[2], int(sys.argv[3]),
+        int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]),
+        int(sys.argv[7]), int(sys.argv[8]), float(sys.argv[9]))
+    ssk.set_matrix()
+    ssk.predict()
+    ssk.print_kernel()
+    '''
