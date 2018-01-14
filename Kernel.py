@@ -163,10 +163,15 @@ class SSK:
         #self.normalize_kernel()
         self.predict(self.kernel_matrix)
 
+
+
     def calc_kernel(self, doc_1, doc_2):
         '''Calculates the kernel matrix value for K[i,j]'''
-        doc_1_words = Document(doc_1[0], doc_1[1], self.max_features, self.k).words
-        doc_2_words = Document(doc_2[0], doc_2[1], self.max_features, self.k).words
+        doc_1_words = Document(doc_1[0], doc_1[1], self.max_features, self.k).clean_data
+        doc_2_words = Document(doc_2[0], doc_2[1], self.max_features, self.k).clean_data
+#        doc_1_words = Document(doc_1[0], doc_1[1], self.max_features, self.k).words
+#        doc_2_words = Document(doc_2[0], doc_2[1], self.max_features, self.k).words
+
         total = 0
         for feature in self.top_feature_list:
             l = doc_1_words.count(feature)
