@@ -224,29 +224,42 @@ class SSK:
         f1 = 0
         ### Recall
         ### calculate F1
-        true_positives = 0
-        true_negatives = 0
-        false_positives = 0
-        false_negatives = 0
+        ### Class a is assigned positive values 
+        class_a_true_positives = 0
+        class_a_true_negatives = 0
+        class_a_false_positives = 0
+        class_a_false_negatives = 0
+        ### Class b is assigned negative values
+        class_b_true_positives = 0
+        class_b_true_negatives = 0
+        class_b_false_positives = 0
+        class_b_false_negatives = 0
+        ###
         for case in self.testing_list:
             estimate = self.ind(case, alpha_list)
-            if estimate > 0:
-                if case[2]==1:
-                    print("Correct")
-                    true_positives += 1
+            ### check for true/false positives/negatives for each class
+            # For the first class
+            if case[2] == 1: #acq 
+                if estimate > 0:
+                    class_a_true_positives += 1
+                    class_b_true_negatives += 1
                 else:
-                    print("Wrong")
-                    false_positives += 1
-            elif estimate == 0:
-                print("uncertain")
+                    class_a_false_negatives += 1
+                    class_b_false_positives += 1
+                elif estimate == 0:
+                    print("uncertain")
+                    
+            # For the second class             
             else:
-                if case[2] == -1:
-                    print("Correct")
-                    true_negatives += 1
+                if estimate < 0:
+                    class_b_true_positives += 1
+                    class_a_true_negatives += 1
                 else:
-                    print("Wrong")
-                    false_negatives += 1
-        
+                    class_b_false_negatives += 1
+                    class_a_false_positives += 1   
+                elif estimate == 0:
+                    print("uncertain")
+
         precision = true_positives/(true_positives+false_positives)
         recall = true_positives/(true_positives+false_negatives)
         f1 = 2*((precision*recall)/(precision+recall))
