@@ -110,14 +110,21 @@ class SSK:
         self.cat_b_tr_c = cat_b_tr_c
         self.cat_b_tst_c = cat_b_tst_c
         self.run_test = run_test
+
         if self.run_test:
-            training_list_a = list(filter(lambda doc: doc.startswith("train"), self.docs_a))[:self.cat_a_tr_c]
-            print(training_list_a[0])
-            training_list_b = list(filter(lambda doc: doc.startswith("train"), self.docs_b))[:self.cat_a_tr_c]
-            testing_list_a = list(filter(lambda doc: doc.startswith("test"), self.docs_a))[:self.cat_b_tst_c]
-            testing_list_b = list(filter(lambda doc: doc.startswith("test"), self.docs_b))[:self.cat_b_tst_c]
-            self.training_list = training_list_a + training_list_b
-            self.testing_list = testing_list_a + testing_list_b
+            self.training_list = [[self.cat_a, i, -1] for i in
+                                  range(self.cat_a_tr_c)] + [[self.cat_b, i, 1] for i in range(self.cat_b_tr_c)]
+
+            self.testing_list = [[self.cat_a, i, -1]
+                                 for i in range(self.cat_a_tr_c + 1, self.cat_a_tr_c + self.cat_a_tst_c + 1)] + \
+                [[self.cat_b, i, 1] for i in
+                 range(self.cat_b_tr_c + 1, self.cat_b_tr_c + self.cat_b_tst_c + 1)]
+            #training_list_a = list(filter(lambda doc: doc.startswith("train"), self.docs_a))[:self.cat_a_tr_c]
+            #training_list_b = list(filter(lambda doc: doc.startswith("train"), self.docs_b))[:self.cat_a_tr_c]
+            #testing_list_a = list(filter(lambda doc: doc.startswith("test"), self.docs_a))[:self.cat_b_tst_c]
+            #testing_list_b = list(filter(lambda doc: doc.startswith("test"), self.docs_b))[:self.cat_b_tst_c]
+            #self.training_list = training_list_a + training_list_b
+            #self.testing_list = testing_list_a + testing_list_b
         else:
             self.training_list = []
             self.testing_list = []
@@ -167,6 +174,7 @@ class SSK:
         random.shuffle(self.testing_list)
 
         for doc in self.training_list:
+            print(doc)
             if doc[0]==self.cat_a:
                 doc_obj = Document(self.cat_a, doc[1], self.max_features, self.k)
             else:
