@@ -124,6 +124,7 @@ class SSK:
         self.top_feature_list = set()
         self.count_of_occurances = []
         self.seed = seed
+        self.alpha_list_global = []
 
         if cat_a_tr_c+cat_a_tst_c > self.cat_a_count or \
             cat_b_tr_c+cat_b_tst_c > self.cat_b_count:
@@ -222,9 +223,7 @@ class SSK:
 
         # calculates the alphas that are larger than the threshold
         alpha_list = self.get_alpha(alpha, self.training_list, 10**-5)
-        precision = 0
-        recall = 0
-        f1 = 0
+        self.alpha_list_global = alpha_list
         ### Recall
         ### calculate F1
         ### Class a is assigned positive values 
@@ -288,11 +287,57 @@ class SSK:
 
     def print_results(self):
         '''Print results for this Kernel'''
-        '''
-        print("F1 score: ", self.f1_score)
-        print("Precision: ", self.precision)
-        print("Recall: ", self.recall)
-        '''
+        ### Recall
+        ### calculate F1
+        ### Class a is assigned positive values 
+        class_a_true_positives = 0
+        class_a_true_negatives = 0
+        class_a_false_positives = 0
+        class_a_false_negatives = 0
+        ### Class b is assigned negative values
+        class_b_true_positives = 0
+        class_b_true_negatives = 0
+        class_b_false_positives = 0
+        class_b_false_negatives = 0
+        ###
+        for case in self.testing_list:
+            estimate = self.ind(case, self.alpha_list)
+            ### check for true/false positives/negatives for each class
+            # For the first class
+            if case[2] == 1: #acq 
+                if estimate > 0:
+                    class_a_true_positives += 1
+                    class_b_true_negatives += 1
+                else:
+                    class_a_false_negatives += 1
+                    class_b_false_positives += 1
+                    
+            # For the second class             
+            else:
+                if estimate < 0:
+                    class_b_true_positives += 1
+                    class_a_true_negatives += 1
+                else:
+                    class_b_false_negatives += 1
+                    class_a_false_positives += 1   
+
+        precision_category_a = class_a_true_positives/(class_a_true_positives+class_a_false_positives)
+        recall_category_a = class_a_true_positives/(class_a_true_positives+class_a_false_negatives)
+        f1_a = 2*((precision_category_a*recall_category_a)/(precision_category_a+recall_category_a))
+        print("precision a " + str(precision_category_a))
+        print("recall a " + str(recall_category_a))
+        print("f1 a " + str(f1_a))
+        ## Category B
+        precision_category_b = class_b_true_positives/(class_b_true_positives+class_b_false_positives)
+        recall_category_b = class_b_true_positives/(class_b_true_positives+class_b_false_negatives)
+        f1_b = 2*((precision_category_b*recall_category_b)/(precision_category_b+recall_category_b))
+        print("precision b " + str(precision_category_b))
+        print("recall b " + str(recall_category_b))
+        print("f1 b " + str(f1_b))
+    #    print("F1 score: ", self.f1_score)
+    #    print("Precision: ", self.precision)
+    #    print("Recall: ", self.recall)
+    
         print('RESSSSSULLLTTTSSSS')
 
     def __repr__(self):
