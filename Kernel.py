@@ -241,8 +241,8 @@ if __name__ == '__main__':
         print('error, missing input arguments!')
         sys.exit(1)
     else:
-        str_ker = SSK(sys.argv[1], sys.argv[2], int(sys.argv[3]), 
-            int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]), 
+        str_ker = SSK(sys.argv[1], sys.argv[2], int(sys.argv[3]),
+            int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]),
             int(sys.argv[7]), int(sys.argv[8]), float(sys.argv[9]))
         str_ker.set_matrix()
         str_ker.print_kernel()
