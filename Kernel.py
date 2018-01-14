@@ -205,7 +205,6 @@ class SSK:
 
         h = np.append(h, h_alpha)
         h.resize(2 * len(self.training_list))
-        print(h)
         q = -np.ones((len(self.training_list)))
 
         # Optimizes the alpha values
@@ -216,11 +215,14 @@ class SSK:
         alpha_list = self.get_alpha(alpha, self.training_list, 10**-5)
 
         # predictions
+
+        correctness = 0
         for case in self.testing_list:
             estimate = self.ind(case, alpha_list)
             if estimate > 0:
                 if case[2]==1:
                     print("Correct")
+                    correctness += 1
                 else:
                     print("Wrong")
             elif estimate == 0:
@@ -228,8 +230,10 @@ class SSK:
             else:
                 if case[2] == -1:
                     print("Correct")
+                    correctness += 1
                 else:
                     print("Wrong")
+        print(str(correctness/len(self.testing_list)))
 
     def get_alpha(self, alpha, data, threshold):
         '''Returns the list of alphas [HUGO]'''
