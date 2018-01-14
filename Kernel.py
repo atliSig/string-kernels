@@ -270,12 +270,12 @@ class SSK:
                     b_fn += 1
                     a_fp += 1
 
-        self.precision_a = a_tp/(a_tp+a_fp)
-        self.recall_a = a_tp/(a_tp+a_fn)
-        self.f1_a = 2*((precision_a*recall_a)/(precision_a+recall_a))
-        self.precision_b = b_tp/(b_tp+b_fp)
-        self.recall_b = b_tp/(b_tp+b_fn)
-        self.f1_b = 2*((precision_b*recall_b)/(precision_b+recall_b))
+        precision_a = self.precision_a = a_tp/(a_tp+a_fp)
+        recall_a = self.recall_a = a_tp/(a_tp+a_fn)
+        f1_a = self.f1_a = 2*((precision_a*recall_a)/(precision_a+recall_a))
+        precision_b = self.precision_b = b_tp/(b_tp+b_fp)
+        recall_b = self.recall_b = b_tp/(b_tp+b_fn)
+        f1_b = self.f1_b = 2*((precision_b*recall_b)/(precision_b+recall_b))
         if verbose:
             print("precision a " + str(precision_a))
             print("recall a " + str(recall_a))
