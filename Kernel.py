@@ -237,7 +237,7 @@ class SSK:
         np.set_printoptions(precision=3, suppress=True)
         print(self.kernel_matrix)
 
-    def set_results(self, verbose=True):
+    def set_results(self):
         '''Print results for this Kernel'''
         # Class a is assigned positive values 
         a_tp = 0
@@ -251,7 +251,7 @@ class SSK:
         b_fn = 0
         ###
         for case in self.testing_list:
-            estimate = self.ind(case, self.alpha_list)
+            estimate = self.ind(case, self.alpha_list_global)
             #check for true/false positives/negatives for each class
             # For the first class
             if case[2] == 1: #acq 
@@ -274,19 +274,12 @@ class SSK:
                     b_fn += 1
                     a_fp += 1
 
-        precision_a = self.precision_a = a_tp/(a_tp+a_fp)
-        recall_a = self.recall_a = a_tp/(a_tp+a_fn)
-        f1_a = self.f1_a = 2*((precision_a*recall_a)/(precision_a+recall_a))
-        precision_b = self.precision_b = b_tp/(b_tp+b_fp)
-        recall_b = self.recall_b = b_tp/(b_tp+b_fn)
-        f1_b = self.f1_b = 2*((precision_b*recall_b)/(precision_b+recall_b))
-        if verbose:
-            print("precision a " + str(precision_a))
-            print("recall a " + str(recall_a))
-            print("f1 a " + str(f1_a))
-            print("precision b " + str(precision_b))
-            print("recall b " + str(recall_b))
-            print("f1 b " + str(f1_b))
+        self.precision_a = a_tp/(a_tp+a_fp)
+        self.recall_a = a_tp/(a_tp+a_fn)
+        self.f1_a = 2*((self.precision_a*self.recall_a)/(self.precision_a+self.recall_a))
+        self.precision_b = b_tp/(b_tp+b_fp)
+        self.recall_b = b_tp/(b_tp+b_fn)
+        self.f1_b = 2*((self.precision_b*self.recall_b)/(self.precision_b+self.recall_b))
 
     def get_alpha(self, alpha, data, threshold):
         '''Returns the list of alphas [HUGO]'''
@@ -301,13 +294,16 @@ class SSK:
         np.set_printoptions(precision=3, suppress=True)
         print(self.kernel_matrix)
 
-    def print_results(self):
-        '''Print results for this Kernel'''
-        '''
-        print("F1 score: ", self.f1_score)
-        print("Precision: ", self.precision)
-        print("Recall: ", self.recall)
-        '''
+    def get_results(self, verbose=True):
+        if verbose:
+            print("precision a " + str(self.precision_a))
+            print("recall a " + str(self.recall_a))
+            print("f1 a " + str(self.f1_a))
+            print("precision b " + str(self.precision_b))
+            print("recall b " + str(self.recall_b))
+            print("f1 b " + str(self.f1_b))
+        return [self.precision_a, self.f1_a, self.recall_a, 
+            self.precision_b, self.f1_b, self.recall_b]
 
 
     def __repr__(self):
@@ -332,17 +328,28 @@ if __name__ == '__main__':
     else:
         max_features = int(input("Number of features (default 10): ") or 10)
         feature_length = int(input("length of features default (default 4): ") or 4)
-        it_count = int(input("number of iterations (default 1): ") or 1)
-        for i in range(it_count):
-            print("run for length of feature: ", feature_length)
-            time_init = time.time()
-            ssk = SSK(cat_a, cat_b, max_features, feature_length, lamda, cat_a_tr_c,
-                cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, run_test=False)
-            ssk.set_matrix()
-            time_secondary = time.time()
-            print("Feature fetching (sec): ", time.time()-time_init)
-            ssk.predict()
-            print("Prediction (sec): ", time.time()-time_secondary)
-            ssk.print_kernel()
-            ssk.print_results()
-            feature_length+=1
+        feature_it = int(input("number of different length of features (default 5): ") or 5)
+        avg_it = int(input("number of iterations (default 5): ") or 5)
+        output_labels = ['precision_a', 'f1_a', 'recall_a', 'precision_b', 'f1_b', 'recall_b']
+        for i in range(feature_it):
+            outputs = []
+            outer_loop_time = time.time()
+            for j in range(avg_it):
+                print("run for length of feature: ", feature_length)
+                time_init = time.time()
+                ssk = SSK(cat_a, cat_b, max_features, feature_length, lamda, cat_a_tr_c,
+                    cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, run_test=True)
+                ssk.set_matrix()
+                time_secondary = time.time()
+                print("Feature fetching (sec): ", time.time()-time_init)
+                ssk.predict()
+                print("Prediction (sec): ", time.time()-time_secondary)
+                #ssk.print_kernel()
+                ssk.set_results()
+                outputs.append(ssk.get_results(verbose=False))
+                feature_length+=1
+            print("Total time for the current feature: ", time.time()-outer_loop_time)
+            print("Here come the results: ")
+            for i in range(len(output_labels)):
+                curr = [c[i] for c in outputs]
+                print("average for"+output_labels[i],np.average(curr))
