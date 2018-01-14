@@ -169,7 +169,6 @@ class SSK:
 
         #Normalizing results in rank issues with cvxopt.qp
         #self.normalize_kernel()
-        self.predict(self.kernel_matrix)
 
     def calc_kernel(self, doc_1, doc_2):
         '''Calculates the kernel matrix value for K[i,j]'''
@@ -189,7 +188,7 @@ class SSK:
                 self.kernel_matrix[i, j] = self.kernel_matrix[i, j]/\
                 sqrt(self.kernel_matrix[i, i]*self.kernel_matrix[j, j])
 
-    def predict(self, kernel_matrix):
+    def predict(self):
         '''Based on the kernel, make predictions using cvxopt.qp'''
         G = -np.eye(len(self.training_list))
         G = np.append(G, np.eye(len(self.training_list)))
@@ -201,11 +200,11 @@ class SSK:
 
         h = np.append(h, h_alpha)
         h.resize(2 * len(self.training_list))
-
+        print(h)
         q = -np.ones((len(self.training_list)))
 
         # Optimizes the alpha values
-        r = qp(matrix(kernel_matrix), matrix(q), matrix(G), matrix(h))
+        r = qp(matrix(self.kernel_matrix), matrix(q), matrix(G), matrix(h))
         alpha = list(r['x'])
 
         # calculates the alphas that are larger than the threshold
@@ -229,25 +228,15 @@ class SSK:
 
     def get_alpha(self, alpha, data, threshold):
         '''Returns the list of alphas [HUGO]'''
-        alpha_list = []
-        for al_val in alpha:
-            if al_val > threshold:
-                alpha_list.append([data[i], al_val])
-        return alpha_list
+        return [[data[idx], al_el] for idx,al_el in enumerate(alpha)]
 
     def ind(self, x, alpha_list):
         '''[HUGO]'''
-        total = 0
-        for a in alpha_list:
-            a_i = a[1]
-            t_i = a[0][2]
-            total += a_i * t_i * self.calc_kernel(a[0], x)
-        return total
-
+        return np.sum([a[1] * a[0][2] * self.calc_kernel(a[0], x) for a in alpha_list])
 
     def print_kernel(self):
         '''A more readable way of printing the kernel matrix'''
-        np.set_printoptions(precision=3)
+        np.set_printoptions(precision=3, suppress=True)
         print(self.kernel_matrix)
 
     def __repr__(self):
@@ -264,4 +253,5 @@ if __name__ == '__main__':
             int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]),
             int(sys.argv[7]), int(sys.argv[8]), float(sys.argv[9]))
         ssk.set_matrix()
+        ssk.predict()
         ssk.print_kernel()
