@@ -314,34 +314,35 @@ class SSK:
         return "i'm a SSK!"
 
 if __name__ == '__main__':
-    cat_a = input("Name of category A: ")
-    cat_b = input("Name of category B: ")
-    cat_a_tr_c = int(input("Number of training samples from category A: "))
-    cat_b_tr_c = int(input("Number of training samples from category B: "))
-    cat_a_tst_c = int(input("Number of testing samples from category A: "))
-    cat_b_tst_c = int(input("Number of testing samples from category B: "))
-    lamda = float(input("Lambda value: "))
-    if input('Running a specific case (1) or a test run? (2): ') == "1":
-        max_features = int(input("Number of features: "))
-        feature_length = int(input("length of features: "))
+    cat_a = input("Name of category A (default corn): ") or "corn"
+    cat_b = input("Name of category B (default earn): ") or "earn"
+    cat_a_tr_c = int(input("Number of training samples from category A (default 10): ") or 10)
+    cat_b_tr_c = int(input("Number of training samples from category B (default 10): ") or 10)
+    cat_a_tst_c = int(input("Number of testing samples from category A (default 10): ") or 10)
+    cat_b_tst_c = int(input("Number of testing samples from category B (default 10): ") or 10)
+    lamda = float(input("Lambda value (1.0): ") or 1)
+    if input('Running a specific case (y/n)? (default n) ') == "y":
+        max_features = int(input("Number of features (default 10): ") or 10)
+        feature_length = int(input("length of features default (default 4): ") or 4)
         ssk = SSK(cat_a, cat_b, max_features, feature_length, lamda, cat_a_tr_c,
             cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, run_test=False)
         ssk.set_matrix()
         ssk.predict()
         ssk.print_kernel()
     else:
-        max_features = int(input("Number of features: "))
-        feature_length = int(input("Initial length of features: "))
-        it_count = int(input("number of iterations: "))
+        max_features = int(input("Number of features (default 10): ") or 10)
+        feature_length = int(input("length of features default (default 4): ") or 4)
+        it_count = int(input("number of iterations (default 1): ") or 1)
         for i in range(it_count):
             print("run for length of feature: ", feature_length)
             time_init = time.time()
             ssk = SSK(cat_a, cat_b, max_features, feature_length, lamda, cat_a_tr_c,
                 cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, run_test=False)
             ssk.set_matrix()
+            time_secondary = time.time()
             print("Feature fetching (sec): ", time.time()-time_init)
             ssk.predict()
-            print("Prediction (sec): ", time.time()-time_init)
+            print("Prediction (sec): ", time.time()-time_secondary)
             ssk.print_kernel()
             ssk.print_results()
             feature_length+=1
