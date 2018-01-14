@@ -8,8 +8,9 @@ import numpy as np
 from nltk.corpus import reuters, stopwords
 from math import sqrt
 from cvxopt.solvers import qp
+import cvxopt.solvers as cvxSolver
 from cvxopt import matrix
-
+cvxSolver.options['show_progress'] = False
 '''
 train_docs = list(filter(lambda doc: doc.startswith("train"), reuters.fileids()))
 test_docs = list(filter(lambda doc: doc.startswith("test"), reuters.fileids()))
@@ -18,18 +19,16 @@ categories = reuters.categories()
 
 class Document:
     '''A class for a document from the Reuters data-set'''
-    def __init__(self, category, index, m, n):
+    def __init__(self, category, index, m, n, label):
         '''
             :param m: the number of top features
             :param n: the length of each feature
         '''
-        print(index)
+        self.label = label
         self.m = m
         self.n = n
         self.category = category
-        self.index = index
-        self.id = reuters.fileids(category)[index]
-        self.words = reuters.words(self.id)
+        self.words = reuters.words(index)
         self.clean_data = self.remove_stops()
         self.features = set()
         for i in range(len(self.clean_data)-self.n+1):
@@ -40,6 +39,7 @@ class Document:
         tuples_sorted = sorted(tuples, key=tuples.get, reverse=True)
         self.freq_features = tuples_sorted
         self.freq_features_counts = [tuples[tuples_sorted[i]] for i in range(len(tuples_sorted))]
+
 
     def get_words(self):
         '''Returns the original version of the Reuters document'''
@@ -79,13 +79,13 @@ class Document:
 
     def __repr__(self):
         return 'category: ' + self.category + '\n'\
-        + 'index: ' + str(self.index) + '\n'\
+        + '\n'\
         +'----------------------------\n RAW DOCUMENT:'\
 
 class SSK:
     '''A class for a lazy SSK implementation'''
     def __init__(self, cat_a, cat_b, max_features, k, lamda, cat_a_tr_c=0, cat_a_tst_c=0, 
-        cat_b_tr_c=0, cat_b_tst_c=0, run_test=True, seed=None):
+        cat_b_tr_c=0, cat_b_tst_c=0, avg_it=5, seed=None):
         '''
             :param cat_a: A category index for the Reuters data-set
             :param cat_b: A category index for the Reuters data-set
@@ -99,41 +99,60 @@ class SSK:
             :param lamda: the value of the distance constraint parameter
             :param seed: optional random seed
         '''
+        self.k = k
+        self.avg_it = avg_it
+        self.lamda = lamda
+        self.max_features = max_features
         self.cat_a = cat_a
         self.cat_b = cat_b
         self.docs_a = reuters.fileids(cat_a)
         self.docs_b = reuters.fileids(cat_b)
         self.cat_a_count = len(self.docs_a)
         self.cat_b_count = len(self.docs_b)
-        self.cat_a_tr_c = cat_a_tr_c
-        self.cat_a_tst_c = cat_a_tst_c
-        self.cat_b_tr_c = cat_b_tr_c
-        self.cat_b_tst_c = cat_b_tst_c
-        self.run_test = run_test
+        self.cat_a_training = list(filter(lambda doc: doc.startswith("train"), self.docs_a))
+        self.cat_a_testing = list(filter(lambda doc: doc.startswith("test"), self.docs_a))
 
-        if self.run_test:
-            self.training_list = [[self.cat_a, i, -1] for i in
+        self.cat_b_training = list(filter(lambda doc: doc.startswith("train"), self.docs_b))
+        self.cat_b_testing = list(filter(lambda doc: doc.startswith("test"), self.docs_b))
+
+        self.cat_a_tr_c = min(cat_a_tr_c, len(self.cat_a_training))
+        self.cat_a_tst_c = min(cat_a_tst_c, len(self.cat_a_testing))
+
+        self.cat_b_tr_c = min(cat_b_tr_c, len(self.cat_b_training))
+        self.cat_b_tst_c = min(cat_b_tst_c, len(self.cat_b_testing))
+
+        self.training_list = []
+        self.testing_list = []
+
+        for i in self.cat_a_training[:cat_a_tr_c]:
+            self.training_list.append(Document(self.cat_a, i, self.max_features, self.k, 1))
+
+        for i in self.cat_b_training[:cat_b_tr_c]:
+            self.training_list.append(Document(self.cat_b, i, self.max_features, self.k, -1))
+
+        for i in self.cat_a_testing[:cat_a_tst_c]:
+            self.testing_list.append(Document(self.cat_a, i, self.max_features, self.k, 1))
+
+        for i in self.cat_b_testing[:cat_b_tst_c]:
+            self.testing_list.append(Document(self.cat_b, i, self.max_features, self.k, -1))
+
+            '''self.training_list = [[self.cat_a, i, -1] for i in
                                   range(self.cat_a_tr_c)] + [[self.cat_b, i, 1] for i in range(self.cat_b_tr_c)]
 
             self.testing_list = [[self.cat_a, i, -1]
                                  for i in range(self.cat_a_tr_c + 1, self.cat_a_tr_c + self.cat_a_tst_c + 1)] + \
                 [[self.cat_b, i, 1] for i in
                  range(self.cat_b_tr_c + 1, self.cat_b_tr_c + self.cat_b_tst_c + 1)]
+            '''
             #training_list_a = list(filter(lambda doc: doc.startswith("train"), self.docs_a))[:self.cat_a_tr_c]
             #training_list_b = list(filter(lambda doc: doc.startswith("train"), self.docs_b))[:self.cat_a_tr_c]
             #testing_list_a = list(filter(lambda doc: doc.startswith("test"), self.docs_a))[:self.cat_b_tst_c]
             #testing_list_b = list(filter(lambda doc: doc.startswith("test"), self.docs_b))[:self.cat_b_tst_c]
             #self.training_list = training_list_a + training_list_b
             #self.testing_list = testing_list_a + testing_list_b
-        else:
-            self.training_list = []
-            self.testing_list = []
-        self.k = k
-        self.lamda = lamda
-        self.max_features = max_features
+
         self.kernel_matrix = np.zeros([cat_a_tr_c+cat_b_tr_c, cat_a_tr_c+cat_b_tr_c])
         self.top_feature_list = set()
-        self.count_of_occurances = []
         self.seed = seed
         self.alpha_list_global = []
         if cat_a_tr_c+cat_a_tst_c > self.cat_a_count or \
@@ -147,47 +166,18 @@ class SSK:
     def set_matrix(self):
         '''Create the matrix here'''
         # create list of lists where each inner-list is [1/-1,index]
-        if not self.run_test:
-            self.training_list = [[self.cat_a,i,-1] for i in
-                range(self.cat_a_tr_c)]+[[self.cat_b,i,1] for i in range(self.cat_b_tr_c)]
-            # create the testing list
-            self.testing_list =\
-                [[self.cat_a, i, -1] for i in
-                    range(self.cat_a_tr_c+1, self.cat_a_tr_c + self.cat_a_tst_c+1)] +\
-                [[self.cat_b, i, 1] for i in
-                    range(self.cat_b_tr_c+1, self.cat_b_tr_c + self.cat_b_tst_c+1)]
-        
         random.shuffle(self.training_list)
         random.shuffle(self.testing_list)
 
         for doc in self.training_list:
-            if doc[0] == self.cat_a:
-                doc_obj = Document(self.cat_a, doc[1], self.max_features, self.k)
-            else:
-                doc_obj = Document(self.cat_b, doc[1], self.max_features, self.k)
-
-            for feature in doc_obj.get_top_features():
-                self.top_feature_list.add(feature)
-
-        self.training_list = [[self.cat_a, i, -1] for i in
-            range(self.cat_a_tr_c)]+[[self.cat_b, i, 1] for i in range(self.cat_b_tr_c)]
-        random.shuffle(self.testing_list)
-
-        for doc in self.training_list:
-            print(doc)
-            if doc[0]==self.cat_a:
-                doc_obj = Document(self.cat_a, doc[1], self.max_features, self.k)
-            else:
-                doc_obj = Document(self.cat_b, doc[1], self.max_features, self.k)
-
-            for feature in doc_obj.get_top_features():
-                self.top_feature_list.add(feature)
+            self.top_feature_list.update(doc.get_top_features())
 
         for i in range(len(self.training_list)):
             for j in range(i, len(self.training_list)):
-                self.kernel_matrix[i, j] = self.calc_kernel(self.training_list[i],
-                    self.training_list[j])*self.training_list[i][2]*\
-                    self.training_list[j][2]
+                self.kernel_matrix[i, j] = self.calc_kernel(
+                    self.training_list[i],
+                    self.training_list[j])*self.training_list[i].label*\
+                    self.training_list[j].label
                 self.kernel_matrix[j, i] = self.kernel_matrix[i, j]
 
         #Normalizing results in rank issues with cvxopt.qp
@@ -195,15 +185,10 @@ class SSK:
 
     def calc_kernel(self, doc_1, doc_2):
         '''Calculates the kernel matrix value for K[i,j]'''
-        doc_1_words = Document(doc_1[0], doc_1[1], self.max_features, self.k).clean_data
-        doc_2_words = Document(doc_2[0], doc_2[1], self.max_features, self.k).clean_data
-        # doc_1_words = Document(doc_1[0], doc_1[1], self.max_features, self.k).words
-        # doc_2_words = Document(doc_2[0], doc_2[1], self.max_features, self.k).words
-
         total = 0
         for feature in self.top_feature_list:
-            l = doc_1_words.count(feature)
-            j = doc_2_words.count(feature)
+            l = doc_1.clean_data.count(feature)
+            j = doc_2.clean_data.count(feature)
             total += l*j*self.lamda**(2*self.k)
         return total
 
@@ -229,12 +214,12 @@ class SSK:
         q = -np.ones((len(self.training_list)))
 
         # Optimizes the alpha values
+
         r = qp(matrix(self.kernel_matrix), matrix(q), matrix(G), matrix(h))
         alpha = list(r['x'])
 
         # calculates the alphas that are larger than the threshold
-        alpha_list = self.get_alpha(alpha, self.training_list, 10**-5)
-        self.alpha_list_global = alpha_list
+        self.alpha_list_global = self.get_alpha(alpha, self.training_list, 10**-5)
 
     def get_alpha(self, alpha, data, threshold):
         '''Returns the list of alphas [HUGO]'''
@@ -257,7 +242,7 @@ class SSK:
             estimate = self.ind(case, self.alpha_list_global)
             #check for true/false positives/negatives for each class
             # For the first class
-            if case[2] == 1: #acq 
+            if case.label == 1: #acq
                 if estimate > 0:
                     if verbose: print("Correct")
                     a_tp += 1
@@ -290,7 +275,7 @@ class SSK:
 
     def ind(self, x, alpha_list):
         '''[HUGO]'''
-        return np.sum([a[1] * a[0][2] * self.calc_kernel(a[0], x) for a in alpha_list])
+        return np.sum([a[0].label * a[1] * self.calc_kernel(a[0], x) for a in alpha_list])
 
     def print_kernel(self):
         '''A more readable way of printing the kernel matrix'''
@@ -320,39 +305,37 @@ if __name__ == '__main__':
     cat_a_tst_c = int(input("Number of testing samples from category A (default 10): ") or 10)
     cat_b_tst_c = int(input("Number of testing samples from category B (default 10): ") or 10)
     lamda = float(input("Lambda value (1.0): ") or 1)
-    if input('Running a specific case (y/n)? (default n) ') == "y":
-        max_features = int(input("Number of features (default 10): ") or 10)
-        feature_length = int(input("length of features default (default 4): ") or 4)
-        ssk = SSK(cat_a, cat_b, max_features, feature_length, lamda, cat_a_tr_c,
-            cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, run_test=False)
+    max_features = int(input("Number of features (default 10): ") or 10)
+    feature_it = input("number of different length of features (default [3,4,5,6,7,8,10,12,14]): ") or [3,4,5,6,7,8,10,12,14]
+    avg_it = int(input("number of iterations (default 10): ") or 10)
+    output_labels = ['precision_a', 'f1_a', 'recall_a', 'precision_b', 'f1_b', 'recall_b']
+
+    result_matrix = np.zeros((len(feature_it), len(output_labels)))
+
+    for idx_feat, feat, in enumerate(feature_it):
+        outputs = []
+        outer_loop_time = time.time()
+        ssk = SSK(cat_a, cat_b, max_features, feat, lamda, cat_a_tr_c,
+                  cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it)
         ssk.set_matrix()
-        ssk.predict()
-        ssk.print_kernel()
-    else:
-        max_features = int(input("Number of features (default 10): ") or 10)
-        feature_length = int(input("length of features default (default 4): ") or 4)
-        feature_it = int(input("number of different length of features (default 5): ") or 5)
-        avg_it = int(input("number of iterations (default 5): ") or 5)
-        output_labels = ['precision_a', 'f1_a', 'recall_a', 'precision_b', 'f1_b', 'recall_b']
-        for i in range(feature_it):
-            outputs = []
-            outer_loop_time = time.time()
-            for j in range(avg_it):
-                print("run for length of feature: ", feature_length)
-                time_init = time.time()
-                ssk = SSK(cat_a, cat_b, max_features, feature_length, lamda, cat_a_tr_c,
-                    cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, run_test=True)
-                ssk.set_matrix()
-                time_secondary = time.time()
-                print("Feature fetching (sec): ", time.time()-time_init)
-                ssk.predict()
-                print("Prediction (sec): ", time.time()-time_secondary)
-                #ssk.print_kernel()
-                ssk.set_results()
-                outputs.append(ssk.get_results(verbose=False))
-                feature_length+=1
-            print("Total time for the current feature: ", time.time()-outer_loop_time)
-            print("Here come the results: ")
-            for i in range(len(output_labels)):
-                curr = [c[i] for c in outputs]
-                print("average for"+output_labels[i],np.average(curr))
+        for j in range(avg_it):
+            print("run for length of feature: ", feat)
+            time_init = time.time()
+            time_secondary = time.time()
+            print("Feature fetching (sec): ", time.time()-time_init)
+            ssk.predict()
+            print("Prediction (sec): ", time.time()-time_secondary)
+            #ssk.print_kernel()
+            ssk.set_results(verbose=False)
+            outputs.append([ssk.get_results(verbose=False),ssk.k, ssk.max_features])
+        print(" ")
+        print("Here come the results: ")
+        for i in range(len(output_labels)):
+            curr = [c[0][i] for c in outputs]
+            result_matrix[idx_feat,]
+            print("average for "+ output_labels[i] + ": "  + str(np.average(curr)))
+            print("STD: " + str(np.std(curr)))
+        print("Total time for the current feature: ", time.time()-outer_loop_time)
+
+
+
