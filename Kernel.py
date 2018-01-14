@@ -287,12 +287,28 @@ class SSK:
         print("precision b " + str(precision_category_b))
         print("recall b " + str(recall_category_b))
         print("f1 b " + str(f1_b))
-    #    print("F1 score: ", self.f1_score)
-    #    print("Precision: ", self.precision)
-    #    print("Recall: ", self.recall)
-    
-        print('RESSSSSULLLTTTSSSS')
 
+    def get_alpha(self, alpha, data, threshold):
+        '''Returns the list of alphas [HUGO]'''
+        return [[data[idx], al_el] for idx,al_el in enumerate(alpha)]
+
+    def ind(self, x, alpha_list):
+        '''[HUGO]'''
+        return np.sum([a[1] * a[0][2] * self.calc_kernel(a[0], x) for a in alpha_list])
+
+    def print_kernel(self):
+        '''A more readable way of printing the kernel matrix'''
+        np.set_printoptions(precision=3, suppress=True)
+        print(self.kernel_matrix)
+
+    def print_results(self):
+        '''Print results for this Kernel'''
+        '''
+        print("F1 score: ", self.f1_score)
+        print("Precision: ", self.precision)
+        print("Recall: ", self.recall)
+        '''
+        
     def __repr__(self):
         return "i'm a SSK!"
 
