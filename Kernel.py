@@ -23,6 +23,7 @@ class Document:
             :param m: the number of top features
             :param n: the length of each feature
         '''
+        print(index)
         self.m = m
         self.n = n
         self.category = category
@@ -100,18 +101,21 @@ class SSK:
         '''
         self.cat_a = cat_a
         self.cat_b = cat_b
-        self.cat_a_count = len(reuters.fileids(cat_a))
-        self.cat_b_count = len(reuters.fileids(cat_b))
+        self.docs_a = reuters.fileids(cat_a)
+        self.docs_b = reuters.fileids(cat_b)
+        self.cat_a_count = len(self.docs_a)
+        self.cat_b_count = len(self.docs_b)
         self.cat_a_tr_c = cat_a_tr_c
         self.cat_a_tst_c = cat_a_tst_c
         self.cat_b_tr_c = cat_b_tr_c
         self.cat_b_tst_c = cat_b_tst_c
         self.run_test = run_test
         if self.run_test:
-            training_list_a = list(filter(lambda doc: doc.startswith("train"), self.cat_a))[:self.cat_a_tr_c]
-            training_list_b = list(filter(lambda doc: doc.startswith("train"), self.cat_b))[:self.cat_a_tr_c]
-            testing_list_a = list(filter(lambda doc: doc.startswith("test"), self.cat_a))[:self.cat_b_tst_c]
-            testing_list_b = list(filter(lambda doc: doc.startswith("test"), self.cat_b))[:self.cat_b_tst_c]
+            training_list_a = list(filter(lambda doc: doc.startswith("train"), self.docs_a))[:self.cat_a_tr_c]
+            print(training_list_a[0])
+            training_list_b = list(filter(lambda doc: doc.startswith("train"), self.docs_b))[:self.cat_a_tr_c]
+            testing_list_a = list(filter(lambda doc: doc.startswith("test"), self.docs_a))[:self.cat_b_tst_c]
+            testing_list_b = list(filter(lambda doc: doc.startswith("test"), self.docs_b))[:self.cat_b_tst_c]
             self.training_list = training_list_a + training_list_b
             self.testing_list = testing_list_a + testing_list_b
         else:
@@ -237,40 +241,31 @@ class SSK:
         np.set_printoptions(precision=3, suppress=True)
         print(self.kernel_matrix)
 
-    def set_results(self):
+    def set_results(self, verbose=True):
         '''Print results for this Kernel'''
-        # Class a is assigned positive values 
-        a_tp = 0
-        a_tn = 0
-        a_fp = 0
-        a_fn = 0
-        # Class b is assigned negative values
-        b_tp = 0
-        b_tn = 0
-        b_fp = 0
-        b_fn = 0
-        ###
+        # Class a is assigned positive values and B negative values
+        a_tp = a_tn = a_fp = a_fn = b_tp = b_tn = b_fp = b_fn = 0
         for case in self.testing_list:
             estimate = self.ind(case, self.alpha_list_global)
             #check for true/false positives/negatives for each class
             # For the first class
             if case[2] == 1: #acq 
                 if estimate > 0:
-                    print("Correct")
+                    if verbose: print("Correct")
                     a_tp += 1
                     b_tn += 1
                 else:
-                    print("Wrong")
+                    if verbose: print("Wrong")
                     a_fn += 1
                     b_fp += 1
             # For the second class
             else:
                 if estimate < 0:
-                    print("Correct")
+                    if verbose: print("Correct")
                     b_tp += 1
                     a_tn += 1
                 else:
-                    print("Wrong")
+                    if verbose: print("Wrong")
                     b_fn += 1
                     a_fp += 1
 
