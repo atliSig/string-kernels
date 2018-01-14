@@ -5,7 +5,7 @@ import sys
 from math import sqrt
 import numpy as np
 from nltk.corpus import reuters, stopwords
-from math import sqrt, pow
+from math import sqrt
 from cvxopt.solvers import qp
 from cvxopt import matrix
 
@@ -33,8 +33,8 @@ class Document:
         for i in range(len(self.clean_data)-self.n+1):
             self.features.add(self.clean_data[i:i+self.n])
         tuples = {}
-        for f in self.features:
-            tuples[f] = self.clean_data.count(f)
+        for feature in self.features:
+            tuples[feature] = self.clean_data.count(feature)
         tuples_sorted = sorted(tuples, key=tuples.get, reverse=True)
         self.freq_features = tuples_sorted
         self.freq_features_counts = [tuples[tuples_sorted[i]] for i in range(len(tuples_sorted))]
@@ -115,7 +115,8 @@ class SSK:
         self.training_list = []
         self.testing_list = []
 
-        if cat_a_tr_c+cat_a_tst_c > self.cat_a_count or cat_b_tr_c+cat_b_tst_c > self.cat_b_count:
+        if cat_a_tr_c+cat_a_tst_c > self.cat_a_count or \
+            cat_b_tr_c+cat_b_tst_c > self.cat_b_count:
              print('number of trainig/testing documents exceeds number of articles')
              sys.exit(0)
         if lamda <= 0 or lamda > 1:
@@ -125,16 +126,20 @@ class SSK:
     def set_matrix(self):
         '''Create the matrix here'''
         # create list of lists where each inner-list is [1/-1,index]
-        self.training_list = [[self.cat_a,i,-1] for i in range(self.cat_a_tr_c)]+[[self.cat_b,i,1] for i in range(self.cat_b_tr_c)]
+        self.training_list = [[self.cat_a,i,-1] for i in
+            range(self.cat_a_tr_c)]+[[self.cat_b,i,1] for i in range(self.cat_b_tr_c)]
         random.shuffle(self.training_list)
 
         # create the testing list
-        self.testing_list = [[self.cat_a, i, -1] for i in range(self.cat_a_tr_c+1, self.cat_a_tr_c + self.cat_a_tst_c+1)] + \
-                            [[self.cat_b, i, 1] for i in range(self.cat_b_tr_c+1, self.cat_b_tr_c + self.cat_b_tst_c+1)]
+        self.testing_list =\
+            [[self.cat_a, i, -1] for i in
+                range(self.cat_a_tr_c+1, self.cat_a_tr_c + self.cat_a_tst_c+1)] +\
+            [[self.cat_b, i, 1] for i in
+                range(self.cat_b_tr_c+1, self.cat_b_tr_c + self.cat_b_tst_c+1)]
         random.shuffle(self.testing_list)
 
         for doc in self.testing_list:
-            if doc[0]==self.cat_a:
+            if doc[0] == self.cat_a:
                 doc_obj = Document(self.cat_a, doc[1], self.max_features, self.k)
             else:
                 doc_obj = Document(self.cat_b, doc[1], self.max_features, self.k)
@@ -142,7 +147,8 @@ class SSK:
             for feature in doc_obj.get_top_features():
                 self.top_feature_list.add(feature)
 
-        self.testing_list = [[self.cat_a, i, -1] for i in range(self.cat_a_tr_c)]+[[self.cat_b, i, 1] for i in range(self.cat_b_tr_c)]
+        self.testing_list = [[self.cat_a, i, -1] for i in
+            range(self.cat_a_tr_c)]+[[self.cat_b, i, 1] for i in range(self.cat_b_tr_c)]
         random.shuffle(self.testing_list)
 
         for doc in self.testing_list:
@@ -157,9 +163,11 @@ class SSK:
         for i in range(len(self.testing_list)):
             for j in range(i, len(self.testing_list)):
                 self.kernel_matrix[i, j] = self.calc_kernel(self.testing_list[i],
-                    self.testing_list[j])*self.testing_list[i][2]*self.testing_list[j][2]
+                    self.testing_list[j])*self.testing_list[i][2]*\
+                    self.testing_list[j][2]
                 self.kernel_matrix[j, i] = self.kernel_matrix[i, j]
 
+        #Normalizing results in rank issues with cvxopt.qp
         #self.normalize_kernel()
         self.predict(self.kernel_matrix)
 
@@ -175,11 +183,14 @@ class SSK:
         return total
 
     def normalize_kernel(self):
+        '''Frobenius-Normalizes the kernel'''
         for i in range(len(self.training_list)):
             for j in range(len(self.training_list)):
-                self.kernel_matrix[i,j] = self.kernel_matrix[i,j]/sqrt(self.kernel_matrix[i,i]*self.kernel_matrix[j,j])
+                self.kernel_matrix[i, j] = self.kernel_matrix[i, j]/\
+                sqrt(self.kernel_matrix[i, i]*self.kernel_matrix[j, j])
 
     def predict(self, kernel_matrix):
+        '''Based on the kernel, make predictions using cvxopt.qp'''
         G = -np.eye(len(self.training_list))
         G = np.append(G, np.eye(len(self.training_list)))
         G.resize(2 * len(self.training_list), len(self.training_list))
@@ -193,44 +204,45 @@ class SSK:
 
         q = -np.ones((len(self.training_list)))
 
-        # Optimaizes the alpha values
+        # Optimizes the alpha values
         r = qp(matrix(kernel_matrix), matrix(q), matrix(G), matrix(h))
         alpha = list(r['x'])
 
         # calculates the alphas that are larger than the threshold
-        alphaList = self.getAlpha(alpha, self.training_list, pow(10, -5))
+        alpha_list = self.get_alpha(alpha, self.training_list, 10**-5)
 
         # predictions
-        for x in self.testing_list:
-            estimate = self.ind(x, alphaList)
-            if (estimate > 0):
-                if(x[2]==1):
+        for case in self.testing_list:
+            estimate = self.ind(case, alpha_list)
+            if estimate > 0:
+                if case[2]==1:
                     print("Correct")
                 else:
                     print("Wrong")
-            elif(estimate == 0):
+            elif estimate == 0:
                 print("uncertain")
             else:
-                if (x[2] == -1):
+                if case[2] == -1:
                     print("Correct")
                 else:
                     print("Wrong")
 
-    def getAlpha(self, alpha, data, threshold):
-        alphaList = []
-        for i in range(len(alpha)):
-            if alpha[i] > threshold:
-                alphaList.append([data[i], alpha[i]])
-        return alphaList
+    def get_alpha(self, alpha, data, threshold):
+        '''Returns the list of alphas [HUGO]'''
+        alpha_list = []
+        for al_val in alpha:
+            if al_val > threshold:
+                alpha_list.append([data[i], al_val])
+        return alpha_list
 
-    def ind(self, x, alphaList):
-        sum = 0
-        for a in alphaList:
+    def ind(self, x, alpha_list):
+        '''[HUGO]'''
+        total = 0
+        for a in alpha_list:
             a_i = a[1]
             t_i = a[0][2]
-            # sum += alpha_i * t_i * kernel(xStar, x_i)
-            sum += a_i * t_i * self.calc_kernel(a[0], x)
-        return sum
+            total += a_i * t_i * self.calc_kernel(a[0], x)
+        return total
 
 
     def print_kernel(self):
@@ -244,11 +256,12 @@ class SSK:
 
 if __name__ == '__main__':
     if len(sys.argv) != 10:
-        print('error, missing input arguments!')
+        print(len(sys.argv))
+        print('Incorrect number of input arguments!')
         sys.exit(1)
     else:
-        str_ker = SSK(sys.argv[1], sys.argv[2], int(sys.argv[3]),
+        ssk = SSK(sys.argv[1], sys.argv[2], int(sys.argv[3]),
             int(sys.argv[4]), int(sys.argv[5]), int(sys.argv[6]),
             int(sys.argv[7]), int(sys.argv[8]), float(sys.argv[9]))
-        str_ker.set_matrix()
-        str_ker.print_kernel()
+        ssk.set_matrix()
+        ssk.print_kernel()
