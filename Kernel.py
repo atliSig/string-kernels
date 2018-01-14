@@ -246,8 +246,6 @@ class SSK:
                 else:
                     class_a_false_negatives += 1
                     class_b_false_positives += 1
-                elif estimate == 0:
-                    print("uncertain")
                     
             # For the second class             
             else:
@@ -257,15 +255,20 @@ class SSK:
                 else:
                     class_b_false_negatives += 1
                     class_a_false_positives += 1   
-                elif estimate == 0:
-                    print("uncertain")
 
-        precision = true_positives/(true_positives+false_positives)
-        recall = true_positives/(true_positives+false_negatives)
-        f1 = 2*((precision*recall)/(precision+recall))
-        print("precision " + precision)
-        print("recall " + recall)
-        print("f1 " + f1)
+        precision_category_a = class_a_true_positives/(class_a_true_positives+class_a_false_positives)
+        recall_category_a = class_a_true_positives/(class_a_true_positives+class_a_false_negatives)
+        f1_a = 2*((precision_category_a*recall_category_a)/(precision_category_a+recall_category_a))
+        print("precision a " + str(precision_category_a))
+        print("recall a " + str(recall_category_a))
+        print("f1 a " + str(f1_a))
+        ## Category B
+        precision_category_b = class_b_true_positives/(class_b_true_positives+class_b_false_positives)
+        recall_category_b = class_b_true_positives/(class_b_true_positives+class_b_false_negatives)
+        f1_b = 2*((precision_category_b*recall_category_b)/(precision_category_b+recall_category_b))
+        print("precision b " + str(precision_category_b))
+        print("recall b " + str(recall_category_b))
+        print("f1 b " + str(f1_b))
 
     def get_alpha(self, alpha, data, threshold):
         '''Returns the list of alphas [HUGO]'''
