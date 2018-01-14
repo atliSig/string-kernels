@@ -125,19 +125,24 @@ class SSK:
     def set_matrix(self):
         '''Create the matrix here'''
         # create list of lists where each inner-list is [1/-1,index]
-        self.training_list = [[self.cat_a,i,-1] for i in range(self.cat_a_training_count)]+[[self.cat_b,i,1] for i in range(self.cat_b_training_count)]
+        self.training_list = [[self.cat_a,i,-1] for i in range(self.cat_a_tr_c)]+[[self.cat_b,i,1] for i in range(self.cat_b_tr_c)]
         random.shuffle(self.training_list)
 
         # create the testing list
-        self.testing_list = [[self.cat_a, i, -1] for i in range(self.cat_a_training_count+1, self.cat_a_training_count + self.cat_a_testing_count+1)] + \
-                            [[self.cat_b, i, 1] for i in range(self.cat_b_training_count+1, self.cat_b_training_count + self.cat_b_testing_count+1)]
+        self.testing_list = [[self.cat_a, i, -1] for i in range(self.cat_a_tr_c+1, self.cat_a_tr_c + self.cat_a_tst_c+1)] + \
+                            [[self.cat_b, i, 1] for i in range(self.cat_b_tr_c+1, self.cat_b_tr_c + self.cat_b_tst_c+1)]
         random.shuffle(self.testing_list)
 
-        for doc in self.training_list:
-            if(doc[0]==self.cat_a):
+        for doc in self.testing_list:
+            if doc[0]==self.cat_a:
+                doc_obj = Document(self.cat_a, doc[1], self.max_features, self.k)
+            else:
+                doc_obj = Document(self.cat_b, doc[1], self.max_features, self.k)
 
-        self.testing_list = [[self.cat_a, i, -1] for i in range(self.cat_a_tr_c)]\
-            +[[self.cat_b, i, 1] for i in range(self.cat_b_tr_c)]
+            for feature in doc_obj.get_top_features():
+                self.top_feature_list.add(feature)
+
+        self.testing_list = [[self.cat_a, i, -1] for i in range(self.cat_a_tr_c)]+[[self.cat_b, i, 1] for i in range(self.cat_b_tr_c)]
         random.shuffle(self.testing_list)
 
         for doc in self.testing_list:
