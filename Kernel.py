@@ -170,10 +170,15 @@ class SSK:
         #Normalizing results in rank issues with cvxopt.qp
         #self.normalize_kernel()
 
+
+
     def calc_kernel(self, doc_1, doc_2):
         '''Calculates the kernel matrix value for K[i,j]'''
-        doc_1_words = Document(doc_1[0], doc_1[1], self.max_features, self.k).words
-        doc_2_words = Document(doc_2[0], doc_2[1], self.max_features, self.k).words
+        doc_1_words = Document(doc_1[0], doc_1[1], self.max_features, self.k).clean_data
+        doc_2_words = Document(doc_2[0], doc_2[1], self.max_features, self.k).clean_data
+#        doc_1_words = Document(doc_1[0], doc_1[1], self.max_features, self.k).words
+#        doc_2_words = Document(doc_2[0], doc_2[1], self.max_features, self.k).words
+
         total = 0
         for feature in self.top_feature_list:
             l = doc_1_words.count(feature)
@@ -200,7 +205,6 @@ class SSK:
 
         h = np.append(h, h_alpha)
         h.resize(2 * len(self.training_list))
-        print(h)
         q = -np.ones((len(self.training_list)))
 
         # Optimizes the alpha values
@@ -211,20 +215,44 @@ class SSK:
         alpha_list = self.get_alpha(alpha, self.training_list, 10**-5)
 
         # predictions
+
+
+        ### Implement F1 score
+        ### Precision
+        precision = 0
+        recall = 0
+        f1 = 0
+        ### Recall
+        ### calculate F1
+        true_positives = 0
+        true_negatives = 0
+        false_positives = 0
+        false_negatives = 0
         for case in self.testing_list:
             estimate = self.ind(case, alpha_list)
             if estimate > 0:
                 if case[2]==1:
                     print("Correct")
+                    true_positives += 1
                 else:
                     print("Wrong")
+                    false_positives += 1
             elif estimate == 0:
                 print("uncertain")
             else:
                 if case[2] == -1:
                     print("Correct")
+                    true_negatives += 1
                 else:
                     print("Wrong")
+                    false_negatives += 1
+        
+        precision = true_positives/(true_positives+false_positives)
+        recall = true_positives/(true_positives+false_negatives)
+        f1 = 2*((precision*recall)/(precision+recall))
+        print("precision " + precision)
+        print("recall " + recall)
+        print("f1 " + f1)
 
     def get_alpha(self, alpha, data, threshold):
         '''Returns the list of alphas [HUGO]'''
@@ -240,7 +268,7 @@ class SSK:
         print(self.kernel_matrix)
 
     def __repr__(self):
-        return "i'm an SSK!"
+        return "i'm a SSK!"
 
 if __name__ == '__main__':
     if len(sys.argv) != 10:
