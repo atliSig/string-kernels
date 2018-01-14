@@ -241,6 +241,7 @@ class SSK:
     def __repr__(self):
         return "i'm an SSK!"
 
+
 if __name__ == '__main__':
     if len(sys.argv) != 10:
         print('error, missing input arguments!')
