@@ -11,22 +11,22 @@ from cvxopt.solvers import qp
 import cvxopt.solvers as cvxSolver
 from cvxopt import matrix
 cvxSolver.options['show_progress'] = False
-'''
-train_docs = list(filter(lambda doc: doc.startswith("train"), reuters.fileids()))
-test_docs = list(filter(lambda doc: doc.startswith("test"), reuters.fileids()))
-categories = reuters.categories()
-'''
+
 
 class Document:
     '''A class for a document from the Reuters data-set'''
     def __init__(self, category, index, m, n, label):
         '''
+            :param category: the name of the document's category
             :param m: the number of top features
             :param n: the length of each feature
+            :param index: the index of the document into the Reuters data-set
+            :param label: -1 or 1 for labelling purposes
         '''
-        self.label = label
         self.m = m
         self.n = n
+        self.label = label
+        self.index = index
         self.category = category
         self.words = reuters.words(index)
         self.clean_data = self.remove_stops()
@@ -78,14 +78,12 @@ class Document:
         return self.freq_features_counts[:self.m]
 
     def __repr__(self):
-        return 'category: ' + self.category + '\n'\
-        + '\n'\
-        +'----------------------------\n RAW DOCUMENT:'\
+        return 'Doc: '+ self.index +' in category: ' + self.category
 
 class SSK:
     '''A class for a lazy SSK implementation'''
     def __init__(self, cat_a, cat_b, max_features, k, lamda, cat_a_tr_c=0, cat_a_tst_c=0, 
-        cat_b_tr_c=0, cat_b_tst_c=0, avg_it=5, seed=None):
+        cat_b_tr_c=0, cat_b_tst_c=0, avg_it=5, threshold=10**-5, seed=None):
         '''
             :param cat_a: A category index for the Reuters data-set
             :param cat_b: A category index for the Reuters data-set
@@ -103,6 +101,7 @@ class SSK:
         self.avg_it = avg_it
         self.lamda = lamda
         self.max_features = max_features
+        self.threshold = threshold
         self.cat_a = cat_a
         self.cat_b = cat_b
         self.docs_a = reuters.fileids(cat_a)
@@ -124,6 +123,10 @@ class SSK:
         self.training_list = []
         self.testing_list = []
 
+        if cat_a_tr_c+cat_a_tst_c > self.cat_a_count or cat_b_tr_c+cat_b_tst_c > self.cat_b_count:
+            print('number of training/testing documents exceeds number of articles')
+            sys.exit(0)
+
         for i in self.cat_a_training[:cat_a_tr_c]:
             self.training_list.append(Document(self.cat_a, i, self.max_features, self.k, 1))
 
@@ -139,14 +142,7 @@ class SSK:
         self.kernel_matrix = np.zeros([cat_a_tr_c+cat_b_tr_c, cat_a_tr_c+cat_b_tr_c])
         self.top_feature_list = set()
         self.seed = seed
-        self.alpha_list_global = []
-        if cat_a_tr_c+cat_a_tst_c > self.cat_a_count or \
-            cat_b_tr_c+cat_b_tst_c > self.cat_b_count:
-             print('number of training/testing documents exceeds number of articles')
-             sys.exit(0)
-        if lamda <= 0 or lamda > 1:
-            print('lamda must be in ]0,1]')
-            sys.exit(0)
+        self.alpha_list = []
     
     def set_matrix(self):
         '''Create the matrix here'''
@@ -178,7 +174,7 @@ class SSK:
         return total
 
     def normalize_kernel(self):
-        '''Frobenius-Normalizes the kernel'''
+        '''Frobenius-Normalization of the kernel'''
         for i in range(len(self.training_list)):
             for j in range(len(self.training_list)):
                 self.kernel_matrix[i, j] = self.kernel_matrix[i, j]/\
@@ -189,7 +185,7 @@ class SSK:
         G = -np.eye(len(self.training_list))
         G = np.append(G, np.eye(len(self.training_list)))
         G.resize(2 * len(self.training_list), len(self.training_list))
-
+        # C is the slack
         C = 10
         h = np.zeros(len(self.training_list))
         h_alpha = np.ones(len(self.training_list)) * C
@@ -198,36 +194,43 @@ class SSK:
         h.resize(2 * len(self.training_list))
         q = -np.ones((len(self.training_list)))
 
-        # Optimizes the alpha values
-
-        r = qp(matrix(self.kernel_matrix), matrix(q), matrix(G), matrix(h))
-        alpha = list(r['x'])
-
+        # Optimizes the alpha values, alpha is a 1-d list
+        alpha = list(qp(matrix(self.kernel_matrix), matrix(q), matrix(G), matrix(h))['x'])
         # calculates the alphas that are larger than the threshold
-        self.alpha_list_global = self.get_alpha(alpha, self.training_list, 10**-5)
+        self.set_alpha(alpha, self.training_list)
 
-    def get_alpha(self, alpha, data, threshold):
-        '''Returns the list of alphas [HUGO]'''
-        return [[data[idx], al_el] for idx,al_el in enumerate(alpha)]
+    def set_alpha(self, alpha, training_docs):
+        '''
+            Sets the list of support vectors
+            Returns a list of tuples where each tuple contains
+            a document and the corresponding alpha value
+        '''
+        return [[training_docs[idx], al_el] for idx,al_el in enumerate(alpha) if al_el > self.threshold]
 
-    def ind(self, x, alpha_list):
-        '''[HUGO]'''
-        return np.sum([a[1] * a[0][2] * self.calc_kernel(a[0], x) for a in alpha_list])
+    def get_alpha(self):
+        '''Gets the list of support vectors'''
+        return self.alpha_list
 
-    def print_kernel(self):
-        '''A more readable way of printing the kernel matrix'''
-        np.set_printoptions(precision=3, suppress=True)
-        print(self.kernel_matrix)
+    def ind(self, doc):
+        '''
+            takes in a document and calculates
+            a * b * calc_kernel(c, doc)
+            where:
+                a = alpha value
+                b = label of the document
+                c = the document of a support vector
+        '''
+        return np.sum([a[1] * a[0].label * self.calc_kernel(a[0], doc) for a in self.alpha_list])
 
     def set_results(self, verbose=True):
         '''Print results for this Kernel'''
         # Class a is assigned positive values and B negative values
         a_tp = a_tn = a_fp = a_fn = b_tp = b_tn = b_fp = b_fn = 0
-        for case in self.testing_list:
-            estimate = self.ind(case, self.alpha_list_global)
+        for doc in self.testing_list:
+            estimate = self.ind(doc)
+            print(estimate)
             #check for true/false positives/negatives for each class
-            # For the first class
-            if case.label == 1: #acq
+            if doc.category == self.cat_a:
                 if estimate > 0:
                     if verbose: print("Correct")
                     a_tp += 1
@@ -254,13 +257,7 @@ class SSK:
         self.recall_b = b_tp/(b_tp+b_fn)
         self.f1_b = 2*((self.precision_b*self.recall_b)/(self.precision_b+self.recall_b))
 
-    def get_alpha(self, alpha, data, threshold):
-        '''Returns the list of alphas [HUGO]'''
-        return [[data[idx], al_el] for idx,al_el in enumerate(alpha)]
 
-    def ind(self, x, alpha_list):
-        '''[HUGO]'''
-        return np.sum([a[0].label * a[1] * self.calc_kernel(a[0], x) for a in alpha_list])
 
     def print_kernel(self):
         '''A more readable way of printing the kernel matrix'''
@@ -289,11 +286,16 @@ if __name__ == '__main__':
     cat_b_tr_c = int(input("Number of training samples from category B (default 114): ") or 114)
     cat_a_tst_c = int(input("Number of testing samples from category A (default 40): ") or 40)
     cat_b_tst_c = int(input("Number of testing samples from category B (default 25): ") or 25)
-    lamda = float(input("Lambda value (1.0): ") or 1)
+    lamda = float(input("Lambda value (default 1.0): ") or 1)
+    threshold = float(input("Threshold value (default 0.00001):") or 10**-5)
     max_features = int(input("Number of features (default 30): ") or 30)
-    feature_it = input("number of different length of features (default [3,4,5,6,7,8,10,12,14]): ") or [3,4,5,6,7,8,10,12,14]
+    feature_it = input("number of different length of features (default [3,..,8,10,12,14]): ")\
+        or [3,4,5,6,7,8,10,12,14]
     avg_it = int(input("number of iterations (default 10): ") or 10)
     output_labels = ['precision_a', 'f1_a', 'recall_a', 'precision_b', 'f1_b', 'recall_b']
+    if lamda <= 0 or lamda > 1:
+        print('lamda must be in ]0,1]')
+        sys.exit(0)
 
     result_matrix = np.zeros((len(feature_it), len(output_labels)))
 
@@ -302,7 +304,7 @@ if __name__ == '__main__':
         outer_loop_time = time.time()
         for j in range(avg_it):
             ssk = SSK(cat_a, cat_b, max_features, feat, lamda, cat_a_tr_c,
-                      cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it)
+                      cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it, threshold)
             ssk.set_matrix()
             print("run for length of feature: ", feat)
             time_init = time.time()
