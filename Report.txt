@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+
+\title{Group Project}
+\author{bjartur}
+\date{January 2018}
+
+\begin{document}
+
+\maketitle
+
+\section{Definition 1}
+
+MAYBE add some less formal text because they ask us to explain it so that our peers understand IDK???!!!?? DISCUSS
+
+Formally, let s and t be string from the finite alphabet \[\sum\], where length of \[s=s_1...s_{|s|}\] is \[|s|\]. The sub-string \[s_i,...,s_j\] is denoted by \[s[i:j]\]. The target string u is a sub-sequence of s i.e \[u=s[i]\] if there exist indices \[i=(i_1,...,i_{|u|})\], which of course entails \[1 \leq i_1 <....<i_{|u|}\leq|s|\] i.e. the sub-string can't have indices outside of the "main" string. \[u_j=s_{i_{j}}\] for each character \[u_j in u\] which will be noted in the following fashion on-wards \[u=s[i]\]. The length l(i) of the subsequence in s is given by \[i_{|u|}-i_{i}+1\]. which stands for the number of characters the subsequence \[s[i]\] spans in the string s.\\
+
+The feature mapping for a string s in the paper is defined by giving the u coordinate for each \[u\in\sum\] as
+\begin{equation*}
+    \phi_u(s)=\sum_{\mathclap{i:u=s[i]}}\lambda^{l(i)}
+\end{equation*}
+Which depicts the number of times the subsequence occurs in the string s, weighted by how continuous it is.\\
+The kernel function then represents the inner product of the feature vectors for strings s and t as the sum of the products of the above u coordinate for all the substrings in u.
+\begin{equation*}
+    K_n(s,t)=\sum_{\mathclap{u\in\sum^n}}\langle\phi_u(s)\cdot\phi_u(t)\rangle=\sum\limits_{u\in\sum^n}\sum\limits_{i:u=s[i]}\lambda^{l(i)}\sum_{\mathclap{j:u=t[j]}}\lambda^{l(j)}=\sum\limits_{u\in\sum^n}\sum\limits_{i:u=s[i]}\sum\limits_{j:u=t[j]}\lambda^{l(i)+l(j)}
+\end{equation*}
+So, n is the length of common substrings between s and t. The \[\lambda\] is then the weight decay factor which controls how much the Kernel value is penalized for the substring not being continuous inside the string.\\
+
+\begin{equation*}
+    K_i^{'}(s,t)=\sum\limits_{u\in\sum^n}\sum\limits_{i:u=s[i]}\sum\limits_{j:u=t[j]}\lambda^{|s|+|t|-i_1-j_1+2}   ,i=1,...,n-1
+\end{equation*}
+
+
+\section{Results*}
+\begin{table}[]
+\centering
+\caption{My caption}
+\label{my-label}
+\begin{tabular}{|l|r|r|r|r|r|r|r|r|}
+\hline
+\multicolumn{1}{|c|}{Category} & 
+\multicolumn{1}{c|}{Kernel} & 
+\multicolumn{1}{c|}{Length} & 
+\multicolumn{2}{c|}{F1} & 
+\multicolumn{2}{c|}{Precision} & 
+\multicolumn{2}{c|}{Recall}\\
+&
+\multicolumn{1}{l|}{} & 
+\multicolumn{1}{l|}{} & 
+\multicolumn{1}{l|}{Mean} & \multicolumn{1}{l|}{SD} & \multicolumn{1}{l|}{Mean} & \multicolumn{1}{l|}{SD} & \multicolumn{1}{l|}{Mean} & \multicolumn{1}{l|}{SD} \\ \hline
+\multirow{19}{*}{earn}   
+   & SSK & 3   &0.95156  & &0.96029 & &0.94300 &\\
+   &   & 4   &0.95464  & &0.96240 & &0.94700 &\\
+   &   & 5   &0.95257  & &0.96130 & &0.94400 &\\
+   &   & 6   &0.94769  & &0.96285 & &0.93300 &\\
+   &   & 7   &0.92794  & &0.91618 & &0.94000 &\\
+   &   & 8   &0.92278  & &0.90249 & &0.94400 &\\
+   &   & 10  &0.81887  & &0.83110 & &0.80700 &\\
+   &   & 12  &0.63055  & &0.65139 & &0.61100 &\\
+   &   & 14  &0.57585  & &0.59488 & &0.55800 &\\ \cline{2-9} 
+   & NGK & 3   &   & &   & &   & \\
+   &   & 4   &   & &   & &   & \\
+   &   & 5   &   & &   & &   & \\
+   &   & 6   &   & &   & &   & \\
+   &   & 7   &   & &   & &   & \\
+   &   & 8   &   & &   & &   & \\
+   &   & 10  &   & &   & &   & \\
+   &   & 12  &   & &   & &   & \\
+   &   & 14  &   & &   & &   & \\ \cline{2-9} 
+   & WK  &   &   & &   & &   & \\ \hline
+\multirow{19}{*}{acq}    
+   & SSK & 3 &0.93407   & &0.92266   & &0.94576   & \\
+   &   & 4   &0.93810   & &0.92789   & &0.94854   & \\
+   &   & 5   &0.93544   & &0.92402   & &0.94715   & \\
+   &   & 6   &0.92988   & &0.91067   & &0.94993   & \\
+   &   & 7   &0.89660   & &0.91342   & &0.88039   & \\
+   &   & 8   &0.88649   & &0.91679   & &0.85814   & \\
+   &   & 10  &0.75665   & &0.74198   & &0.77191   & \\
+   &   & 12  &0.52267   & &0.50192   & &0.54520   & \\
+   &   & 14  &0.45200   & &0.43406   & &0.47149   & \\ \cline{2-9} 
+   & NGK & 3   &   & &   & &   & \\
+   &   & 4   &   & &   & &   & \\
+   &   & 5   &   & &   & &   & \\
+   &   & 6   &   & &   & &   & \\
+   &   & 7   &   & &   & &   & \\
+   &   & 8   &   & &   & &   & \\
+   &   & 10  &   & &   & &   & \\
+   &   & 12  &   & &   & &   & \\
+   &   & 14  &   & &   & &   & \\ \cline{2-9} 
+   & WK  &   &   & &   & &   & \\ \hline
+\end{tabular}
+\end{table}
+
+\end{document}
