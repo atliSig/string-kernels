@@ -10,7 +10,13 @@
 
 \maketitle
 
-\section{Definition 1}
+\section{Introduction}
+
+In machine learning, a lot of the standard learning methods we use require input data living  in some feature vector space. We will then do some work in that vector space that can again  be transcribed into some knowledge. These vector spaces can easily blow up in terms of  dimensionality which makes any sort of regression or classification efforts harder or even  impossible. However a lot of the times we can not readily describe our input data by explicit  feature vectors or it can be terribly expensive and complex. This is the case with text  document analysis as well as images and graphs to name a few.\\
+
+Instead of constructing these complex feature spaces we can use Kernel Methods. Kernel methods are based on a defined function, called the Kernel, that calculates the inner product (in some sense) between 2 data points in a higher dimensional space. This kernel thus gives us some idea of how related 2 data points are. In the case of text analysis, these methods are extremely convenient since the Kernel methods do not depend on the dimensionality of the feature space which can be gigantic for large documents. In their article Text Classification using String Kernels the authors proposed a certain Kernel for text sequences (which can be thought of as documents).  The idea behind the chosen  Kernel is to compare the documents by means of their (not necessarily contiguous) substrings. The substrings are weighted by their length so that shorter substrings are highly weighed. In this case the length to consider is not the number of letters in the substring but rather the  difference in their position in the document. To do that the authors introduce a decay factor. The kernel is therefore characterized by the decay factor as well as the number of  letters to consider in a substring.
+
+\subsection{Formal definition of ssk}
 
 MAYBE add some less formal text because they ask us to explain it so that our peers understand IDK???!!!?? DISCUSS
 
@@ -25,11 +31,35 @@ The kernel function then represents the inner product of the feature vectors for
 \begin{equation*}
     K_n(s,t)=\sum_{\mathclap{u\in\sum^n}}\langle\phi_u(s)\cdot\phi_u(t)\rangle=\sum\limits_{u\in\sum^n}\sum\limits_{i:u=s[i]}\lambda^{l(i)}\sum_{\mathclap{j:u=t[j]}}\lambda^{l(j)}=\sum\limits_{u\in\sum^n}\sum\limits_{i:u=s[i]}\sum\limits_{j:u=t[j]}\lambda^{l(i)+l(j)}
 \end{equation*}
-So, n is the length of common substrings between s and t. The \[\lambda\] is then the weight decay factor which controls how much the Kernel value is penalized for the substring not being continuous inside the string.\\
+So, n is the length of common substrings between s and t. The $\lambda$ is then the weight decay factor which controls how much the Kernel value is penalized for the substring not being continuous inside the string.\\
 
 \begin{equation*}
     K_i^{'}(s,t)=\sum\limits_{u\in\sum^n}\sum\limits_{i:u=s[i]}\sum\limits_{j:u=t[j]}\lambda^{|s|+|t|-i_1-j_1+2}   ,i=1,...,n-1
 \end{equation*}
+
+\section{Extensions}
+
+There have been proposed many different extensions to this kernel. One of them was proposed by (Seewald, A. and Kleedorfer, F., 2007). The proposed change was named lambda pruning and the resulting kernel is known as SSK-LP. Lambda-pruning is a simple approximation technique that is supposed to take far less memory than the original implementation as well as usually being several orders of magnitude faster.\\
+The pruning works by introducing a constant (theta) named the Maximum Lambda Exponent. By then constricting the combined length of the two subsequences being considered to being below the (theta) we can reduce the recursion by quite a lot and thus lower memory and computation time. What this does is it reduces strings of great lengths to 0 instead of increasingly small values since the value is calculated as the decay factor to the power of the combined length which tends to zero.\\
+Another method of doing analysis of text documents are Syntactic Tree Kernels (Collins and  Duffy, 2001) where trees encode grammatical derivations. The kernels work by counting the  number of subtrees shared by the input trees, the more subtrees shared the closer the documents are related. Both of these methods, the SSK and the STK compute similarities using the number of common features whether it is substrings or subtrees. This relies on having a relatively high number of common features between documents to work properly and therefore has limitations on smaller documents.  One Kernel that has been proposed to work on smaller documents is the Language Independent Semantic Kernel (LIS) (K. Kim et al., 2014). The aim of the researchers was to effectively calculate similarities between short  text-documents using both the syntactic and semantic features of the documents without having to rely on grammatical tags or lexical databases, making it language independent (K. Kim et al., 2014). One of the big advantages of not having to rely on lexical databases is that they are not at all readily available for most languages.  The LIS Kernel works in three steps: pattern extraction, semantic analysis and finally similarity computation. The authors discuss a few methods for pattern extraction but prefer one that is reliant on having a syntactic parse tree representation of the document with the other methods as fallback options if such a tree is not available. After pattern extraction they propose methods for semantic analysis on word-, document- and category bases which leads to definitions of three kernels for patterns. Finally they propose a kernel for similarity calculations which is a weighted linear combination of the three previously mentioned kernels. The basis behind this kernel is the thought that two patterns with similar semantics are likely to often co-occur in the same document and also appear with many common words in documents (K. Kim et al., 2014).\\
+In this short report we will try to implement the original SSK proposed by (Lodhi et al. 2002) and compare our results to that of the paper. We will also look into some possible changes to the kernel and their effects??????
+
+\section{Method}
+
+Our dopeass method was an approximation on how the actual kernel workz.
+We started out by writing the code that extracted the features from documents. Originally we did it as the paper does, looking at all substrings (both contiguous as well as non-contiguous) however we quickly ran into the problem of processing power and time management where just the feature extraction was taking way too long. We therefore decided to only consider contiguous strings of predetermined length k. Furthermore we chose to consider only the top m features of each document which would combined make up all of our features, as this would make calculations quicker in the following steps.
+We then went onwards to create our kernel matrix from our training data as follows:
+(I WROTE A GHETTO EXPLAINATIO IN LATEX)
+For each of our training document we counted the occurances of all of the features in the document and for the corresponding document we were calculating the kernel value for and multiplied their values by the count of the occurances times lambda to the power of the length of the substring which are both tweakable parameters. And summed all the values together which is the kernel value for those two documents.
+We then optimise
+Find support vectors
+Multiply the testing data/documents with the support vectors and by the values that we get from those caluclations predict what category of the two the kernel method was trained on the testing document belongs two
+Baddabing baddaboom mister worldwide when I step into the room
+
+\section{Discussion}
+
+We started discussing among ourselves how to discuss the discussion that was ahead of us to discuss
+To discuss or not to discuss that is the discussion
 
 
 \section{Results*}
