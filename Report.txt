@@ -14,9 +14,9 @@
 
 MAYBE add some less formal text because they ask us to explain it so that our peers understand IDK???!!!?? DISCUSS
 
-Formally, let s and t be string from the finite alphabet \[\sum\], where length of \[s=s_1...s_{|s|}\] is \[|s|\]. The sub-string \[s_i,...,s_j\] is denoted by \[s[i:j]\]. The target string u is a sub-sequence of s i.e \[u=s[i]\] if there exist indices \[i=(i_1,...,i_{|u|})\], which of course entails \[1 \leq i_1 <....<i_{|u|}\leq|s|\] i.e. the sub-string can't have indices outside of the "main" string. \[u_j=s_{i_{j}}\] for each character \[u_j in u\] which will be noted in the following fashion on-wards \[u=s[i]\]. The length l(i) of the subsequence in s is given by \[i_{|u|}-i_{i}+1\]. which stands for the number of characters the subsequence \[s[i]\] spans in the string s.\\
+Formally, let s and t be string from the finite alphabet $\sum$, where length of $s=s_1...s_{|s|}$ is $|s|$. The sub-string $s_i,...,s_j$ is denoted by $s[i:j]$. The target string u is a sub-sequence of s i.e $u=s[i]$ if there exist indices $i=(i_1,...,i_{|u|})$, which of course entails $1 \leq i_1 <....<i_{|u|}\leq|s|$ i.e. the sub-string can't have indices outside of the "main" string. $u_j=s_{i_{j}}$ for each character $u_j in u$ which will be noted in the following fashion on-wards $u=s[i]$. The length l(i) of the subsequence in s is given by $i_{|u|}-i_{i}+1$. which stands for the number of characters the subsequence $s[i]$ spans in the string s.\\
 
-The feature mapping for a string s in the paper is defined by giving the u coordinate for each \[u\in\sum\] as
+The feature mapping for a string s in the paper is defined by giving the u coordinate for each $u\in\sum$ as
 \begin{equation*}
     \phi_u(s)=\sum_{\mathclap{i:u=s[i]}}\lambda^{l(i)}
 \end{equation*}
