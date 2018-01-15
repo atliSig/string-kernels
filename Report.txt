@@ -56,6 +56,7 @@ Find support vectors
 Multiply the testing data/documents with the support vectors and by the values that we get from those caluclations predict what category of the two the kernel method was trained on the testing document belongs two
 Baddabing baddaboom mister worldwide when I step into the room
 
+
 \section{Discussion}
 
 We started discussing among ourselves how to discuss the discussion that was ahead of us to discuss
@@ -120,70 +121,6 @@ To discuss or not to discuss that is the discussion
    & WK  &   &   & &   & &   & \\ \hline
 \end{tabular}
 \end{table}
-
-
-\begin{table}[]
-\centering
-\caption{My caption}
-\label{my-label}
-\begin{tabular}{|l|r|r|r|r|r|r|r|r|}
-\hline
-\multicolumn{1}{|c|}{Category} & 
-\multicolumn{1}{c|}{Kernel} & 
-\multicolumn{1}{c|}{Length} & 
-\multicolumn{2}{c|}{F1} & 
-\multicolumn{2}{c|}{Precision} & 
-\multicolumn{2}{c|}{Recall}\\
-&
-\multicolumn{1}{l|}{} & 
-\multicolumn{1}{l|}{} & 
-\multicolumn{1}{l|}{Mean} & \multicolumn{1}{l|}{SD} & \multicolumn{1}{l|}{Mean} & \multicolumn{1}{l|}{SD} & \multicolumn{1}{l|}{Mean} & \multicolumn{1}{l|}{SD} \\ \hline
-\multirow{19}{*}{earn}   
-   & SSK & 3   &0.95156  & &0.96029 & &0.94300 &\\
-   &   & 4   &0.95464  & &0.96240 & &0.94700 &\\
-   &   & 5   &0.95257  & &0.96130 & &0.94400 &\\
-   &   & 6   &0.94769  & &0.96285 & &0.93300 &\\
-   &   & 7   &0.92794  & &0.91618 & &0.94000 &\\
-   &   & 8   &0.92278  & &0.90249 & &0.94400 &\\
-   &   & 10  &0.81887  & &0.83110 & &0.80700 &\\
-   &   & 12  &0.63055  & &0.65139 & &0.61100 &\\
-   &   & 14  &0.57585  & &0.59488 & &0.55800 &\\ \cline{2-9} 
-   & NGK & 3   &   & &   & &   & \\
-   &   & 4   &   & &   & &   & \\
-   &   & 5   &   & &   & &   & \\
-   &   & 6   &   & &   & &   & \\
-   &   & 7   &   & &   & &   & \\
-   &   & 8   &   & &   & &   & \\
-   &   & 10  &   & &   & &   & \\
-   &   & 12  &   & &   & &   & \\
-   &   & 14  &   & &   & &   & \\ \cline{2-9} 
-   & WK  &   &   & &   & &   & \\ \hline
-\multirow{19}{*}{acq}    
-   & SSK & 3 &0.93407   & &0.92266   & &0.94576   & \\
-   &   & 4   &0.93810   & &0.92789   & &0.94854   & \\
-   &   & 5   &0.93544   & &0.92402   & &0.94715   & \\
-   &   & 6   &0.92988   & &0.91067   & &0.94993   & \\
-   &   & 7   &0.89660   & &0.91342   & &0.88039   & \\
-   &   & 8   &0.88649   & &0.91679   & &0.85814   & \\
-   &   & 10  &0.75665   & &0.74198   & &0.77191   & \\
-   &   & 12  &0.52267   & &0.50192   & &0.54520   & \\
-   &   & 14  &0.45200   & &0.43406   & &0.47149   & \\ \cline{2-9} 
-   & NGK & 3   &   & &   & &   & \\
-   &   & 4   &   & &   & &   & \\
-   &   & 5   &   & &   & &   & \\
-   &   & 6   &   & &   & &   & \\
-   &   & 7   &   & &   & &   & \\
-   &   & 8   &   & &   & &   & \\
-   &   & 10  &   & &   & &   & \\
-   &   & 12  &   & &   & &   & \\
-   &   & 14  &   & &   & &   & \\ \cline{2-9} 
-   & WK  &   &   & &   & &   & \\ \hline
-\end{tabular}
-\end{table}
-
-
-
-
 
 \begin{table}[]
 \centering
