@@ -136,21 +136,6 @@ class SSK:
         for i in self.cat_b_testing[:cat_b_tst_c]:
             self.testing_list.append(Document(self.cat_b, i, self.max_features, self.k, -1))
 
-            '''self.training_list = [[self.cat_a, i, -1] for i in
-                                  range(self.cat_a_tr_c)] + [[self.cat_b, i, 1] for i in range(self.cat_b_tr_c)]
-
-            self.testing_list = [[self.cat_a, i, -1]
-                                 for i in range(self.cat_a_tr_c + 1, self.cat_a_tr_c + self.cat_a_tst_c + 1)] + \
-                [[self.cat_b, i, 1] for i in
-                 range(self.cat_b_tr_c + 1, self.cat_b_tr_c + self.cat_b_tst_c + 1)]
-            '''
-            #training_list_a = list(filter(lambda doc: doc.startswith("train"), self.docs_a))[:self.cat_a_tr_c]
-            #training_list_b = list(filter(lambda doc: doc.startswith("train"), self.docs_b))[:self.cat_a_tr_c]
-            #testing_list_a = list(filter(lambda doc: doc.startswith("test"), self.docs_a))[:self.cat_b_tst_c]
-            #testing_list_b = list(filter(lambda doc: doc.startswith("test"), self.docs_b))[:self.cat_b_tst_c]
-            #self.training_list = training_list_a + training_list_b
-            #self.testing_list = testing_list_a + testing_list_b
-
         self.kernel_matrix = np.zeros([cat_a_tr_c+cat_b_tr_c, cat_a_tr_c+cat_b_tr_c])
         self.top_feature_list = set()
         self.seed = seed
@@ -298,14 +283,14 @@ class SSK:
         return "i'm a SSK!"
 
 if __name__ == '__main__':
-    cat_a = input("Name of category A (default corn): ") or "corn"
-    cat_b = input("Name of category B (default earn): ") or "earn"
-    cat_a_tr_c = int(input("Number of training samples from category A (default 10): ") or 10)
-    cat_b_tr_c = int(input("Number of training samples from category B (default 10): ") or 10)
-    cat_a_tst_c = int(input("Number of testing samples from category A (default 10): ") or 10)
-    cat_b_tst_c = int(input("Number of testing samples from category B (default 10): ") or 10)
+    cat_a = input("Name of category A (default earn): ") or "earn"
+    cat_b = input("Name of category B (default acq): ") or "acq"
+    cat_a_tr_c = int(input("Number of training samples from category A (default 152): ") or 152)
+    cat_b_tr_c = int(input("Number of training samples from category B (default 114): ") or 114)
+    cat_a_tst_c = int(input("Number of testing samples from category A (default 40): ") or 40)
+    cat_b_tst_c = int(input("Number of testing samples from category B (default 25): ") or 25)
     lamda = float(input("Lambda value (1.0): ") or 1)
-    max_features = int(input("Number of features (default 10): ") or 10)
+    max_features = int(input("Number of features (default 30): ") or 30)
     feature_it = input("number of different length of features (default [3,4,5,6,7,8,10,12,14]): ") or [3,4,5,6,7,8,10,12,14]
     avg_it = int(input("number of iterations (default 10): ") or 10)
     output_labels = ['precision_a', 'f1_a', 'recall_a', 'precision_b', 'f1_b', 'recall_b']
@@ -315,24 +300,22 @@ if __name__ == '__main__':
     for idx_feat, feat, in enumerate(feature_it):
         outputs = []
         outer_loop_time = time.time()
-        ssk = SSK(cat_a, cat_b, max_features, feat, lamda, cat_a_tr_c,
-                  cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it)
-        ssk.set_matrix()
         for j in range(avg_it):
+            ssk = SSK(cat_a, cat_b, max_features, feat, lamda, cat_a_tr_c,
+                      cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it)
+            ssk.set_matrix()
             print("run for length of feature: ", feat)
             time_init = time.time()
             time_secondary = time.time()
             print("Feature fetching (sec): ", time.time()-time_init)
             ssk.predict()
             print("Prediction (sec): ", time.time()-time_secondary)
-            #ssk.print_kernel()
             ssk.set_results(verbose=False)
             outputs.append([ssk.get_results(verbose=False),ssk.k, ssk.max_features])
         print(" ")
         print("Here come the results: ")
         for i in range(len(output_labels)):
             curr = [c[0][i] for c in outputs]
-            result_matrix[idx_feat,]
             print("average for "+ output_labels[i] + ": "  + str(np.average(curr)))
             print("STD: " + str(np.std(curr)))
         print("Total time for the current feature: ", time.time()-outer_loop_time)
