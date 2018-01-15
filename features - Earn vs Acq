@@ -1,0 +1,349 @@
+Name of category A (default earn):
+Name of category B (default acq):
+Number of training samples from category A (default 152): 5
+Number of training samples from category B (default 114): 5
+Number of testing samples from category A (default 40): 1
+Number of testing samples from category B (default 25): 1
+Lambda value (default 1.0):
+Threshold value (default 0.00001):
+Number of features (default 30):
+number of different length of features (default [3,..,8,10,12,14]):
+number of iterations (default 10): 1
+Print updates ([True,False], default: False): True
+Starting creation of SSK
+earn
+['er ', ' sa', 'rs ', 'ter', ' qu', 'art', 'qua', 'rte', 'ear', 'uar']
+
+earn
+['ne ', 'd t', 'ed ', 'are', 'one', 'sha', 'e s', ' sh', 'har', 're ']
+
+earn
+['vs ', 'ofi', 'pro', 'fit', 'it ', ' vs', 'rof', ' pr', ' ml', 'ln ']
+
+earn
+['198', ' 19', 'vs ', '000', ' sh', ' ct', '00 ', ' 00', 'ts ', '85 ']
+
+earn
+['000', '00 ', ' 00', 'vs ', ' vs', 'pro', 'ts ', 'cts', ' pr', 'oss']
+
+acq
+[' co', 'com', 'ter', 'omp', ' te', 'al ', 'nal', ' sa', 'er ', 'ina']
+
+acq
+['com', 'al ', 'via', 'ed ', 'nal', ' vi', 'ts ', 'aco', ' in', 'tio']
+
+acq
+['er ', 'le ', 'pan', 'jap', ' ja', ' ca', 'ss ', 'ele', 'ess', 'apa']
+
+acq
+['ld ', ' sa', 'omp', ' in', ' co', 'com', 'gou', 'uld', 'ter', 'oul']
+
+acq
+[' ba', 'ban', 'st ', 'ank', 'irs', 'fir', ' fi', 'rst', 'sco', 'wis']
+
+earn
+['are', 'sha', ' sh', 'har', 'ed ', 'es ', ' ma', 'ati', 've ', 'ama']
+
+acq
+['es ', 'ed ', 'ing', 'ng ', 'mit', ' ba', ' su', 'ban', 'umi', 'id ']
+
+Done with ssk.set_matrix()
+run for length of feature:  3
+Feature fetching (sec):  1.4468369483947754
+Prediction (sec):  0.012653112411499023
+Results for iteration: 0, for feature length: 3
+[1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+Starting creation of SSK
+earn
+[' qua', 'quar', 'ter ', 'rter', 'uart', 'arte', 'ers ', 'oger', ' sai', 'roge']
+
+earn
+['hare', 'one ', ' sha', 'shar', 'land', 'prov', ' app', ' spl', 'lit ', 'elep']
+
+earn
+[' pro', ' vs ', 'rofi', 'prof', 'ofit', 'fit ', 'vs p', 'mln ', ' mln', 'net ']
+
+earn
+[' 198', ' 000', '000 ', ' yea', ' vs ', '1985', 'cts ', ' cts', 'ear ', 'year']
+
+earn
+[' 000', '000 ', ' vs ', ' pro', 'cts ', 'oss ', 'rofi', '0 vs', ' los', ' cts']
+
+acq
+[' com', 'comp', 'nal ', 'ter ', 'pute', ' ter', 'ermi', 'mina', 'ompu', 'said']
+
+acq
+['nal ', ' via', 'com ', 'viac', 'acom', 'tion', 'iaco', 'atio', 'iona', 'onal']
+
+acq
+['ess ', 'japa', 'apan', ' jap', 'ing ', 'ble ', 'able', 'ese ', ' mar', 'ent ']
+
+acq
+['goul', ' com', 'comp', 'uld ', 'ould', ' inc', 'd co', 'e fr', ' gou', 'le f']
+
+acq
+[' ban', 'rst ', 'bank', 'irst', 'firs', 'ard ', 'hela', ' fir', ' wis', 'nsin']
+
+earn
+['hare', ' sha', 'shar', 'issu', 'ssue', 'til ', 'hold', 'amat', 'said', ' iss']
+
+acq
+['ing ', ' ban', 'sumi', 'aid ', 'bank', 'mito', 'itom', 'umit', 'said', ' sum']
+
+Done with ssk.set_matrix()
+run for length of feature:  4
+Feature fetching (sec):  0.34876012802124023
+Prediction (sec):  0.0013301372528076172
+Results for iteration: 0, for feature length: 4
+[1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+Starting creation of SSK
+earn
+['quart', 'uarte', ' quar', 'rter ', 'arter', ' said', 'gers ', 'roger', 'ogers', 'said ']
+
+earn
+[' shar', 'share', 'ephon', 'eleph', 'd tel', 'oved ', 'appro', 'plit ', ' spli', 'pprov']
+
+earn
+['rofit', 'profi', 'ofit ', ' prof', 's pro', ' vs p', 'vs pr', ' net ', ' mln ', 'fit 1']
+
+earn
+[' 000 ', ' 1985', ' year', 'year ', ' cts ', 'ar en', '0 dlr', '985 y', '000 d', '1985 ']
+
+earn
+[' 000 ', 'rofit', 'profi', 'loss ', 'ofit ', '00 vs', '000 v', '0 vs ', ' loss', ' prof']
+
+acq
+[' comp', ' said', 'mpute', 'termi', 'uter ', 'ermin', 'omput', 'minal', 'compu', 'rmina']
+
+acq
+['iacom', ' viac', 'viaco', 'acom ', 'onal ', 'ation', 'ional', 'tiona', 'natio', 'al am']
+
+acq
+[' japa', 'japan', 'able ', 'panes', 'apane', 'nese ', 'anese', 'wirel', 'irele', 'atche']
+
+acq
+['ould ', ' comp', 'gould', 'd com', ' goul', ' said', 'ale f', 'elect', 'lectr', ' inc ']
+
+acq
+['first', ' bank', 'irst ', ' said', ' wisc', 'wisco', 'nsin ', 'st wi', 'elard', 'helar']
+
+earn
+[' shar', 'share', ' said', 'ssue ', 'issue', 'atil ', 'matil', 'amati', ' issu', 'said ']
+
+acq
+[' bank', 'tomo ', ' sumi', 'sumit', 'mitom', 'said ', 'umito', ' said', 'itomo', 'bank ']
+
+Done with ssk.set_matrix()
+run for length of feature:  5
+Feature fetching (sec):  0.36293625831604004
+Prediction (sec):  0.0010399818420410156
+Results for iteration: 0, for feature length: 5
+[1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+Starting creation of SSK
+earn
+[' quart', 'uarter', 'arter ', 'quarte', 'ogers ', 'rogers', ' roger', ' said ', 'ifican', ' signi']
+
+earn
+[' share', 'e spli', 'roved ', 'approv', 'lephon', 'and te', 'island', 'share ', 're spl', 'nd tel']
+
+earn
+[' profi', 'profit', 'rofit ', 's prof', ' vs pr', 'vs pro', ' year ', 'ofit 1', 'ts net', 'fit 19']
+
+earn
+[' year ', ' 1985 ', 'year e', '1985 y', ' 000 d', 'ear en', 'ar end', 'share ', '4 000 ', ' share']
+
+earn
+[' 000 v', ' loss ', ' profi', '00 vs ', 'profit', '000 vs', 'rofit ', '1 000 ', 'ts net', '00 sal']
+
+acq
+['rminal', 'puter ', 'ermina', 'termin', 'comput', 'mputer', ' termi', 'ompute', ' said ', 'r term']
+
+acq
+[' viaco', 'iacom ', 'viacom', 'ional ', 'tional', 'nation', 'ationa', 'nal am', 'l amus', 'museme']
+
+acq
+[' japan', 'japane', 'anese ', 'panese', 'apanes', 'ireles', 'hatche', 'le wir', ' thatc', 'thatch']
+
+acq
+['gould ', 'd comp', ' gould', 'h batt', 'ench b', ' elect', 'nch ba', 'usines', 'ch bat', 'busine']
+
+acq
+['first ', 'wiscon', 'sconsi', 'irst w', 't wisc', 'consin', 'shelar', ' shela', 'st wis', ' said ']
+
+earn
+[' share', 'issue ', 'matil ', 'amatil', ' said ', ' issue', 'shares', 'propos', 'five b', 'poses ']
+
+acq
+['mitomo', 'umitom', 'itomo ', 'sumito', ' sumit', ' said ', ' bank ', 'ities ', 'curiti', ' busin']
+
+Done with ssk.set_matrix()
+run for length of feature:  6
+Feature fetching (sec):  0.36014580726623535
+Prediction (sec):  0.0012888908386230469
+Results for iteration: 0, for feature length: 6
+[1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+Starting creation of SSK
+earn
+['uarter ', ' quarte', 'quarter', 'rogers ', ' rogers', 'evenues', ' revenu', 'irst qu', 'rnings ', 'ogers s']
+
+earn
+['plit ap', 'it appr', 'e split', 't appro', 'telepho', ' share ', 'nd tele', 'elephon', 'approve', 'd telep']
+
+earn
+[' profit', 'profit ', 'vs prof', ' vs pro', 's profi', 'rofit 1', 'ear net', 'cts net', ' year n', 'ofit 19']
+
+earn
+[' 000 dl', '1985 ye', ' share ', 'year en', ' year e', '985 yea', 'ear end', 'ar ende', '000 dlr', '85 year']
+
+earn
+[' 000 vs', ' profit', 'profit ', '000 vs ', '1 000 v', 'vs prof', ' vs pro', '0 sales', ' sales ', ' produc']
+
+acq
+['termina', 'erminal', 'compute', ' termin', 'mputer ', 'omputer', 'rminal ', 'ter ter', ' comput', 'puter t']
+
+acq
+['viacom ', ' viacom', 'ational', 'tional ', 'nationa', 'nal amu', 'onal am', 'l amuse', 'musemen', 'usement']
+
+acq
+['japanes', 'apanese', 'panese ', ' japane', 'ireless', 'le wire', ' wirele', 'e wirel', 'thatche', 'reless ']
+
+acq
+[' gould ', 'battery', 'nch bat', 'h batte', 'omplete', 'ch batt', 'ench ba', 'usiness', 'rench b', 'le fren']
+
+acq
+['first w', 'sconsin', ' wiscon', 'irst wi', ' shelar', 't wisco', 'isconsi', ' first ', 'rst wis', 'wiscons']
+
+earn
+['amatil ', ' issue ', ' shareh', 'eholder', 'five bo', ' amatil', 'e issue', 'roposes', 'holders', 's share']
+
+acq
+['sumitom', 'mitomo ', 'umitomo', ' sumito', 'rities ', 'busines', 'ecuriti', ' busine', ' komats', 'usiness']
+
+Done with ssk.set_matrix()
+run for length of feature:  7
+Feature fetching (sec):  0.3394768238067627
+Prediction (sec):  0.0010409355163574219
+Results for iteration: 0, for feature length: 7
+[1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+Starting creation of SSK
+earn
+['quarter ', ' quarter', ' rogers ', 'earnings', 'ogers sa', 'r rogers', 'arnings ', 'ficantly', 'evenues ', 'ter roge']
+
+earn
+[' telepho', 'elephone', 'share sp', 'are spli', 'lephone ', 'pproved ', 'nd telep', 'sland te', 'approved', 'd teleph']
+
+earn
+[' profit ', 's profit', ' vs prof', 'vs profi', 'profit 1', ' cts net', ' mln vs ', 'rofit 19', 'ear net ', ' year ne']
+
+earn
+['85 year ', '985 year', 'r ended ', 'year end', ' 1985 ye', 'ar ended', 'ear ende', '000 dlrs', ' year en', '00 dlrs ']
+
+earn
+[' 000 vs ', ' profit ', '1 000 vs', '00 sales', 'y produc', '000 sale', 'ursery p', 's profit', 'profit 1', 'american']
+
+acq
+['terminal', 'omputer ', 'computer', ' termina', 'r termin', 'ter term', 'er termi', 'erminal ', ' compute', 'mputer t']
+
+acq
+[' viacom ', 'national', 'ational ', 'l amusem', 'nal amus', 'amusemen', 'musement', 'onal amu', ' amuseme', 'sements ']
+
+acq
+[' japanes', 'japanese', 'apanese ', 'le wirel', ' thatche', 'ireless ', 'thatcher', 'able wir', 'wireless', ' wireles']
+
+acq
+['battery ', 'e french', ' busines', 'sale fre', 'ch batte', 'nch batt', 'ench bat', ' electro', 'french b', 'ale fren']
+
+acq
+[' wiscons', ' shelard', 'sconsin ', 'shelard ', 'irst wis', 'rst wisc', 't wiscon', 'first wi', 'wisconsi', 'isconsin']
+
+earn
+[' two fiv', 'roposes ', ' shares ', ' capital', ' five bo', ' propose', 'o five b', 'ive bonu', 'eholders', 'reholder']
+
+acq
+['umitomo ', 'sumitomo', ' sumitom', 'komatsu ', 'ecuritie', ' busines', 'urities ', 'curities', 'business', ' securit']
+
+Done with ssk.set_matrix()
+run for length of feature:  8
+Feature fetching (sec):  0.37468695640563965
+Prediction (sec):  0.0010399818420410156
+Results for iteration: 0, for feature length: 8
+[1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+Starting creation of SSK
+earn
+[' revenues ', ' earnings ', 'rter roger', ' significa', 'ogers said', 'ificantly ', 'rogers sai', 'nificantly', 'quarter ro', ' quarter r']
+
+earn
+['split appr', 'and teleph', 'sland tele', 'telephone ', 'share spli', 'd telephon', 'it approve', ' split app', 'plit appro', ' telephone']
+
+earn
+['vs profit ', ' vs profit', ' profit 19', ' year net ', 'it 19 cts ', 'ts net los', 'tinued ope', 's 47 5 mln', 'ech inc lt', 't loss 3 1']
+
+earn
+['ear ended ', ' 000 dlrs ', 'year ended', ' 1985 year', '1985 year ', ' year ende', ' lt shu ye', 'tinued ope', 'tions 1985', ' respectiv']
+
+earn
+['american n', 'ican nurse', 'nursery pr', 'vs profit ', 'y products', 'an nursery', ' 000 sales', 'ery produc', 'merican nu', 'rican nurs']
+
+acq
+['ter termin', 'mputer ter', 'r terminal', 'uter termi', 'omputer te', 'computer t', ' terminal ', 'er termina', 'puter term', ' computer ']
+
+acq
+['l amusemen', ' amusement', 'al amuseme', 'musements ', 'ational am', 'national a', 'tional amu', 'nal amusem', 'ional amus', 'onal amuse']
+
+acq
+[' japanese ', ' thatcher ', 'able wirel', ' wireless ', 'e wireless', 'ble wirele', 'cable wire', 'le wireles', ' cable wir', ' telecommu']
+
+acq
+['nch batter', 'ale french', 'e french b', ' french ba', 'rench batt', 'd complete', 'sale frenc', 'le french ', 'french bat', 'ch battery']
+
+acq
+['st wiscons', 'wisconsin ', ' wisconsin', 'irst wisco', 'rst wiscon', 'first wisc', 't wisconsi', ' first wis', 'banks tota', 'id shelard']
+
+earn
+['reholders ', ' two five ', ' five bonu', 'ive bonus ', 'wo five bo', 'o five bon', ' proposes ', 'two five b', 'shareholde', ' sharehold']
+
+acq
+[' sumitomo ', 'ecurities ', 'securities', ' securitie', ' business ', 'komatsu sa', 'atsu said ', 'omatsu sai', 'matsu said', ' komatsu s']
+
+Done with ssk.set_matrix()
+run for length of feature:  10
+Feature fetching (sec):  0.38040804862976074
+Prediction (sec):  0.0016219615936279297
+Results for iteration: 0, for feature length: 10
+[1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+Starting creation of SSK
+earn
+['irst quarter', ' quarter rog', 'r rogers sai', 'significantl', 'ter rogers s', 'uarter roger', 'rter rogers ', 'ignificantly', ' first quart', ' rogers said']
+
+earn
+['island telep', 'nd telephone', 'e split appr', 'plit approve', ' split appro', 'land telepho', 'split approv', 'share split ', 'it approved ', 'are split ap']
+
+earn
+['02 vs profit', '75 vs profit', 's profit 284', 'qtec year ne', 'ear net shr ', 'shr loss nil', ' 202 vs prof', ' mln note cu', ' net loss 3 ', 'n year shr p']
+
+earn
+[' year ended ', ' revs 142 4 ', '000 dlrs eig', 'lt shu year ', 'e 1986 1985 ', 'udes loss 78', '94 000 revs ', 'et 5 524 000', 'ne ct share ', 'share respec']
+
+earn
+['ursery produ', 'rican nurser', ' nursery pro', 'erican nurse', 'an nursery p', 'ican nursery', 'rsery produc', 'american nur', 'merican nurs', 'n nursery pr']
+
+acq
+['uter termina', 'er terminal ', 'puter termin', 'computer ter', 'omputer term', 'mputer termi', 'ter terminal', ' computer te', 'r terminal s', 'company said']
+
+acq
+['nal amusemen', 'ional amusem', 'ational amus', 'al amusement', 'onal amuseme', 'national amu', 'l amusements', ' amusements ', 'tional amuse', ' national am']
+
+acq
+[' cable wirel', 'able wireles', 'ble wireless', 'le wireless ', 'cable wirele', 'mmunications', 'telecommunic', 'ecommunicati', 'ommunication', 'elecommunica']
+
+acq
+['rench batter', ' sale french', ' french batt', 'ench battery', 'le french ba', 'french batte', 'ale french b', 'e french bat', 'nch battery ', 'sale french ']
+
+acq
+['irst wiscons', 'st wisconsin', 'rst wisconsi', 'first wiscon', 't wisconsin ', ' first wisco', 'aid shelard ', ' minnesota b', 'said shelard', ' bank first ']
+
+earn
+[' shareholder', 'wo five bonu', 'o five bonus', 'shareholders', 'hareholders ', 'two five bon', ' two five bo', ' five bonus ', 'uthorised ca', 'tion reserve']
+
+acq
+[' securities ', 'omatsu said ', 'komatsu said', ' komatsu sai', 'es business ', 'ties busines', 'ities busine', 'rities busin', 'urities busi', 'securities b']
