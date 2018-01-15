@@ -3,15 +3,12 @@ import re
 import random
 import sys
 import time
-from math import sqrt
 import numpy as np
-import pandas as pd
 from nltk.corpus import reuters, stopwords
-from math import sqrt
 from cvxopt.solvers import qp
-import cvxopt.solvers as cvxSolver
+import cvxopt.solvers as cvx_solver
 from cvxopt import matrix
-cvxSolver.options['show_progress'] = False
+cvx_solver.options['show_progress'] = False
 
 class Document:
     '''A class for a document from the Reuters data-set'''
@@ -81,7 +78,7 @@ class Document:
 
 class SSK:
     '''A class for a lazy SSK implementation'''
-    def __init__(self, cat_a, cat_b, max_features, k, lamda, cat_a_tr_c=0, cat_a_tst_c=0, 
+    def __init__(self, cat_a, cat_b, max_features, k, lamda, cat_a_tr_c=0, cat_a_tst_c=0,
         cat_b_tr_c=0, cat_b_tst_c=0, avg_it=5, threshold=10**-5, seed=None):
         '''
             :param cat_a: A category index for the Reuters data-set
@@ -172,7 +169,7 @@ class SSK:
         for i in range(len(self.training_list)):
             for j in range(len(self.training_list)):
                 self.kernel_matrix[i, j] = self.kernel_matrix[i, j]/\
-                sqrt(self.kernel_matrix[i, i]*self.kernel_matrix[j, j])
+                np.sqrt(self.kernel_matrix[i, i]*self.kernel_matrix[j, j])
 
     def predict(self):
         '''Based on the kernel, make predictions using cvxopt.qp'''
@@ -223,7 +220,8 @@ class SSK:
                 b = label of the document
                 c = the document of a support vector
         '''
-        return np.sum([a[1] * self.label[a[0].category] * self.calc_kernel(a[0], doc) for a in self.alpha_list])
+        return np.sum([a[1] * self.label[a[0].category] *\
+            self.calc_kernel(a[0], doc) for a in self.alpha_list])
 
     def set_results(self, verbose=True):
         '''Print results for this Kernel'''
@@ -279,7 +277,7 @@ class SSK:
 
 
     def __repr__(self):
-        return "i'm a SSK!"
+        return 
 
 if __name__ == '__main__':
     cat_a = input("Name of category A (default earn): ") or "earn"
@@ -292,7 +290,7 @@ if __name__ == '__main__':
     threshold = float(input("Threshold value (default 0.00001):") or 10**-5)
     max_features = int(input("Number of features (default 30): ") or 30)
     feature_it = input("number of different length of features (default [3,..,8,10,12,14]): ")\
-        or [3,4,5,6,7,8,10,12,14]
+        or [3, 4, 5, 6, 7, 8, 10, 12, 14]
     avg_it = int(input("number of iterations (default 10): ") or 10)
     verbose_time = bool(input("Print updates ([True,False], default: False): ") or False)
     output_labels = ['precision_a', 'f1_a', 'recall_a', 'precision_b', 'f1_b', 'recall_b']
@@ -306,22 +304,26 @@ if __name__ == '__main__':
         outputs = []
         outer_loop_time = time.time()
         for j in range(avg_it):
+            time_init = time.time()
+            print("Starting creation of SSK")
             ssk = SSK(cat_a, cat_b, max_features, feat, lamda, cat_a_tr_c,
                       cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it, threshold)
             ssk.set_matrix()
-            if verbose_time: 
+            print("Done with ssk.set_matrix()")
+            if verbose_time:
                 print("run for length of feature: ", feat)
-                time_init = time.time()
                 time_secondary = time.time()
                 print("Feature fetching (sec): ", time.time()-time_init)
             ssk.predict()
             if verbose_time:
                 print("Prediction (sec): ", time.time()-time_secondary)
             ssk.set_results(verbose=False)
+            print("Results for iteration: "+ str(j) +", for feature length: " +str(feat))
+            print(ssk.get_results(verbose=False))
             outputs.append(ssk.get_results(verbose=False))
 
-        avg_list =  [np.average([c[i] for c in outputs]) for i in range(len(output_labels))]
-        std_list =  [np.std([c[i] for c in outputs]) for i in range(len(output_labels))]
+        avg_list = [np.average([c[i] for c in outputs]) for i in range(len(output_labels))]
+        std_list = [np.std([c[i] for c in outputs]) for i in range(len(output_labels))]
         out = []
         for i in range(len(avg_list)):
             out.append(avg_list[i])
@@ -332,6 +334,3 @@ if __name__ == '__main__':
     print(len(feature_it))
     with open('out.txt','wb') as f:
         np.savetxt(f, result_matrix, fmt='%.5f')
-
-
-
