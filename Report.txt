@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{mathtools}
+\usepackage{comment}
 
 \title{Group Project}
 \author{bjartur}
@@ -8,7 +9,6 @@
 
 \begin{document}
 
-\maketitle
 
 \section{Introduction}
 
@@ -58,9 +58,26 @@ Baddabing baddaboom mister worldwide when I step into the room
 
 
 \section{Discussion}
+%\begin{comment}
+\begin{figure}[h]
+\centering
+\begin{tabular}{ccc}
+\includegraphics[width=40mm]{precision.png} 
+& \includegraphics[width=40mm]{recall.png}
+& \includegraphics[width=40mm]{f1.png}\\
+(a) precision & (b) recall & (c) f1-score
+\end{tabular}
+%\caption{The posterior over $\vec{W}$ and samples from it for 1-4 points from the data-set} \label{fig-5}
+\end{figure}
+%\end{comment}
 
-We started discussing among ourselves how to discuss the discussion that was ahead of us to discuss
-To discuss or not to discuss that is the discussion
+
+We can clearly see from the results that there is a clear distinction between the precision for the \textit{corn} dataset and the other three. \textit{Earn, acquisition} and \textit{crude} all show the same trend of being fairly stable for feature lengths going from 3 up to 8 but a precision drop with higher number of features although different in how steep the drop is. \textit{Corn} however has lower precision for lower feature lengths. There is also a visible drop for $k=7,\, \text{and} \, 8$ but an increase again for $k=10$ which is a behaviour not seen in the other 3 datasets. We made the casual observation that many of the \textit{corn} articles included statistical data which resulted in features that may not represent the category very well. We think this could count towards the lower precision of \textit{corn}. 
+The lowered precision with higher k is likely a result of the features becoming more closely linked to each article instead of capturing the features that would be common across articles in the category. 
+The lower precision for \textit{corn} is in line with the findings of the original paper. 
+
+If we compare our results to the original paper we notice that they seem to have greater precision for higher feature lengths. We postulate that this is caused by our approximation of having non-contiguous strings of a fixed length. Similar trends are seen for the recall and f1-score for comparable trends. 
+
 
 
 \begin{table}[]
@@ -180,6 +197,5 @@ To discuss or not to discuss that is the discussion
    & WK  &   &   & &   & &   & \\ \hline
 \end{tabular}
 \end{table}
-
 
 \end{document}
