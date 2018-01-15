@@ -164,15 +164,6 @@ class SSK:
         #Normalizing results in rank issues with cvxopt.qp
         #self.normalize_kernel()
 
-    def calc_kernel(self, doc_1, doc_2):
-        '''Calculates the kernel matrix value for K[i,j]'''
-        total = 0
-        for feature in self.top_feature_list:
-            l = doc_1.clean_data.count(feature)
-            j = doc_2.clean_data.count(feature)
-            total += l*j*self.lamda**(2*self.k)
-        return total
-
     def normalize_kernel(self):
         '''Frobenius-Normalization of the kernel'''
         for i in range(len(self.training_list)):
@@ -205,11 +196,20 @@ class SSK:
             Returns a list of tuples where each tuple contains
             a document and the corresponding alpha value
         '''
-        return [[training_docs[idx], al_el] for idx,al_el in enumerate(alpha) if al_el > self.threshold]
+        self.alpha_list = [[training_docs[idx], al_el] for idx,al_el in enumerate(alpha) if al_el > self.threshold]
 
     def get_alpha(self):
         '''Gets the list of support vectors'''
         return self.alpha_list
+    
+    def calc_kernel(self, doc_1, doc_2):
+        '''Calculates the kernel matrix value for K[i,j]'''
+        total = 0
+        for feature in self.top_feature_list:
+            l = doc_1.clean_data.count(feature)
+            j = doc_2.clean_data.count(feature)
+            total += l*j*self.lamda**(2*self.k)
+        return total
 
     def ind(self, doc):
         '''
@@ -228,7 +228,6 @@ class SSK:
         a_tp = a_tn = a_fp = a_fn = b_tp = b_tn = b_fp = b_fn = 0
         for doc in self.testing_list:
             estimate = self.ind(doc)
-            print(estimate)
             #check for true/false positives/negatives for each class
             if doc.category == self.cat_a:
                 if estimate > 0:
