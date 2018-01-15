@@ -1,0 +1,1958 @@
+Name of category A (default earn): crude
+Name of category B (default acq): corn
+Number of training samples from category A (default 152): 5
+Number of training samples from category B (default 114): 5
+Number of testing samples from category A (default 40): 30
+Number of testing samples from category B (default 25): 30
+Lambda value (default 1.0):
+Threshold value (default 0.00001):
+Number of features (default 30):
+number of different length of features (default [3,..,8,10,12,14]):
+number of iterations (default 10): 1
+Print updates ([True,False], default: False): False
+Starting creation of SSK
+crude
+[' pc', 'ct ', ' cu', 'ic ', 'n c', ' me', 'pct', 'bic', 'ubi', 'cub']
+
+crude
+['id ', ' co', ' sa', 'on ', 'aid', 'bp ', 'ed ', 'sai', 'es ', 'er ']
+
+crude
+['id ', ' st', ' sa', 'sai', 'aid', 'es ', 'il ', 'rs ', 'er ', 'oil']
+
+crude
+['ed ', ' sa', ' co', 'ck ', 'id ', 'usx', 'sai', 'sx ', 'aid', 'der']
+
+crude
+[' sh', 'ed ', 'she', 'rs ', 'er ', 's s', 'id ', 'll ', 'sha', 'har']
+
+corn
+['es ', ' to', 'nt ', '87 ', '/ 8', ' / ', ' se', ' de', 'on ', ' sa']
+
+corn
+['ed ', 'fer', ' cp', 'ruz', 'pc ', 'ng ', 'lt ', 'zi ', 'cpc', 'rru']
+
+corn
+['men', 'ent', ' u ', 'es ', ' to', ' us', 'nne', 'ed ', 'gra', 'ain']
+
+corn
+['es ', ' sa', '00 ', 'ale', 'wee', 'eek', 'les', 'ek ', ' we', 'ton']
+
+corn
+[' to', 'er ', 'nne', 'onn', 'ton', ' de', 'ber', 'mbe', 'emb', ' 00']
+
+crude
+['erg', ' en', 'ene', ' de', 'rgy', 'ner', 'gy ', 'ed ', 'al ', 'ng ']
+
+crude
+['ed ', 'che', 'ica', 'ng ', 'cal', 'hem', 'mic', 'emi', 'ing', 'al ']
+
+crude
+['ed ', ' co', 'ate', 'ent', 'al ', 'tur', 'ter', ' tu', 'con', 'y s']
+
+crude
+['ira', ' ir', 'ed ', 'ran', 'raq', ' sa', 'aid', 'ian', 'sai', 'nia']
+
+crude
+['ed ', 'ion', 'on ', ' sa', 'as ', ' re', 'es ', 'rs ', ' co', 'uni']
+
+crude
+[' ir', 'an ', 'ed ', 'ran', 'ira', ' re', 'oil', 'on ', ' oi', 'ini']
+
+crude
+['al ', 'nat', 'as ', ' ga', ' pr', 'gas', 'ed ', 'ric', 'l g', 'ons']
+
+crude
+['00 ', 'gas', '0 0', 'rud', 'ill', ' 20', '000', 's d', 'ne ', '3 m']
+
+crude
+[' st', ' ba', 'sto', 'rre', 'arr', 'ln ', 'els', 'ls ', ' ml', 'mln']
+
+crude
+['ln ', ' ml', 'mln', ' pc', 'pct', 'ct ', 'bpd', 'pd ', ' de', 'n b']
+
+crude
+['ed ', 'rs ', ' tr', 'es ', 'tra', ' fu', 'rad', 'utu', 'ay ', 'tur']
+
+crude
+['il ', 'oil', ' oi', ' li', ' de', 'ati', 'id ', 'tbl', 'ed ', 'sai']
+
+crude
+[' co', 'lan', 'off', ' of', 'and', 'nd ', 'ock', 'ora', 'loc', 'co ']
+
+crude
+['es ', 'ts ', 'cts', ' pr', ' ct', 'ine', 'ed ', 'val', 'alu', ' va']
+
+crude
+['es ', 'ed ', 'oil', 'as ', ' oi', ' ga', 'gas', 'ner', 'il ', 's f']
+
+crude
+[' 18', ' 20', ' 91', '8 2', ' 35', '7 1', 'pr ', 'r 1', '87 ', '198']
+
+crude
+['lin', 'ed ', ' co', ' ne', 'put', ' re', 'ado', 'uad', 'ng ', ' li']
+
+crude
+['ed ', 's s', 'sai', ' sa', 'et ', 'ait', 'ovi', 'sov', 'iet', 'vie']
+
+crude
+[' pc', 'ct ', 'on ', 'pct', 'rit', 'eld', ' ba', 'ito', 'ld ', 'tri']
+
+crude
+['sta', 'ard', 'rd ', ' co', ' in', ' pl', 'nda', 'pla', 'ed ', 'tan']
+
+crude
+['on ', 'ion', 'uni', ' co', ' un', 'exp', 'as ', 'co ', ' ex', 'ent']
+
+crude
+['es ', 'ope', 'pec', ' sa', ' op', ' co', 'ec ', ' pr', 'ed ', 'il ']
+
+crude
+[' co', ' sa', 'co ', 'es ', 'ed ', 'id ', 'sai', 'aid', 'ng ', 'ing']
+
+crude
+['es ', 'ope', 'pec', ' op', 'ed ', ' co', 'ec ', ' pr', 'il ', 'ng ']
+
+crude
+['es ', ' re', 'ing', ' pr', 'ed ', 'ng ', 'she', 'sue', 'al ', 'ssu']
+
+crude
+['ed ', ' ma', ' pr', 'ng ', 'mar', 'ark', 'ing', 'rke', 'ket', 'il ']
+
+crude
+['da ', 'ada', ' co', 'oil', 'ulf', 'urg', 'ct ', 'hur', 'lf ', ' hu']
+
+crude
+['ing', 'ng ', 'er ', ' tr', 'rad', 'co ', 'tra', ' co', ' te', 'tex']
+
+crude
+[' co', 'lin', 'ed ', 'e l', 'ne ', ' re', 'ado', 'uad', 'pip', 'ipe']
+
+crude
+[' sa', 'pan', ' in', 'sau', 'se ', 'aud', 'ts ', ' ja', 'jap', 'apa']
+
+corn
+[' pc', 'pct', 'er ', 'ct ', 'ed ', 'ill', 'bil', ' bi', 'por', 'lli']
+
+corn
+[' u ', 'ts ', 'apa', 'pan', 'jap', ' ja', 'an ', ' sa', 'por', 'ed ']
+
+corn
+[' pr', 'ce ', 'ric', 'ice', 'se ', 'ed ', 'er ', 'pri', ' re', ' in']
+
+corn
+['ln ', ' ml', 'mln', 'es ', 'ed ', ' so', 'are', ' la', 'est', 'er ']
+
+corn
+[' st', 'tor', 'sto', 'es ', 'ge ', 'age', 'ion', 'ble', 'on ', ' gr']
+
+corn
+[' to', 'es ', 'n t', 'por', ' co', 'ort', 'cor', 'onn', ' im', 's u']
+
+corn
+['men', 'ent', 'nt ', 'ed ', 'agr', ' ag', ' de', 'es ', 'eem', 'eme']
+
+corn
+['es ', ' to', 'nne', 'ton', 'onn', ' ec', '000', ' ma', 'ecu', ' 00']
+
+corn
+['es ', 'nne', ' ma', 'ton', 'onn', ' to', ' ec', 's e', 'ade', 'eba']
+
+corn
+[' ma', 's f', ' fr', ' to', 'ts ', 'ed ', 'fre', '000', 'ean', 'exp']
+
+corn
+['ed ', ' re', 'ted', 'por', 'er ', 'rt ', 'ort', ' cr', ' co', ' sa']
+
+corn
+['on ', ' ma', 'ion', 'ent', 'ed ', 'es ', 'ize', 'ze ', 'ven', 'aiz']
+
+corn
+[' ml', 'mln', 'ln ', 'n s', '0 m', '1 8', ' wh', '8 m', 'da ', ' bu']
+
+corn
+[' co', 'men', 'ent', 'es ', ' de', 'tme', 'cor', 'nt ', ' to', 'orn']
+
+corn
+[' / ', 'ns ', 'gra', '/ 8', ' 87', '87 ', 'ain', '00 ', 'rai', 'fee']
+
+corn
+['es ', ' to', 'ln ', ' ml', 'mln', 'n t', 'nne', 'nes', 'ton', 'onn']
+
+corn
+['il ', ' ni', 'nil', 'l n', ' / ', ' 2 ', ' 0 ', '87 ', '/ 8', ' 4 ']
+
+corn
+[' / ', '/ 8', ' 87', '87 ', ' 09', '09 ', '/ 0', '9 /', ' 1 ', '7 0']
+
+corn
+['ln ', ' ml', 'mln', 'es ', 'n t', 'nne', 'st ', ' to', 'th ', 'nes']
+
+corn
+[' 4 ', ' 3 ', 'por', 'ort', '3 1', ' 14', ' co', ' so', ' 2 ', 'ed ']
+
+corn
+['por', 'ort', '00 ', '0 0', '000', 'ria', 'ers', '0 t', 'ld ', 'epo']
+
+corn
+[' / ', '/ 8', '87 ', ' 87', 'por', 'ort', '09 ', ' 09', '/ 0', 'ts ']
+
+corn
+[' / ', '/ 8', '87 ', ' 87', '09 ', '/ 0', ' 09', '9 /', ' ni', 'il ']
+
+corn
+['es ', '00 ', '000', 'nne', ' 00', ' to', '0 t', 'nes', 'ton', 'onn']
+
+corn
+['00 ', 'il ', ' 19', '198', ' ni', 'nil', 'ati', '86 ', 'es ', ' ( ']
+
+corn
+[' re', 'ric', ' / ', ' 1 ', 'pri', ' 2 ', 'ed ', ' 19', ' pr', ' v ']
+
+corn
+['es ', ' to', 'nne', 'men', 'ed ', 'ent', '00 ', '0 t', 'nes', 'ton']
+
+corn
+['00 ', 'es ', '0 0', '000', 'exp', 'orn', ' se', 'nne', ' 50', '500']
+
+corn
+['ed ', 'ne ', 'er ', 'ros', ' ro', ' pe', 'onn', ' in', ' to', 'nne']
+
+corn
+['ed ', 'es ', ' co', ' pr', 'sai', 'pro', ' sa', 'aid', 'id ', 'ion']
+
+Done with ssk.set_matrix()
+run for length of feature:  3
+Feature fetching (sec):  4.444705963134766
+Prediction (sec):  0.011526823043823242
+Results for iteration: 0, for feature length: 3
+[0.9, 0.7200000000000001, 0.6, 0.7, 0.8, 0.9333333333333333]
+Starting creation of SSK
+crude
+['pct ', 'cubi', 'n cu', 'bic ', 'ubic', ' cub', ' pct', 'mete', 'c me', 'ic m']
+
+crude
+['aid ', 'said', ' sai', ' bp ', 'ing ', ' off', ' sta', 'tion', 'ion ', 'oil ']
+
+crude
+[' sai', 'aid ', 'said', 'oil ', ' oil', ' dlr', 'ing ', 'ion ', 'dlrs', ' sta']
+
+crude
+['usx ', 'said', 'aid ', ' sai', ' usx', 'oder', 'rick', 'deri', 'eric', 'rode']
+
+crude
+[' she', 'hare', 'hell', 'shel', 'shar', 'ell ', ' sha', 'lrs ', 'dlrs', ' dlr']
+
+corn
+[' / 8', 'easo', ' sea', ' 198', 'son ', 'ason', 'seas', 'nt s', 'nnes', ' ton']
+
+corn
+['erru', 'ferr', 'zzi ', 'ruzz', ' lt ', 'uzzi', 'cpc ', ' cpc', 'rruz', 'ing ']
+
+corn
+['ment', 'nnes', 'ussr', ' ton', 'rain', 'ssr ', 'nes ', 'tonn', 'grai', 'onne']
+
+corn
+['week', ' wee', 'ales', 'les ', 'eek ', 'nes ', 'tonn', 'onne', 'nnes', ' ton']
+
+corn
+['tonn', 'onne', ' ton', 'ber ', 'embe', 'mber', '00 t', '0 to', ' 000', 'nnes']
+
+crude
+['ener', 'nerg', 'rgy ', ' ene', 'ergy', 'dema', 'and ', 'mand', 'uppl', ' dem']
+
+crude
+['ical', 'chem', 'emic', 'mica', 'hemi', 'ing ', 'cal ', ' che', ' pro', 'ted ']
+
+crude
+[' tur', 'said', 'turk', 'aid ', ' sai', 'tion', ' con', 'atio', ' dis', 'urke']
+
+crude
+[' ira', 'iran', 'iraq', 'rani', 'nian', 'ania', 'said', 'aid ', ' sai', 'ing ']
+
+crude
+['ion ', 'lrs ', ' mln', 'said', ' uni', 'dlrs', 'aid ', 'mln ', ' sai', ' dlr']
+
+crude
+[' ira', 'iran', ' oil', 'oil ', 'ran ', 'hana', 'ion ', 'y ir', 'ghan', 'tion']
+
+crude
+['gas ', ' gas', 'l ga', 'al g', 'tion', 'ural', 'atur', ' nat', 'tura', 'ral ']
+
+crude
+['isti', 'ged ', '6 3 ', 'ate ', '3 ml', 'ks u', 'illa', 'llat', ' dis', 'chan']
+
+crude
+[' sto', 'barr', ' bar', ' mln', 'rrel', 'mln ', 'els ', 'arre', 'rels', 'tock']
+
+crude
+[' mln', 'mln ', 'pct ', ' pct', 'ln b', 'bpd ', ' bpd', 'dema', 'and ', 'n bp']
+
+crude
+[' tra', 'trad', 'ture', 'futu', 'utur', ' fut', 'res ', 'ures', 'ged ', ' unc']
+
+crude
+['oil ', ' oil', 'tbla', 'icht', 'lau ', ' lic', 'tive', 'chtb', 'said', 'blau']
+
+crude
+[' off', 'land', ' blo', 'bloc', 'lock', 'atio', 'cks ', 'and ', 'a la', 'ocks']
+
+crude
+['cts ', ' cts', 'alue', 'valu', ' val', 'rude', 'crud', 'ude ', ' cru', 'lrs ']
+
+crude
+[' oil', 'gas ', ' gas', 'oil ', ' ner', 'uisi', 'eld ', 'ion ', 'fiel', 's fi']
+
+crude
+['5 91', '35 9', '18 2', '9 ap', '1987', ' 35 ', '7 18', ' 198', '987 ', '8 20']
+
+crude
+['elin', 'ador', 'peli', 'put ', 'utpu', 'ine ', 'outp', 'ing ', 'ecua', 'cuad']
+
+crude
+[' sai', ' kuw', 'iet ', 'viet', 'kuwa', 'wait', 'uwai', 'said', 'sovi', 'aid ']
+
+crude
+['pct ', ' pct', 'ton ', 'rito', 'eld ', 'trit', 'iton', ' tri', ' par', '0 pc']
+
+crude
+['ndar', ' pla', ' lt ', 'tand', 'ard ', 'stan', 'dard', 'anda', 'latf', ' sta']
+
+crude
+['ion ', ' uni', ' exp', 'lyn ', 'ore ', 'n un', 'nion', 'atio', 'rati', 'lora']
+
+crude
+[' ope', 'opec', 'pec ', 'ces ', 'oil ', 'ing ', ' oil', 'said', 'aid ', ' sai']
+
+crude
+[' sai', 'aid ', 'said', 'ing ', 'texa', ' sup', 'exac', 'aco ', 'xaco', ' tex']
+
+crude
+[' ope', 'opec', 'pec ', 'ing ', 'ces ', 'oil ', ' oil', ' mar', 'sour', ' sou']
+
+crude
+['ing ', 'issu', 'sues', ' iss', 'ssue', 'ues ', 'doe ', ' oil', 'said', ' she']
+
+crude
+['ing ', 'mark', ' mar', 'rket', 'arke', 'oil ', ' oil', 'tion', 'rodu', 'prod']
+
+crude
+['ada ', 'urgh', 'gulf', ' con', 'hada', 'ulf ', 'hurg', 'rgha', 'oil ', ' hur']
+
+crude
+['ing ', 'trad', ' tra', 'aco ', 'xaco', 'exac', 'texa', ' tex', 'rade', 'aid ']
+
+crude
+['elin', 'ador', 'peli', 'ine ', 'ecua', 'cuad', 'line', 'pipe', 'ipel', 'uado']
+
+crude
+[' jap', 'apan', 'saud', 'udi ', 'audi', 'japa', 'di a', 'i ar', 'arab', 'abia']
+
+corn
+[' pct', 'pct ', 'bill', ' bil', 'port', 'ion ', 'illi', 'llio', 'lion', ' exp']
+
+corn
+['japa', 'apan', ' jap', 'pan ', 'port', 'said', ' sai', 'orts', 'aid ', 'rts ']
+
+corn
+['ice ', 'rice', 'pric', ' pri', 'ent ', 'nmen', 'ernm', 'incr', ' mai', ' gov']
+
+corn
+[' mln', 'mln ', 'pct ', ' pct', 'ast ', 'esti', 'ing ', 'crop', ' cro', 'own ']
+
+corn
+['stor', ' sto', 'age ', 'tora', 'rage', 'ion ', 'ing ', ' pro', 'orag', ' gra']
+
+corn
+['n to', 'port', 'otal', 'nes ', 'orn ', ' cor', 'impo', ' mln', 'tonn', 'onne']
+
+corn
+['ment', 'ent ', ' agr', 'gree', 'reem', 'agre', 'emen', 'eeme', 'nnes', 'ary ']
+
+corn
+[' ton', 'tonn', 'onne', 'cus ', 'nnes', '0 to', 'nes ', 'ecus', ' ecu', '00 t']
+
+corn
+['tonn', 'onne', ' ton', 'es e', '5 00', 'ade ', 'urce', 'ort ', 'maiz', 'ate ']
+
+corn
+['s fr', ' fre', 'rket', ' bar', 'arke', 't ba', 'ean ', 'nnes', 'port', 'ize ']
+
+corn
+['ted ', 'port', 'ort ', 'crop', 'oybe', 'bean', ' rep', 'rop ', ' soy', 'said']
+
+corn
+['ion ', ' mai', 'maiz', 'aize', 'ize ', 'tion', 'on a', 'vent', 's ma', 'terv']
+
+corn
+[' mln', 'mln ', '0 ml', ' 1 8', ' 5 2', 'usda', 'ks 5', ' bu ', 'eat ', 'endi']
+
+corn
+['ment', 'tmen', 'nes ', '00 t', 'orn ', ' cor', '0 to', 'tonn', 'onne', 'corn']
+
+corn
+[' / 8', 'grai', ' 87 ', '/ 87', 'rain', '09 /', 'edgr', 'feed', 'ains', ' loa']
+
+corn
+['mln ', ' mln', 'ln t', 'nnes', ' ton', 'nes ', 'tonn', 'n to', 'onne', '0 ml']
+
+corn
+['nil ', ' nil', 'l ni', 'il n', ' / 8', ' 87 ', '/ 87', 'prev', ' pre', ' 198']
+
+corn
+[' / 8', '/ 87', ' 87 ', ' / 0', '09 /', '/ 09', '9 / ', ' 09 ', '87 0', ' 198']
+
+corn
+['mln ', ' mln', 'ln t', 'nnes', ' ton', 'nes ', 'tonn', 'n to', 'onne', 'ast ']
+
+corn
+['port', ' exp', 'orte', ' 3 1', 'xpor', 'expo', 'ted ', 'nes ', 'oybe', 'bean']
+
+corn
+['port', 'deli', 'ort ', 'ters', '00 t', '100 ', 'tonn', 'ld a', 't 10', 'geri']
+
+corn
+[' / 8', ' 87 ', '/ 87', 'port', ' 09 ', ' / 0', 'rts ', '09 /', 'orts', '/ 09']
+
+corn
+[' / 8', ' 87 ', '/ 87', '09 /', ' / 0', '/ 09', '9 / ', ' 09 ', 'nil ', ' nil']
+
+corn
+['nnes', ' ton', '0 to', 'nes ', 'tonn', '00 t', ' 000', 'onne', '000 ', '0 00']
+
+corn
+[' 198', 'nil ', ' nil', 'rati', '1986', 'seed', ' / 8', '986 ', 'gist', 'eed ']
+
+corn
+['rice', 'pric', ' pri', 'ice ', ' 198', 'vel ', 'leve', ' lev', ' iv ', 'evel']
+
+corn
+['nnes', ' ton', 'ment', '0 to', 'nes ', 'tonn', '00 t', 'onne', 'ship', ' shi']
+
+corn
+['es c', 'nnes', ' ton', ' 500', '500 ', 'egyp', '0 to', 'nes ', 'tonn', ' exp']
+
+corn
+[' ros', 'per ', 'tonn', 'onne', ' per', 'nne ', ' ton', 'er t', 'r to', 'sed ']
+
+corn
+[' pro', 'said', 'aid ', ' sai', 'tion', 'rodu', 'ted ', 'nes ', 'prod', 'oduc']
+
+Done with ssk.set_matrix()
+run for length of feature:  4
+Feature fetching (sec):  3.31364107131958
+Prediction (sec):  0.0013191699981689453
+Results for iteration: 0, for feature length: 4
+[0.92, 0.8363636363636363, 0.7666666666666667, 0.8, 0.8615384615384616, 0.9333333333333333]
+Starting creation of SSK
+crude
+['cubic', 'n cub', ' cubi', 'ubic ', ' pct ', 'c met', 'eters', 'bic m', 'ic me', ' mete']
+
+crude
+['said ', ' said', ' oil ', 'tanda', 'offer', ' stan', 'dard ', 'andar', ' pct ', 'ndard']
+
+crude
+['said ', ' said', ' oil ', ' dlrs', 'nalys', ' anal', 'dlrs ', 'alyst', 'analy', 's sai']
+
+crude
+['said ', ' said', ' usx ', 'rick ', 'oderi', ' rode', 'erick', 'roder', 'deric', ' trad']
+
+crude
+[' shel', 'share', 'hell ', ' shar', 'shell', 'dlrs ', ' dlrs', 'alyst', ' anal', 'utch ']
+
+corn
+[' seas', 'ason ', 'eason', 'seaso', 'onnes', 'nnes ', 'tonne', ' tonn', '00 to', 'ent s']
+
+corn
+['rruzz', 'ferru', ' cpc ', 'uzzi ', 'ruzzi', 'erruz', ' ferr', 'urope', 'cpc i', 'pean ']
+
+corn
+['onnes', 'grain', 'nnes ', 'tonne', ' tonn', 'ussr ', ' ussr', ' grai', 'hipme', ' ship']
+
+corn
+['week ', 'ales ', ' week', 'onnes', 'tonne', 'nnes ', ' tonn', '00 to', '0 ton', ' sale']
+
+corn
+['tonne', ' tonn', 'mber ', 'ember', ' 000 ', '00 to', 'onne ', '000 t', '0 ton', 'elive']
+
+crude
+['nergy', ' ener', 'energ', 'ergy ', ' supp', 'emand', 'mand ', 'deman', 'suppl', ' dema']
+
+crude
+['hemic', 'emica', 'mical', 'chemi', 'ical ', ' chem', 'ndust', 'ustry', ' indu', 'dustr']
+
+crude
+['said ', ' said', ' turk', 'rkey ', 'ation', 'urkey', 'turke', ' gree', 'inist', 'spute']
+
+crude
+[' iran', 'irani', ' iraq', ' said', 'rania', 'anian', 'said ', 'd ira', 'iraqi', 'raqi ']
+
+crude
+['said ', ' said', 'dlrs ', ' mln ', ' dlrs', 'ion t', 'texas', ' texa', 'exas ', 'union']
+
+crude
+[' iran', ' oil ', 'tion ', 'iran ', 'ghana', 'irna ', 'ude o', 'irani', 'crude', 'gency']
+
+crude
+[' gas ', 'l gas', 'al ga', 'natur', 'ural ', 'atura', 'tural', ' pric', ' natu', 'ral g']
+
+crude
+['still', 'e sto', 'line ', 'cks u', 'ine 2', 'eia s', 's unc', 'd gas', '6 3 m', 'late ']
+
+crude
+['rrels', 'rels ', 'arrel', ' mln ', ' barr', 'barre', 'tocks', 'ocks ', 'stock', ' stoc']
+
+crude
+[' mln ', ' pct ', ' bpd ', 'mln b', 'emand', 'mand ', 'ln bp', 'n bpd', 'deman', ' dema']
+
+crude
+[' futu', ' trad', 'uture', 'tures', 'futur', 'ures ', ' unch', 'anged', 'nchan', 'trade']
+
+crude
+[' oil ', 'blau ', 'licht', 'said ', ' said', ' lich', 'tblau', 'ichtb', 'htbla', 'chtbl']
+
+crude
+[' bloc', 'block', ' land', 'ation', 'locks', 'land ', 'a lan', 'ocks ', 'na la', 'xplor']
+
+crude
+[' cts ', ' valu', 'value', 'crude', 'rude ', ' netb', 'etbac', 'dlrs ', ' crud', 'netba']
+
+crude
+[' oil ', ' gas ', 's fie', 'field', 'ield ', 'l gas', ' fiel', 'nerco', 'evelo', 'sitio']
+
+crude
+['apr 1', '1987 ', '87 18', '20 35', '8 20 ', ' 1987', ' 20 3', '9 apr', '987 1', 'r 198']
+
+crude
+['eline', 'line ', 'uador', ' pipe', 'ipeli', 'utput', 'ecuad', 'tput ', 'pipel', 'cuado']
+
+crude
+['said ', ' kuwa', 'sovie', 'oviet', ' said', 'uwait', 'kuwai', 'viet ', ' sovi', ' tank']
+
+crude
+[' pct ', 'iton ', 'trito', 'riton', ' pari', 'field', '0 pct', 'ield ', ' trit', 'paris']
+
+crude
+['stand', 'tanda', 'dard ', 'ndard', 'andar', 'latfo', 'tform', 'atfor', 'form ', 'platf']
+
+crude
+['ookly', 'oklyn', 'klyn ', 'xplor', 'nion ', 'yn un', 'shore', ' unio', 'rookl', 'n uni']
+
+crude
+['opec ', ' opec', ' oil ', 'said ', ' said', 'rces ', 'urces', 'sourc', 'ource', ' sour']
+
+crude
+['said ', ' said', ' texa', 'exaco', 'texac', 'xaco ', ' supp', 'suppl', ' oil ', ' comp']
+
+crude
+['opec ', ' opec', ' oil ', 'rces ', 'urces', 'sourc', 'ource', ' sour', 'said ', ' said']
+
+crude
+['sues ', ' issu', 'ssues', 'issue', 'said ', 'prici', ' said', 'ment ', ' pric', ' oil ']
+
+crude
+['marke', ' mark', 'arket', ' oil ', 'said ', ' prod', ' said', 'produ', 'roduc', 'eting']
+
+crude
+[' hurg', 'gulf ', 'ghada', 'hada ', 'hurgh', 'urgha', 'rghad', 'ulf c', 'said ', ' gulf']
+
+crude
+[' trad', 'texac', 'exaco', 'xaco ', ' texa', 'trade', 'rader', 'ding ', 'said ', ' said']
+
+crude
+['eline', 'line ', 'uador', ' pipe', 'ipeli', 'ecuad', 'pipel', 'cuado', 'pelin', ' ecua']
+
+crude
+[' japa', 'japan', 'audi ', 'saudi', ' saud', 'i ara', 'di ar', 'arabi', ' arab', 'udi a']
+
+corn
+[' pct ', ' bill', 'lion ', 'llion', 'illio', 'billi', 'first', 't qua', 'rst q', 'uarte']
+
+corn
+['japan', ' japa', 'apan ', ' said', 'said ', 'orts ', 'ports', ' farm', 'mport', 'impor']
+
+corn
+['rice ', ' pric', 'price', 'vernm', 'overn', ' gove', ' maiz', 'creas', 'maize', 'ease ']
+
+corn
+[' mln ', ' pct ', ' crop', 'sown ', ' sown', 'crop ', 'last ', ' last', ' area', 'imate']
+
+corn
+[' stor', 'torag', 'orage', 'rage ', 'stora', 'tion ', ' crop', 'pacit', 'grain', 'apaci']
+
+corn
+['mln t', 'total', 'mport', 'onnes', 'tonne', 'impor', 'orts ', 'ports', ' tota', 'nnes ']
+
+corn
+['ment ', 'reeme', 'eemen', 'agree', 'ement', ' agre', 'greem', ' 000 ', 'onnes', ' depa']
+
+corn
+['tonne', ' tonn', ' 000 ', '00 to', 'onnes', 'nnes ', 'ecus ', '000 t', ' ecus', '0 ton']
+
+corn
+['tonne', ' tonn', 'e 130', 'e sou', 'bate ', 'orise', 'aximu', 'ize m', ' 000 ', 'onnes']
+
+corn
+['s fre', 'arley', ' said', 'rley ', ' 000 ', 'onnes', 'e mar', 'expor', 'ropea', 'maize']
+
+corn
+['port ', 'crop ', ' repo', ' soyb', 'said ', ' said', 'eport', 'repor', ' crop', 'ybean']
+
+corn
+['tion ', ' maiz', 'maize', 'aize ', 'ion a', 'venti', 'commi', 'said ', ' inte', ' said']
+
+corn
+[' mln ', '0 mln', 'eans ', 's 610', 'ans 6', ' corn', '86 / ', 'n sto', 'wheat', '/ 87 ']
+
+corn
+['tment', '00 to', 'onnes', 'tonne', 'ment ', 'nnes ', 'corn ', ' tonn', ' corn', '0 ton']
+
+corn
+['grain', '/ 87 ', ' / 87', ' / 09', '9 / 8', ' feed', 'dgrai', 'rains', '09 / ', 'ains ']
+
+corn
+[' mln ', 'mln t', 'onnes', 'tonne', 'nnes ', 'ln to', 'n ton', ' tonn', '0 mln', 'last ']
+
+corn
+[' nil ', 'l nil', 'il ni', 'nil n', ' / 87', '/ 87 ', ' prev', 'prev ', 'rev w', ' 4 / ']
+
+corn
+[' / 87', '/ 87 ', '09 / ', ' 09 /', '/ 09 ', ' / 09', '9 / 8', ' 87 0', ' 04 /', '87 03']
+
+corn
+[' mln ', 'ln to', 'onnes', 'n ton', 'nnes ', 'tonne', ' tonn', 'mln t', ' last', 'ast m']
+
+corn
+['xport', 'expor', 'porte', ' expo', ' soyb', 'onnes', 'tonne', 'nnes ', 'ybean', ' tonn']
+
+corn
+[' 100 ', 'geria', 'ia 19', 'eria ', ' corn', 'es co', '86 / ', 'nnes ', '7 del', 'liver']
+
+corn
+[' / 87', '/ 87 ', '09 / ', ' 09 /', '/ 09 ', 'orts ', 'ports', ' / 09', '9 / 8', ' 87 0']
+
+corn
+['/ 87 ', ' / 87', ' / 09', '9 / 8', '09 / ', ' 09 /', '/ 09 ', ' 87 0', '04 / ', '3 / 0']
+
+corn
+[' 000 ', '00 to', 'onnes', 'tonne', 'nnes ', ' tonn', '000 t', '0 ton', '0 000', ' sale']
+
+corn
+[' nil ', ' 1986', '1986 ', 'week ', ' 000 ', 'april', 'crop ', 'grain', '86 / ', ' figu']
+
+corn
+[' pric', 'price', 'evel ', 'rice ', 'level', ' leve', 'heat ', ' whea', 'e pri', ' rate']
+
+corn
+['00 to', 'onnes', 'tonne', 'nnes ', ' tonn', '0 ton', ' ship', 'ussr ', ' ussr', 'week ']
+
+corn
+['gypt ', ' 000 ', 'onnes', ' 500 ', 'nnes ', 'egypt', '0 000', 'tonne', ' tonn', '500 0']
+
+corn
+['per t', 'er to', 'tonne', ' per ', 'r ton', ' tonn', 'onne ', 'ased ', 'creas', 'eased']
+
+corn
+['said ', ' said', ' prod', 'produ', 'roduc', 'icult', 'ultur', ' agri', 'agric', 'gricu']
+
+Done with ssk.set_matrix()
+run for length of feature:  5
+Feature fetching (sec):  3.3627119064331055
+Prediction (sec):  0.002696990966796875
+Results for iteration: 0, for feature length: 5
+[0.8928571428571429, 0.8620689655172413, 0.8333333333333334, 0.84375, 0.870967741935484, 0.9]
+Starting creation of SSK
+crude
+['n cubi', ' cubic', 'cubic ', 'meters', 'bic me', ' meter', 'c mete', 'ic met', 'ubic m', 'eters ']
+
+crude
+[' said ', 'andard', 'offer ', 'standa', ' offer', 'ndard ', 'tandar', ' stand', 'on sai', ' price']
+
+crude
+[' said ', 'analys', ' analy', 'nalyst', ' dlrs ', 's said', ' stock', 'andard', 'britis', 'standa']
+
+crude
+[' said ', 'roderi', ' roder', 'derick', 'erick ', 'oderic', 's rode', 'd usx ', 'k said', ' compa']
+
+crude
+[' shell', ' share', 'shell ', ' dlrs ', 'rs sha', ' analy', 'dutch ', ' / she', 'share ', 'lrs sh']
+
+corn
+['eason ', ' seaso', 'season', 'onnes ', ' tonne', '00 ton', '0 tonn', 'tonnes', ' / 87 ', '1987 /']
+
+corn
+['ruzzi ', 'ferruz', 'erruzz', 'rruzzi', ' ferru', ' europ', 'cpc in', 'europe', 'uropea', ' cpc i']
+
+corn
+['onnes ', ' tonne', ' ussr ', 'tonnes', 'pments', 'hipmen', ' shipm', 'ipment', 'shipme', '00 ton']
+
+corn
+[' week ', 'onnes ', ' tonne', 'tonnes', '00 ton', '0 tonn', 'sales ', ' sales', ' seaso', 'season']
+
+corn
+[' tonne', 'ember ', '00 ton', 'tonne ', ' 000 t', '000 to', '0 tonn', ' deliv', 'livery', 'eliver']
+
+crude
+['energy', ' energ', 'nergy ', 'emand ', ' suppl', 'demand', ' deman', 'gy sup', 'rgy su', 'tural ']
+
+crude
+['hemica', 'emical', 'chemic', 'mical ', ' chemi', 'indust', ' indus', 'ndustr', 'dustry', 'ustry ']
+
+crude
+[' said ', 'urkey ', 'turkey', 'ispute', ' turke', 'ement ', 'disput', 'minist', ' dispu', ' solve']
+
+crude
+[' irani', 'ranian', 'irania', ' said ', 'anian ', ' iraqi', 'iraqi ', 'mmuniq', 'ommuni', 'que sa']
+
+crude
+[' said ', ' dlrs ', 'nion t', 'on tex', 'n texa', 'texas ', 'union ', 'ion te', ' texas', ' union']
+
+crude
+[' iran ', ' irani', 'iniste', 'said a', 'ude oi', 'ghana ', 'iran a', ' irna ', 'ation ', 'ement ']
+
+crude
+['l gas ', 'al gas', 'atural', 'tural ', 'ral ga', ' natur', 'ural g', 'natura', ' price', 'enate ']
+
+crude
+['0 crud', 'oline ', 'ks unc', 'ine 20', 'istill', ' disti', 'e 200 ', 'tillat', 'stocks', 'd gaso']
+
+crude
+['rrels ', ' barre', 'barrel', 'arrels', 'stocks', ' stock', 'tocks ', 'ln bar', 'n barr', 'mln ba']
+
+crude
+[' mln b', 'mln bp', 'ln bpd', 'emand ', 'demand', ' deman', 'n bpd ', ' year ', 'e dema', ' said ']
+
+crude
+['future', 'utures', ' futur', 'tures ', ' uncha', 'nchang', 'change', 'anged ', ' trade', 'hanged']
+
+crude
+['chtbla', ' licht', 'lichtb', 'ichtbl', 'htblau', 'tblau ', ' said ', 'ternat', 'blau s', 'depend']
+
+crude
+[' block', 'locks ', ' land ', 'a land', 'blocks', ' louis', 'na lan', 'iana l', 'louisi', ' offer']
+
+crude
+[' value', 'etback', ' crude', ' netba', ' dlrs ', 'netbac', 'crude ', 'harply', 'prices', 'ude oi']
+
+crude
+['s fiel', 'field ', ' field', 'l gas ', 'loped ', 'acquis', 's oil ', 'ield l', 'erves ', 'nit cl']
+
+crude
+['pr 198', '0 35 9', ' apr 1', '1987 1', '987 18', 'apr 19', '20 35 ', '18 20 ', '87 18 ', '8 20 3']
+
+crude
+['ecuado', ' outpu', 'pipeli', 'eline ', 'utput ', 'ipelin', 'cuador', 'peline', 'output', ' pipel']
+
+crude
+[' kuwai', 'kuwait', 'oviet ', 'soviet', ' sovie', 'tanker', ' said ', 'uwait ', ' tanke', 's said']
+
+crude
+['triton', 'riton ', '0 pct ', 'paris ', ' trito', 'field ', ' field', ' paris', 'n barr', 'basin ']
+
+crude
+['andard', 'tandar', 'ndard ', 'standa', 'atform', ' platf', 'platfo', 'tform ', 'latfor', ' stand']
+
+crude
+['shore ', 'ation ', 'ration', 'n unio', 'ooklyn', 'rookly', 'oklyn ', 'lorati', 'brookl', ' union']
+
+crude
+[' opec ', ' said ', ' sourc', 'source', 'ources', 'urces ', 'produc', ' price', 'l oil ', ' produ']
+
+crude
+[' said ', 'texaco', 'exaco ', ' texac', ' suppl', 'upplie', 'suppli', ' compa', 'compan', 'mpany ']
+
+crude
+[' opec ', ' sourc', 'source', 'ources', 'urces ', ' said ', 'produc', 'market', 'rkets ', 'arkets']
+
+crude
+['ssues ', 'issues', ' issue', 'pricin', 'icing ', ' shell', 'ng iss', 'ing is', ' said ', 'g issu']
+
+crude
+['market', ' marke', 'produc', ' said ', ' produ', 'roduct', 'adnoc ', ' adnoc', ' opec ', 'rketin']
+
+crude
+['hurgha', 'urghad', 'rghada', ' hurgh', 'ghada ', 'canada', ' canad', 'anada ', 'lf can', 'ulf ca']
+
+crude
+['exaco ', 'texaco', ' texac', ' trade', 'trader', ' said ', 'iling ', 'aders ', "aco ' ", "xaco '"]
+
+crude
+['ecuado', 'pipeli', 'eline ', 'ipelin', 'cuador', 'peline', ' pipel', ' ecuad', 'uador ', ' outpu']
+
+crude
+['saudi ', ' japan', ' arabi', 'udi ar', 'di ara', 'i arab', ' saudi', 'arabia', 'audi a', 'rabia ']
+
+corn
+[' billi', 'illion', 'llion ', 'billio', 'first ', ' quart', 'irst q', 'uarter', 'rst qu', 't quar']
+
+corn
+[' japan', 'japan ', 'ports ', ' said ', 'import', ' impor', ' farm ', 'market', 'cultur', 'ricult']
+
+corn
+['price ', ' price', 'vernme', 'rnment', 'crease', 'increa', ' incre', ' gover', 'ernmen', 'rease ']
+
+corn
+[' sown ', ' last ', ' crop ', ' seaso', 'season', 'produc', 'estima', 'stimat', ' estim', ' produ']
+
+corn
+[' stora', 'torage', 'orage ', 'storag', 'apacit', 'capaci', ' probl', 'proble', 'pacity', ' said ']
+
+corn
+['onnes ', 'mln to', ' tonne', 'ports ', ' mln t', ' corn ', ' total', 'n tonn', 'import', ' impor']
+
+corn
+['ement ', 'reemen', ' agree', 'agreem', 'greeme', 'eement', ' janua', 'onnes ', ' tonne', '00 ton']
+
+corn
+[' tonne', 'onnes ', ' ecus ', '00 ton', ' 000 t', '000 to', '0 tonn', 'tonnes', '5 000 ', ' wheat']
+
+corn
+[' tonne', 's expo', 'es mai', ' 55 00', 'rebate', 'onnes ', 's maiz', 'te 130', 'e sour', 'ze max']
+
+corn
+['onnes ', 'free m', 'export', ' tonne', 'rket b', 'maize ', ' maize', 'et bar', 'arley ', 'uropea']
+
+corn
+[' soybe', 'oybean', ' said ', 'report', 'eport ', ' repor', 'soybea', ' crop ', 'xpecte', 'expect']
+
+corn
+[' maize', 'maize ', 'nterve', 'terven', 'ventio', 'rventi', ' commi', 'ention', 'ntion ', 'ervent']
+
+corn
+['0 mln ', ' wheat', ' / 87 ', '40 mln', 'soybea', ' corn ', 'nding ', 'da u 1', 'stocks', ' 5 240']
+
+corn
+['onnes ', ' tonne', '00 ton', ' corn ', '0 tonn', 'tonnes', '600 to', ' 600 t', 'tions ', 'ourth ']
+
+corn
+[' / 87 ', '/ 09 /', ' / 09 ', 'grains', 'rains ', '09 / 8', 'eedgra', ' 09 / ', 'feedgr', ' feedg']
+
+corn
+['onnes ', 'mln to', ' tonne', ' mln t', 'n tonn', 'tonnes', 'ln ton', '0 mln ', ' last ', ' month']
+
+corn
+[' nil n', 'nil ni', 'l nil ', 'il nil', ' / 87 ', '7 prev', ' prev ', '/ 87 p', 'prev w', '87 pre']
+
+corn
+[' / 87 ', '/ 09 /', '09 / 8', ' 09 / ', ' / 09 ', '9 / 87', '/ 87 0', '04 / 0', '87 03 ', '4 / 09']
+
+corn
+['onnes ', 'mln to', ' tonne', ' mln t', 'ln ton', 'tonnes', 'n tonn', ' last ', 'last m', 't mont']
+
+corn
+['export', ' expor', 'onnes ', ' tonne', ' soybe', 'oybean', 'tonnes', 'soybea', 'ports ', '00 ton']
+
+corn
+[' / 87 ', 'ld alg', 'sold a', ' deliv', 'rs rep', ' corn ', ' 87 de', 'delive', ' 000 t', 'algeri']
+
+corn
+[' / 87 ', '/ 09 /', '09 / 8', ' 09 / ', 'ports ', ' / 09 ', '9 / 87', '/ 87 0', 'export', ' expor']
+
+corn
+[' / 87 ', '/ 09 /', ' / 09 ', '09 / 8', ' 09 / ', '9 / 87', '/ 87 0', 'ports ', '04 / 0', '87 03 ']
+
+corn
+['onnes ', ' tonne', '00 ton', ' 000 t', '000 to', '0 tonn', 'tonnes', '0 000 ', 'sales ', ' sales']
+
+corn
+[' 1986 ', ' / 87 ', '86 / 8', 'istrat', 'figure', 'april ', 'tions ', 'ations', ' crop ', 'ration']
+
+corn
+[' price', 'price ', ' level', 'level ', ' wheat', 'e pric', 'wheat ', ' sorgh', 'orghum', 'reserv']
+
+corn
+['onnes ', ' tonne', '00 ton', '0 tonn', 'tonnes', ' ussr ', 'pments', 'hipmen', ' corn ', ' shipm']
+
+corn
+['onnes ', '00 000', ' tonne', '500 00', ' corn ', 's corn', 'nnes c', ' 500 0', '00 ton', 'nes co']
+
+corn
+['er ton', ' tonne', 'tonne ', 'r tonn', 'per to', ' per t', 'crease', 'increa', ' incre', 'ncreas']
+
+corn
+[' said ', 'produc', ' produ', 'icultu', 'agricu', 'cultur', 'ricult', ' agric', 'gricul', 'onnes ']
+
+Done with ssk.set_matrix()
+run for length of feature:  6
+Feature fetching (sec):  3.432098627090454
+Prediction (sec):  0.0016016960144042969
+Results for iteration: 0, for feature length: 6
+[0.875, 0.7777777777777777, 0.7, 0.75, 0.8181818181818182, 0.9]
+Starting creation of SSK
+crude
+['n cubic', ' cubic ', 'ubic me', 'ic mete', 'cubic m', 'bic met', ' meters', 'c meter', 'meters ', 'ln cubi']
+
+crude
+[' offer ', 'tandard', 'andard ', 'standar', ' standa', 'on said', 'n said ', 'simon s', ' simon ', 'mon sai']
+
+crude
+['analyst', ' analys', 's said ', 'british', ' stock ', ' britis', 'tandard', 'andard ', 'standar', ' standa']
+
+crude
+[' roderi', 'roderic', 'derick ', 'oderick', 's roder', 'ck said', 'ick sai', 'id usx ', ' compan', 'k said ']
+
+crude
+[' shell ', 'utch / ', ' dlrs s', 'dutch /', 'royal d', 'analyst', 'oyal du', 'h / she', ' / shel', ' analys']
+
+corn
+['season ', ' season', '0 tonne', ' tonnes', '00 tonn', 'tonnes ', '0 000 t', ' 1987 /', 'departm', '7 / 88 ']
+
+corn
+['erruzzi', 'ferruzz', 'rruzzi ', ' ferruz', 'uropean', ' cpc in', ' europe', 'europea', 'ropean ', 'tional ']
+
+corn
+[' tonnes', 'tonnes ', 'pments ', 'hipment', '0 tonne', 'ipments', '00 tonn', 'shipmen', ' shipme', ' grain ']
+
+corn
+[' tonnes', 'tonnes ', '00 tonn', '0 tonne', ' sales ', ' season', 'season ', 'r week ', 't said ', 'departm']
+
+corn
+[' 000 to', ' tonne ', '000 ton', '00 tonn', '0 tonne', 'livery ', ' delive', 'elivery', 'deliver', 's per t']
+
+crude
+['energy ', ' energy', 'demand ', ' demand', 'ergy su', 'gy supp', 'rgy sup', 'y suppl', 'nergy s', ' supply']
+
+crude
+['chemica', 'hemical', 'emical ', ' chemic', 'ndustry', 'industr', ' indust', 'dustry ', 'usiness', 'busines']
+
+crude
+['turkey ', ' minist', 'dispute', ' disput', ' turkey', 't said ', ' greece', ' statem', 'countri', 'ntries ']
+
+crude
+[' irania', 'iranian', 'ranian ', 'troops ', 'que sai', 'ommuniq', ' commun', 'ue said', 'communi', 'unique ']
+
+crude
+['union t', 'ion tex', 'on texa', ' texas ', 'n texas', 'nion te', 'n dlrs ', ' union ', ' mln dl', 'ompany ']
+
+crude
+['inister', 'eement ', ' reache', 'ranian ', ' said a', ' irania', 'reached', 'eached ', 'ude oil', ' agreem']
+
+crude
+['al gas ', 'natural', 'atural ', 'tural g', 'ural ga', ' natura', 'ral gas', 'prices ', 'plants ', 'senate ']
+
+crude
+['00 000 ', 'rude 6 ', 'ocks un', 'e 6 3 m', '0 crude', 'cks unc', 'd gasol', 'ks unch', ' stocks', ' unchan']
+
+crude
+[' barrel', 'barrels', 'arrels ', 'stocks ', ' stocks', 'n barre', ' mln ba', 'ln barr', 'mln bar', 'l stock']
+
+crude
+[' mln bp', 'ln bpd ', 'mln bpd', 'demand ', ' demand', 'e deman', 'l deman', 'ar ago ', 'd fell ', '0 mln b']
+
+crude
+['futures', ' future', 'utures ', 'changed', ' unchan', 'nchange', 'hanged ', 'unchang', 'traders', ' trader']
+
+crude
+['lichtbl', 'ichtbla', 'htblau ', 'chtblau', ' lichtb', 'tblau s', ' depend', 'depende', 'lau sai', 'blau sa']
+
+crude
+['a land ', ' blocks', 'blocks ', 'isiana ', 'explora', ' explor', 'uisiana', 'loratio', ' louisi', 'plorati']
+
+crude
+[' netbac', 'netback', ' sharpl', 'cts bar', 's barre', ' cts ba', 'sharply', 'ude oil', ' barrel', ' crude ']
+
+crude
+[' field ', 's field', 'eserves', 'es fiel', 'unit cl', 'd oil g', 'nit clo', 'field l', 'isition', 't close']
+
+crude
+['1987 18', 'pr 1987', '987 18 ', '87 18 2', 'apr 198', ' apr 19', ' 1987 1', '18 20 3', ' 20 35 ', '9 apr 1']
+
+crude
+['ipeline', 'peline ', ' pipeli', 'output ', 'pipelin', ' output', 'ecuador', 'go agri', 'il outp', 'lago ag']
+
+crude
+['soviet ', ' kuwait', ' soviet', 'kuwait ', ' tanker', 's said ', 'iplomat', ' diplom', 'ankers ', 'tankers']
+
+crude
+['triton ', ' field ', ' triton', ' paris ', 'eserves', 'n reser', 'reserve', 't trito', ' basin ', 'is basi']
+
+crude
+['andard ', 'standar', 'tandard', ' platfo', 'latform', ' standa', 'atform ', 'platfor', ' produc', 'ard oil']
+
+crude
+['plorati', 'oration', 'ration ', 'oklyn u', 'xplorat', 'brookly', 'explora', 'yn unio', ' explor', 'loratio']
+
+crude
+['ources ', 'sources', ' source', ' produc', 'dibilit', 'scrutin', 'tional ', 'nationa', ' credib', ' suppli']
+
+crude
+['texaco ', ' texaco', 'supplie', ' compan', ' suppli', 'ompany ', 'company', ' credit', "xaco ' ", "exaco '"]
+
+crude
+['ources ', 'sources', ' source', 'markets', 'arkets ', ' market', ' produc', 'dibilit', 'scrutin', 'tional ']
+
+crude
+[' issues', 'issues ', ' shell ', 'ng issu', 'ing iss', 'pricing', 'g issue', ' pricin', 'ricing ', 'eement ']
+
+crude
+[' market', ' produc', 'rketing', 'product', 'marketi', 'keting ', ' adnoc ', 'arketin', 'market ', 'roducti']
+
+crude
+['urghada', ' hurgha', 'hurghad', 'rghada ', 'lf cana', 'ulf can', 'f canad', 'gulf ca', 'canada ', ' canada']
+
+crude
+['texaco ', ' texaco', ' trader', "exaco '", "xaco ' ", 'traders', 'raders ', 'ruptcy ', ' tradin', 'filing ']
+
+crude
+['ipeline', 'peline ', ' pipeli', 'pipelin', 'ecuador', ' ecuado', 'cuador ', 'resume ', 'me limi', ' limite']
+
+crude
+['i arabi', ' saudi ', 'audi ar', 'saudi a', 'udi ara', 'di arab', ' arabia', 's japan', 'arabia ', ' japan ']
+
+corn
+['billion', 'illion ', ' billio', 'first q', 'rst qua', ' quarte', 't quart', 'irst qu', 'uarter ', ' first ']
+
+corn
+[' japan ', ' import', 'ricultu', ' market', 'icultur', 'market ', 'agricul', 'gricult', ' agricu', 'imports']
+
+corn
+[' price ', 'governm', 'ncrease', ' increa', ' maize ', ' govern', 'increas', 'vernmen', 'crease ', 'overnme']
+
+corn
+['estimat', ' produc', ' season', ' estima', 'stimate', 'season ', 'n tonne', 'mln ton', 'harvest', ' mln to']
+
+corn
+['torage ', 'storage', ' storag', 'capacit', 'problem', 'apacity', ' capaci', ' proble', 'pacity ', ' grain ']
+
+corn
+['imports', 'ln tonn', ' tonnes', 'tonnes ', 'n tonne', ' import', 'mln ton', ' mln to', 'mports ', ' total ']
+
+corn
+['eement ', ' agreem', 'agreeme', 'greemen', 'reement', 'departm', 'partmen', ' januar', ' tonnes', ' 000 to']
+
+corn
+[' tonnes', ' 000 to', 'tonnes ', '000 ton', '00 tonn', '0 tonne', '5 000 t', ' wheat ', 'equeste', 'barley ']
+
+corn
+['rebate ', 'ecus / ', 'ne trad', 'export ', 'ze maxi', 'trade s', 'ize max', 'aximum ', 'c autho', 'ises ex']
+
+corn
+[' europe', 'e marke', 'market ', 'free ma', 'ee mark', 't barle', 'barley ', 'europea', 'arket b', 'nes fre']
+
+corn
+['soybean', ' report', ' soybea', 'report ', 'xpected', ' expect', 'pected ', 'expecte', 't said ', 'n crop ']
+
+corn
+[' maize ', 'interve', 'vention', ' interv', 'erventi', 'tervent', 'rventio', 'nterven', 'ention ', ' commis']
+
+corn
+['40 mln ', '0 mln b', '1986 / ', 'bu whea', 'oybeans', 'mln soy', 'n bu wh', 'ln soyb', 'soybean', 'ending ']
+
+corn
+[' tonnes', 'tonnes ', '00 tonn', '0 tonne', 'ommitme', ' fourth', ' commit', ' 600 to', 'tments ', 'itments']
+
+corn
+['feedgra', 'eedgrai', 'edgrain', '09 / 87', 'dgrains', '9 / 87 ', 'grains ', ' feedgr', ' / 09 /', '/ 09 / ']
+
+corn
+['ln tonn', ' tonnes', 'tonnes ', 'n tonne', 'mln ton', ' mln to', '0 mln t', ' last m', 't month', ' month ']
+
+corn
+['nil nil', ' nil ni', 'il nil ', '/ 87 pr', ' 87 pre', '7 prev ', ' / 87 p', '87 prev', ' prev w', '/ 2 / 8']
+
+corn
+[' / 09 /', '09 / 87', '9 / 87 ', '/ 09 / ', ' 09 / 8', ' / 87 0', ' 87 03 ', '4 / 09 ', '/ 87 03', ' 04 / 0']
+
+corn
+['ln tonn', 'mln ton', 'n tonne', ' tonnes', ' mln to', 'tonnes ', 't month', 'last mo', 'st mont', 'ast mon']
+
+corn
+[' export', 'soybean', ' tonnes', ' soybea', 'tonnes ', 'sorghum', ' report', 'ported ', ' sorghu', 'porters']
+
+corn
+['s repor', '00 000 ', 's corn ', '1986 / ', '7 deliv', 'corn so', '000 ton', 'ia 1986', 'geria 1', 'deliver']
+
+corn
+[' / 09 /', '09 / 87', '9 / 87 ', '/ 09 / ', ' 09 / 8', ' / 87 0', ' export', 'imports', ' 87 03 ', ' import']
+
+corn
+['09 / 87', '9 / 87 ', ' / 09 /', '/ 09 / ', ' 09 / 8', ' / 87 0', '03 / 09', ' 87 03 ', '3 / 09 ', ' 03 / 0']
+
+corn
+[' tonnes', ' 000 to', 'tonnes ', '000 ton', '00 tonn', '0 tonne', '0 000 t', '00 000 ', ' sales ', ' wheat ']
+
+corn
+['registr', 'tration', '86 / 87', 'rations', 'stratio', '986 / 8', '1986 / ', '6 / 87 ', ' regist', ' 1986 /']
+
+corn
+[' level ', ' wheat ', 'e price', ' price ', 'sorghum', ' sorghu', 'reserve', ' reserv', 'orghum ', '986 rat']
+
+corn
+[' tonnes', 'tonnes ', '00 tonn', '0 tonne', 'pments ', 'ipments', 'hipment', 'shipmen', ' shipme', 'u corn ']
+
+corn
+['0 000 t', ' 500 00', 's corn ', 'onnes c', '0 tonne', '00 000 ', ' tonnes', 'nnes co', 'es corn', ' 000 to']
+
+corn
+['er tonn', ' per to', ' tonne ', 'r tonne', 'per ton', 'ncrease', ' increa', 'increas', 'reased ', 'creased']
+
+corn
+[' produc', 'ricultu', 'gricult', 'icultur', ' agricu', 'agricul', 'product', 'ry spel', ' tonnes', 'roducti']
+
+Done with ssk.set_matrix()
+run for length of feature:  7
+Feature fetching (sec):  3.3540077209472656
+Prediction (sec):  0.0045909881591796875
+Results for iteration: 0, for feature length: 7
+[0.9333333333333333, 0.6222222222222223, 0.4666666666666667, 0.6444444444444445, 0.7733333333333334, 0.9666666666666667]
+Starting creation of SSK
+crude
+['n cubic ', 'bic mete', 'cubic me', 'ic meter', 'c meters', 'ubic met', ' cubic m', ' meters ', ' mln cub', 'ln cubic']
+
+crude
+[' standar', 'standard', 'tandard ', 'on said ', 'imon sai', ' simon s', 'mon said', 'simon sa', 'e offer ', "ndard ' "]
+
+crude
+[' analyst', ' standar', 'british ', 'standard', 'tandard ', ' british', 'nalysts ', ' petrole', 'troleum ', 'etroleum']
+
+crude
+['oderick ', 'roderick', ' roderic', 's roderi', 'ck said ', 'derick s', 'ick said', 'aid usx ', ' said us', 'said usx']
+
+crude
+['lrs shar', 'h / shel', 'l dutch ', 'dutch / ', 'utch / s', ' dutch /', 'al dutch', 's share ', ' / shell', 'tch / sh']
+
+corn
+[' season ', '00 tonne', ' tonnes ', '0 tonnes', 'epartmen', '987 / 88', 'departme', ' 000 ton', 'artment ', '000 tonn']
+
+corn
+['ferruzzi', 'erruzzi ', ' ferruzz', ' europea', 'uropean ', 'european', 'nternati', 'usiness ', ' wet mil', ' interna']
+
+corn
+[' tonnes ', 'hipments', '00 tonne', 'shipment', '0 tonnes', 'ipments ', ' shipmen', 'pments u', 'agreemen', ' soybean']
+
+corn
+[' tonnes ', '0 tonnes', '00 tonne', ' season ', ' average', 'ek avera', 'departme', 'eek aver', ' departm', 'ent said']
+
+corn
+[' 000 ton', '000 tonn', '00 tonne', ' deliver', 'elivery ', 'delivery', ' dlrs pe', ' tonnes ', 'r tonne ', '0 tonnes']
+
+crude
+[' energy ', ' demand ', 'nergy su', 'ergy sup', 'energy s', 'gy suppl', 'rgy supp', ' supply ', ' natural', 'natural ']
+
+crude
+['chemical', 'hemical ', ' chemica', 'industry', ' industr', 'ndustry ', 'business', ' busines', 'trochemi', ' petroch']
+
+crude
+[' turkey ', ' dispute', 'statemen', 'countrie', 'ement sa', ' stateme', 'atement ', 'ent said', 'ountries', 'ment sai']
+
+crude
+[' iranian', 'iranian ', ' communi', 'ommuniqu', 'munique ', 'd irania', 'que said', 'unique s', 'mmunique', ' troops ']
+
+crude
+['ion texa', 'on texas', 'n texas ', 'union te', 'nion tex', ' union t', 'ln dlrs ', ' mln dlr', 'company ', ' company']
+
+crude
+['agreemen', 'iranian ', 'crude oi', ' iranian', ' reached', 'minister', ' ministe', 'rude oil', 'reached ', 'greement']
+
+crude
+['atural g', 'ral gas ', ' natural', 'ural gas', 'natural ', 'tural ga', ' senate ', ' prices ', ' higher ', 'industri']
+
+crude
+['late sto', 'ia says ', 'tillate ', 'eia says', 'unchange', 'soline 2', 'tocks un', 'd gasoli', 'line 200', 'ed gasol']
+
+crude
+['barrels ', ' barrels', ' stocks ', 'ln barre', 'n barrel', ' mln bar', 'mln barr', 'l stocks', '1 mln ba', ' 1 mln b']
+
+crude
+['mln bpd ', ' demand ', ' mln bpd', 'e demand', 'l demand', 'ear ago ', '0 mln bp', ' year ag', 'year ago', 'ln bpd 3']
+
+crude
+['futures ', ' futures', 'nchanged', 'changed ', ' unchang', 'unchange', ' traders', 'traders ', 'yesterda', 'esterday']
+
+crude
+[' lichtbl', 'chtblau ', 'ichtblau', 'lichtbla', 'htblau s', ' depende', ' foreign', 'tblau sa', 'foreign ', 'lau said']
+
+crude
+[' blocks ', ' explora', 'siana la', 'oration ', 'isiana l', 'iana lan', 'louisian', 'ploratio', 'loration', 'explorat']
+
+crude
+[' netback', 'crude oi', 'sharply ', 'rude oil', ' sharply', 'cts barr', 's barrel', ' barrel ', 'ude oil ', 'ts barre']
+
+crude
+['s field ', 'it close', 'isition ', 'veloped ', 'uisition', 'es field', 'eserves ', 'acquisit', 'cquisiti', 'quisitio']
+
+crude
+['20 35 91', 'pr 1987 ', '9 apr 19', ' 18 20 3', '87 18 20', '18 20 35', 'r 1987 1', ' 20 35 9', 'apr 1987', '7 18 20 ']
+
+crude
+['pipeline', ' pipelin', 'ipeline ', ' output ', 'lago agr', ' oil out', 'ecuador ', ' lago ag', ' ecuador', 'ago agri']
+
+crude
+[' soviet ', ' kuwait ', 'diplomat', ' diploma', ' tankers', 'tankers ', 'iplomats', 'plomats ', 'iet tank', 'ts said ']
+
+crude
+[' triton ', ' 39 pct ', 'arrels m', 'paris ba', 's basin ', 't triton', 'triton e', 'n barrel', 'barrels ', 'ln barre']
+
+crude
+['standard', 'tandard ', 'latform ', ' platfor', ' standar', 'platform', 'ndard oi', ' product', 'stalled ', 'rd mobil']
+
+crude
+['explorat', 'oration ', 'n union ', 'oklyn un', 'ooklyn u', 'ploratio', 'klyn uni', 'loration', 'rooklyn ', 'xplorati']
+
+crude
+['sources ', ' sources', 'upplies ', 'credibil', 'ional oi', 'nternati', ' scrutin', ' interna', ' officia', ' warned ']
+
+crude
+[' texaco ', ' supplie', 'company ', ' company', "exaco ' ", "texaco '", 'supplies', 'upplies ', ' credit ', 'establis']
+
+crude
+['sources ', ' sources', ' markets', 'markets ', 'upplies ', 'credibil', 'ional oi', 'nternati', ' scrutin', ' interna']
+
+crude
+[' issues ', ' pricing', 'g issues', 'ng issue', 'ing issu', 'pricing ', 'agreemen', 'l dutch ', 'eement r', 'cing iss']
+
+crude
+[' product', 'rketing ', 'marketin', 'arketing', ' marketi', ' market ', 'crude oi', 'abu dhab', 'oduction', 'u dhabi ']
+
+crude
+['hurghada', ' hurghad', 'urghada ', 'gulf can', 'ulf cana', ' canada ', 'f canada', 'lf canad', 'conoco h', 'ng inter']
+
+crude
+[' texaco ', 'traders ', ' traders', "exaco ' ", "texaco '", ' bankrup', 'kruptcy ', 'ankruptc', 'bankrupt', 'trading ']
+
+crude
+['pipeline', ' pipelin', 'ipeline ', ' ecuador', 'ecuador ', 'sume lim', 'resume l', 'esume li', 'ume limi', ' resume ']
+
+crude
+['i arabia', 'saudi ar', 'udi arab', 'audi ara', 'di arabi', ' saudi a', ' arabia ', 's japan ', ' trade s', ' japan e']
+
+corn
+['billion ', ' billion', 'first qu', 'st quart', 't quarte', ' quarter', 'irst qua', ' first q', 'quarter ', 'rst quar']
+
+corn
+[' agricul', 'gricultu', 'ricultur', 'agricult', ' market ', 'imports ', ' product', 'products', 'official', 'roducts ']
+
+corn
+['vernment', 'ernment ', ' governm', ' increas', 'governme', 'overnmen', 'ncrease ', 'increase', ' retail ', 'r price ']
+
+corn
+[' season ', ' estimat', 'estimate', 'ln tonne', ' harvest', ' mln ton', 'mln tonn', 'ea sown ', 'n tonnes', ' area so']
+
+corn
+[' storage', 'storage ', 'capacity', ' problem', ' capacit', 'apacity ', ' tonnes ', 'ln tonne', 'problems', ' mln ton']
+
+corn
+[' tonnes ', 'ln tonne', 'imports ', ' mln ton', 'mln tonn', ' imports', 'n tonnes', ' u corn ', 'tonnes u', 'th korea']
+
+corn
+['agreemen', 'greement', ' agreeme', 'reement ', 'january ', ' tonnes ', 'departme', ' 000 ton', ' departm', '0 tonnes']
+
+corn
+[' tonnes ', ' 000 ton', '0 tonnes', '000 tonn', '00 tonne', '5 000 to', 'ebates 1', ' free ma', 'rebates ', ' request']
+
+corn
+[' / tonne', 'c author', 'e source', ' trade s', '00 tonne', 'tonne tr', ' tonnes ', 'uthorise', 'rebate 1', 'm rebate']
+
+corn
+['arket ba', 'ree mark', '00 tonne', ' europea', ' tonnes ', '5 000 to', ' free ma', 'nnes fre', 'european', 's free m']
+
+corn
+[' soybean', ' report ', ' expecte', 'xpected ', 'expected', 'soybean ', ' average', 'eport sa', 'rt said ', 'port sai']
+
+corn
+['rvention', 'ntervent', 'terventi', ' interve', 'interven', 'vention ', 'erventio', 'commissi', 'mmission', 's maize ']
+
+corn
+['nding co', '0 mln bu', ' 848 mln', 's 5 240 ', 'ln soybe', ' 1986 / ', 'a u 1986', 'ans 610 ', '1 848 ml', '848 mln ']
+
+corn
+[' tonnes ', '0 tonnes', '00 tonne', 'agreemen', ' 600 ton', 'mmitment', 'itments ', 'commitme', 'ommitmen', '600 tonn']
+
+corn
+['eedgrain', 'dgrains ', ' / 09 / ', ' 09 / 87', 'feedgrai', 'edgrains', '09 / 87 ', ' feedgra', '/ 09 / 8', '9 / 87 0']
+
+corn
+[' tonnes ', 'ln tonne', ' mln ton', 'mln tonn', 'n tonnes', '0 mln to', 'last mon', 't month ', 'ast mont', 'st month']
+
+corn
+[' nil nil', 'nil nil ', '/ 87 pre', '7 prev w', ' 87 prev', ' / 87 pr', '87 prev ', ' / 2 / 8', ' 2 / 87 ', 'prev wk ']
+
+corn
+[' 09 / 87', ' / 09 / ', '/ 09 / 8', '09 / 87 ', '9 / 87 0', ' 04 / 09', ' 87 03 /', '04 / 09 ', '4 / 09 /', '/ 87 03 ']
+
+corn
+[' tonnes ', ' mln ton', 'mln tonn', 'n tonnes', 'ln tonne', '0 mln to', 'last mon', 'ast mont', 'st month', ' last mo']
+
+corn
+[' tonnes ', ' soybean', 'soybean ', ' sorghum', ' exports', 'eported ', '0 tonnes', 'ported u', 'reported', 'exports ']
+
+corn
+['orters r', 'porters ', 's report', '000 tonn', 'lgeria 1', ' 1986 / ', ' corn so', ' report ', 'ria 1986', 'nnes cor']
+
+corn
+[' 09 / 87', ' / 09 / ', '/ 09 / 8', '09 / 87 ', '9 / 87 0', ' exports', 'imports ', '7 03 / 0', ' / 87 03', ' 87 03 /']
+
+corn
+[' / 09 / ', ' 09 / 87', '09 / 87 ', '/ 09 / 8', '9 / 87 0', ' / 87 03', ' 87 03 /', ' 03 / 09', '04 / 09 ', '3 / 09 /']
+
+corn
+[' tonnes ', ' 000 ton', '0 tonnes', '000 tonn', '00 tonne', '0 000 to', '00 000 t', 'soybean ', 'an meal ', ' deliver']
+
+corn
+['rations ', 'gistrati', 'registra', ' figures', 'trations', 'figures ', '1986 / 8', '986 / 87', 'egistrat', ' 1986 / ']
+
+corn
+[' sorghum', ' reserve', 'e price ', 'sorghum ', 'e x leve', ' rate x ', 'se call ', ' average', 'ge price', 'level pr']
+
+corn
+[' tonnes ', '0 tonnes', '00 tonne', 'ipments ', ' shipmen', 'shipment', 'hipments', 'agreemen', ' 600 ton', 'ssr grai']
+
+corn
+['00 tonne', '00 000 t', 'es corn ', ' tonnes ', 'nes corn', '500 000 ', ' 000 ton', 'tonnes c', '000 tonn', 'onnes co']
+
+corn
+['r tonne ', ' per ton', 'er tonne', 'per tonn', 'creased ', 'ncreased', ' increas', 'increase', 'os aires', ' buenos ']
+
+corn
+[' agricul', 'ricultur', 'gricultu', 'agricult', ' tonnes ', 'dry spel', ' product', '0 tonnes', 'culture ', 'iculture']
+
+Done with ssk.set_matrix()
+run for length of feature:  8
+Feature fetching (sec):  3.3552799224853516
+Prediction (sec):  0.0027549266815185547
+Results for iteration: 0, for feature length: 8
+[0.8823529411764706, 0.6382978723404256, 0.5, 0.6511627906976745, 0.767123287671233, 0.9333333333333333]
+Starting creation of SSK
+crude
+['bic meters', 'ubic meter', ' cubic met', 'n cubic me', 'cubic mete', 'ic meters ', ' mln cubic', 'mln cubic ', 'ln cubic m', ' billion c']
+
+crude
+[' standard ', 'simon said', 'imon said ', ' simon sai', "standard '", "tandard ' ", 'publicly h', 'ublicly he', 'pct standa', 't standard']
+
+crude
+[' standard ', ' petroleum', 'petroleum ', ' analysts ', 'ish petrol', 'h petroleu', 'ritish pet', 'itish petr', 'sh petrole', 'lysts said']
+
+crude
+[' roderick ', 's roderick', 'roderick s', 'rick said ', 'oderick sa', ' said usx ', 'derick sai', 'erick said', 'h petroleu', ' petroleum']
+
+crude
+['royal dutc', 'h / shell ', 'al dutch /', 'oyal dutch', 'ch / shell', ' royal dut', 'dutch / sh', 'dlrs share', 'utch / she', 'l dutch / ']
+
+corn
+['00 tonnes ', 'tment said', '1987 / 88 ', 'artment sa', 'epartment ', ' departmen', ' 1987 / 88', 'partment s', '0 000 tonn', 'department']
+
+corn
+[' ferruzzi ', ' european ', 'ferruzzi s', 'orn wet mi', ' corn wet ', 'owned ferr', 'european s', 'opean suga', 'nternation', 'internatio']
+
+corn
+['shipments ', '00 tonnes ', ' shipments', 'ussr grain', 'r u ussr g', ' u ussr gr', 'year u uss', 'u ussr gra', 'ar u ussr ', 'agreement ']
+
+corn
+['00 tonnes ', 'department', ' four week', 'ment said ', 'our week a', 'ek average', 'week avera', 'four week ', 'tment said', 'artment sa']
+
+corn
+[' 000 tonne', ' delivery ', 'per tonne ', 's per tonn', 'lrs per to', 'rs per ton', '00 tonnes ', ' per tonne', 'dlrs per t', '000 tonnes']
+
+crude
+['nergy supp', 'energy sup', 'ergy suppl', ' energy su', 'gy supply ', 'rgy supply', 'y supply /', 'electric p', ' energy de', 'ly / deman']
+
+crude
+[' chemical ', ' industry ', ' petrochem', 'trochemica', 'petrochemi', 'chemical i', 'hemical in', 'rochemical', 'etrochemic', 'ochemical ']
+
+crude
+['atement sa', ' statement', 'tement sai', 'ment said ', 'statement ', 'countries ', 'tatement s', 'ement said', ' countries', 'istry stat']
+
+crude
+['unique sai', 'communique', ' communiqu', 'ommunique ', 'nique said', 'mmunique s', 'munique sa', 'ue said ir', 'e said ira', ' iranians ']
+
+crude
+['nion texas', 'ion texas ', 'union texa', ' union tex', ' mln dlrs ', 'exas said ', 'n texas sa', 'ln barrels', ' reserves ', ' mln barre']
+
+crude
+[' crude oil', 'crude oil ', 'agreement ', ' minister ', ' agreement', 'mreza aqaz', 'ded foreig', 'greement i', 'l scientif', 'ning oil e']
+
+crude
+['atural gas', 'natural ga', 'tural gas ', ' natural g', 'egislation', ' legislati', 'ndustrial ', ' industria', 's designed', ' johnston ']
+
+crude
+['e stocks u', 'eia says d', 'nchanged g', 'ate stocks', 'unchanged ', 'late stock', 'llate stoc', 'hanged gas', 'rude 6 3 m', 'd gasoline']
+
+crude
+['ln barrels', ' mln barre', 'n barrels ', 'mln barrel', '1 mln barr', ' 1 mln bar', 'rude oil s', '8 1 mln ba', ' unchanged', 'el stocks ']
+
+crude
+['0 mln bpd ', ' year ago ', ' mln bpd 3', 'mln bpd 3 ', 'te demand ', 'gasoline d', 'u oil dema', ' mln eia s', '5 mln bpd ', ' 9 pct 1 3']
+
+crude
+[' unchanged', 'unchanged ', 'yesterday ', ' yesterday', 'res called', 'futures ca', 'lled uncha', 'pen unchan', 's called u', 'traders ex']
+
+crude
+[' lichtblau', 'lichtblau ', 'ichtblau s', 'htblau sai', 'tblau said', 'blau said ', 'chtblau sa', ' dependenc', 'ependency ', 'dependency']
+
+crude
+['ouisiana l', ' explorati', 'exploratio', ' louisiana', 'siana land', 'ploration ', 'uisiana la', 'isiana lan', 'xploration', 'louisiana ']
+
+crude
+['crude oil ', 'cts barrel', 'ts barrel ', ' cts barre', 'etback val', 'ck values ', 'tback valu', ' crude oil', 'ack values', 'netback va']
+
+crude
+[' unit clos', 'developed ', 'unit close', ' reserves ', 'acquisitio', 'cquisition', ' acquisiti', 'd oil gas ', 'quisition ', 'erves fiel']
+
+crude
+['1987 18 20', ' 18 20 35 ', ' 1987 18 2', 'r 1987 18 ', '18 20 35 9', '87 18 20 3', ' apr 1987 ', '9 apr 1987', 'pr 1987 18', '7 18 20 35']
+
+crude
+[' pipeline ', 'oil output', 'lago agrio', 'ago agrio ', ' oil outpu', 'il output ', ' lago agri', 'earthquake', 'esman said', 'arthquake ']
+
+crude
+['mats said ', 'oviet tank', 'iet tanker', 'soviet tan', 'et tankers', 'diplomats ', 'omats said', 't tankers ', 'iplomats s', 'viet tanke']
+
+crude
+['ln barrels', ' paris bas', 'aris basin', ' barrels m', ' reserves ', ' mln barre', 't triton e', 'ris basin ', 'n reserves', 'paris basi']
+
+crude
+[' platform ', ' standard ', 'production', ' productio', 'ndard oil ', 'standard o', 'installed ', 'andard oil', 'roduction ', ' installed']
+
+crude
+['exploratio', 'klyn union', 'lyn union ', 'ploration ', 'xploration', 'ooklyn uni', 'rooklyn un', ' explorati', 'brooklyn u', 'oklyn unio']
+
+crude
+['national o', 'nternation', ' supplies ', 'internatio', 'redibility', 'credibilit', 'edibility ', 'ional oil ', 'ernational', 'rnational ']
+
+crude
+[" texaco ' ", ' supplies ', 'suppliers ', ' suppliers', 'redit line', ' credit li', 'credit lin', ' oil suppl', 'edit lines', 'dit lines ']
+
+crude
+['national o', 'nternation', ' supplies ', 'internatio', 'redibility', 'credibilit', 'edibility ', 'ional oil ', '" sources ', 'ernational']
+
+crude
+['ing issues', 'ng issues ', 'greement r', 'il pricing', ' oil prici', 'oyal dutch', 'lrs settle', 'royal dutc', 'ln dlrs se', 'mln dlrs s']
+
+crude
+[' marketing', 'marketing ', 'production', ' productio', ' crude oil', 'crude oil ', 'abu dhabi ', 'roduction ', 'oteiba sai', 'last year ']
+
+crude
+[' hurghada ', 'lf canada ', 'gulf canad', 'ulf canada', 'oncession ', ' conoco hu', ' concessio', 'king inter', ' working i', 'ing intere']
+
+crude
+[" texaco ' ", 'bankruptcy', 'ankruptcy ', ' bankruptc', 'texaco fil', ' pennzoil ', 'ed texaco ', 'n chapter ', ' protectio', ' traders s']
+
+crude
+[' pipeline ', 'resume lim', 'e limited ', 'esume limi', 'sume limit', ' resume li', 'ume limite', 'me limited', 'pipeline l', 'lago agrio']
+
+crude
+['udi arabia', 'audi arabi', 'saudi arab', 'di arabia ', ' saudi ara', 'e saudi ar', ' japanese ', 'orts japan', ' trade sau', 's increase']
+
+corn
+['t quarter ', 'first quar', 'rst quarte', 'irst quart', ' first qua', 'st quarter', 'lion baht ', ' billion b', 'billion ba', 'illion bah']
+
+corn
+['agricultur', ' agricultu', ' products ', 'griculture', 'riculture ', 'arm produc', 'm products', ' farm prod', 'rm product', 'farm produ']
+
+corn
+['government', ' governmen', 'overnment ', ' increase ', 'er price r', ' producer ', 'ducer pric', 'tail price', ' maize mea', ' price inc']
+
+corn
+[' mln tonne', 'area sown ', ' area sown', 'ln tonnes ', 'mln tonnes', ' mln hecta', ' estimates', 'estimates ', 'ln hectare', ' sunflower']
+
+corn
+[' capacity ', 'ln tonnes ', ' problems ', 'mln tonnes', ' mln tonne', 'production', 'rage probl', 'rito said ', 'orage prob', ' productio']
+
+corn
+['ln tonnes ', 'mln tonnes', ' mln tonne', 'uth korea ', 'n tonnes u', 'outh korea', 'south kore', 'n imports ', ' 3 mln ton', 'rea corn i']
+
+corn
+['agreement ', ' agreement', 'department', '00 tonnes ', '000 tonnes', ' departmen', ' 000 tonne', ' 55 000 to', 'e departme', 'ommodities']
+
+corn
+['00 tonnes ', '000 tonnes', ' 000 tonne', '5 000 tonn', '0 tonnes f', ' rebates 1', ' requested', 'ee market ', '0 000 tonn', ' free mark']
+
+corn
+['s maize ma', 'nes maize ', 'rebate 130', ' ecus / to', 'us / tonne', 'ize maximu', ' tonnes ma', 'e 130 ecus', 'mum rebate', 'nne trade ']
+
+corn
+['ket barley', '0 tonnes f', ' european ', '5 000 tonn', 'ee market ', 'et barley ', ' tonnes fr', 's free mar', 'ree market', 'free marke']
+
+corn
+[' expected ', 'report sai', 'port said ', ' report sa', 'eport said', ' soybeans ', 'xpected re', 'expected r', 'soybean yi', 'arana acco']
+
+corn
+['tervention', 'interventi', 'nterventio', ' intervent', 'ervention ', 'ommission ', ' commissio', 'commission', ' maize int', 'uthorised ']
+
+corn
+['eans 610 m', 'wheat 1 84', 'orn stocks', 'u wheat 1 ', ' stocks 5 ', '5 240 mln ', '/ 87 endin', ' u 1986 / ', ' 1986 / 87', 'n bu wheat']
+
+corn
+['00 tonnes ', 'commitment', ' 600 tonne', ' commitmen', 'mmitments ', ' agreement', 'ommitments', '600 tonnes', 'ery fourth', 'fourth yea']
+
+corn
+['/ 09 / 87 ', 'eedgrains ', 'feedgrains', ' / 09 / 87', ' feedgrain', ' 09 / 87 0', '3 / 09 / 8', '9 / 87 03 ', '4 / 09 / 8', ' 04 / 09 /']
+
+corn
+['ln tonnes ', 'mln tonnes', ' mln tonne', '0 mln tonn', 'last month', ' last mont', 'ast month ', 'tonnes vs ', ' tonnes vs', 'n tonnes v']
+
+corn
+['/ 87 prev ', ' 87 prev w', ' / 87 prev', '7 prev wk ', '/ 2 / 87 p', '87 prev wk', '4 / 2 / 87', '2 / 87 pre', ' 4 / 2 / 8', ' / 2 / 87 ']
+
+corn
+[' / 09 / 87', '/ 09 / 87 ', ' 09 / 87 0', '/ 87 03 / ', ' 04 / 09 /', '9 / 87 03 ', '04 / 09 / ', '4 / 09 / 8', ' / 87 03 /', '09 / 87 03']
+
+corn
+['mln tonnes', 'ln tonnes ', ' mln tonne', ' last mont', 'last month', '0 mln tonn', 'ast month ', 'tonnes vs ', 'nes last m', 'uth africa']
+
+corn
+[' exporters', 's reported', ' reported ', 'exporters ', 'reported u', '00 tonnes ', 'ing commod', '0 296 0 19', 'ers thousa', 's followin']
+
+corn
+[' corn sold', ' exporters', '87 deliver', 'nes corn s', ' 100 000 t', 'ters repor', 'exporters ', '0 000 tonn', 'orters rep', '/ 87 deliv']
+
+corn
+[' / 09 / 87', '/ 09 / 87 ', ' 09 / 87 0', '3 / 09 / 8', ' 87 03 / 0', '4 / 09 / 8', ' 04 / 09 /', '03 / 09 / ', ' / 87 03 /', '/ 87 03 / ']
+
+corn
+['/ 09 / 87 ', ' / 09 / 87', ' 09 / 87 0', '3 / 09 / 8', '9 / 87 03 ', '4 / 09 / 8', ' 04 / 09 /', ' 03 / 09 /', ' 87 03 / 0', '/ 87 03 / ']
+
+corn
+['00 tonnes ', '000 tonnes', ' 000 tonne', '0 000 tonn', '00 000 ton', 'bean meal ', ' soybean m', 'oybean mea', 'ybean meal', 'livery 198']
+
+corn
+['istrations', 'egistratio', ' 1986 / 87', 'registrati', 'gistration', 'strations ', '1986 / 87 ', ' registrat', 'unflowerse', 'flowerseed']
+
+corn
+['ase call a', 'an release', ' price pri', 'x 1986 rat', 'ease call ', 'te x level', 'mer owned ', 'wned reser', 'owned rese', 'l price pr']
+
+corn
+['00 tonnes ', 'shipments ', ' shipments', 'ussr grain', 'r u ussr g', ' u ussr gr', 'year u uss', 'nes u corn', 'es u corn ', 'u ussr gra']
+
+corn
+['tonnes cor', '0 tonnes c', ' 500 000 t', 'onnes corn', '0 000 tonn', '00 000 ton', ' tonnes co', '00 tonnes ', '000 tonnes', '500 000 to']
+
+corn
+['per tonne ', ' per tonne', ' increased', 'increased ', ' buenos ai', 'buenos air', 'enos aires', 'uenos aire', 'hia blanca', ' unchanged']
+
+corn
+['agricultur', ' agricultu', 'griculture', 'riculture ', 'dry spell ', 'production', 'es agricul', ' productio', ' philippin', 's agricult']
+
+Done with ssk.set_matrix()
+run for length of feature:  10
+Feature fetching (sec):  3.4517900943756104
+Prediction (sec):  0.0022127628326416016
+Results for iteration: 0, for feature length: 10
+[0.8461538461538461, 0.5116279069767441, 0.36666666666666664, 0.5957446808510638, 0.7272727272727273, 0.9333333333333333]
+Starting creation of SSK
+crude
+['n cubic mete', 'cubic meters', ' cubic meter', 'ubic meters ', ' mln cubic m', 'mln cubic me', 'ln cubic met', 'billion cubi', 'lion cubic m', 'illion cubic']
+
+crude
+[' simon said ', " standard ' ", 'blicly held ', 'pct standard', 'ct standard ', 'ublicly held', 'publicly hel', ' pct standar', ' publicly he', ' evaluation ']
+
+crude
+['sh petroleum', ' analysts sa', 'nalysts said', 'british petr', 'analysts sai', 'tish petrole', 'ish petroleu', ' british pet', 'ritish petro', 'itish petrol']
+
+crude
+['roderick sai', ' roderick sa', 'oderick said', 'derick said ', 'es roderick ', 'h petroleum ', 'd roderick s', 'aid usx imme', 'rading partn', 'tion said us']
+
+crude
+['l dutch / sh', 'al dutch / s', 'dutch / shel', ' dlrs share ', 'utch / shell', ' dutch / she', ' royal dutch', 'royal dutch ', 'tch / shell ', 'yal dutch / ']
+
+corn
+['department s', 'artment said', 'partment sai', 'epartment sa', '0 000 tonnes', ' 000 tonnes ', ' department ', ' / 87 season', ' 1986 / 87 s', ' / 88 season']
+
+corn
+['uropean suga', 'corn wet mil', 'ternational ', ' cpc interna', 'pc internati', 'ng business ', 'ed ferruzzi ', ' corn wet mi', ' european su', 'ned ferruzzi']
+
+corn
+[' year u ussr', 'ar u ussr gr', 'year u ussr ', 'ear u ussr g', ' u ussr grai', 'r u ussr gra', ' shipments u', 'u ussr grain', 'eans soviet ', 't ended sept']
+
+corn
+['department s', 'artment said', 'our week ave', 'four week av', 'week average', 'rtment said ', ' four week a', 'r week avera', 'ur week aver', 'partment sai']
+
+corn
+[' dlrs per to', 'rs per tonne', 'dlrs per ton', ' 000 tonnes ', 's per tonne ', 'lrs per tonn', '0 000 tonnes', '5 dlrs per t', 'shipments to', 'nts totallin']
+
+crude
+['energy suppl', ' energy supp', 'ergy supply ', 'nergy supply', 'icials said ', 'ply / demand', ' long term e', ' officials s', 'nergy demand', 'revise long ']
+
+crude
+[' petrochemic', 'petrochemica', 'etrochemical', 'cal industry', 'mical indust', 'chemical ind', 'emical indus', 'ical industr', 'al industry ', 'trochemical ']
+
+crude
+['statement sa', 'tement said ', 'atement said', ' statement s', 'tatement sai', 'ime minister', ' turkey said', 'inental shel', 'foreign mini', 'oreign minis']
+
+crude
+['munique said', 'communique s', ' communique ', 'ommunique sa', 'mmunique sai', 'que said ira', 'd communique', 'ique said ir', 'unique said ', 'nique said i']
+
+crude
+['union texas ', ' union texas', 'ion texas sa', 'n texas said', ' texas said ', 'nion texas s', 'mln barrels ', 'on texas sai', ' mln barrels', ' production ']
+
+crude
+['production r', 'ing oil expl', 'ide technica', 'd london sai', 'ported agenc', 'chnical scie', ' production ', 'wer training', 'nt reached t', 'ched tehran ']
+
+crude
+[' natural gas', 'natural gas ', ' industrial ', 'legislation ', ' legislation', 'n natural ga', ' shortage na', 'lation lift ', 'hortage natu', 'nsumers majo']
+
+crude
+['0 crude 6 3 ', 'stocks uncha', 'illate stock', 'te stocks un', 's distillate', 'istillate st', 'e 200 000 cr', '00 000 crude', '0 000 crude ', ' gasoline 20']
+
+crude
+['mln barrels ', ' mln barrels', '1 mln barrel', ' 1 mln barre', '00 000 barre', 'de oil stock', ' distillate ', ' crude oil s', ' oil stocks ', '0 000 barrel']
+
+crude
+['mln eia said', 'oline demand', 'stillate dem', 'al fuel dema', 'llate demand', 'distillate d', ' mln eia sai', 'istillate de', 'demand fell ', 'ln eia said ']
+
+crude
+['ed unchanged', ' futures cal', ' traders sai', 'ergy futures', 'd unchanged ', 'nergy future', ' open unchan', 'tures called', 'ower traders', 'es called un']
+
+crude
+[' lichtblau s', 'lichtblau sa', 'chtblau said', 'htblau said ', 'ichtblau sai', ' dependency ', 'alternative ', 'dependency f', 'foreign oil ', ' alternative']
+
+crude
+['uisiana land', ' louisiana l', ' exploration', 'ouisiana lan', 'isiana land ', 'exploration ', 'louisiana la', 'siana land s', ' netherlands', 't exploratio']
+
+crude
+[' cts barrel ', 'netback valu', 'etback value', ' netback val', 'back values ', 'tback values', 'revious week', ' previous we', 'previous wee', 'evious week ']
+
+crude
+['acquisition ', ' acquisition', 'ion nerco in', 'uisition 47 ', 'developed un', 'ed developed', ' said estima', 'lion cubic f', 'billion cubi', 'ln dlrs cash']
+
+crude
+[' 1987 18 20 ', '987 18 20 35', ' 18 20 35 91', '1987 18 20 3', 'pr 1987 18 2', '7 18 20 35 9', '9 apr 1987 1', '87 18 20 35 ', 'r 1987 18 20', ' apr 1987 18']
+
+crude
+[' lago agrio ', ' oil output ', 'e oil output', 'de oil outpu', 'crude oil ou', 'rude oil out', ' earthquake ', ' spokesman s', 'pokesman sai', 'ude oil outp']
+
+crude
+['soviet tanke', 'plomats said', 'diplomats sa', ' diplomats s', 'viet tankers', 'oviet tanker', 'iplomats sai', 'iet tankers ', 'lomats said ', 's soviet uni']
+
+crude
+['ln barrels m', 'n barrels ma', 'mln barrels ', ' paris basin', 'paris basin ', ' mln barrels', 't triton ene', 'aris 50 pct ', 'terest field', 'held lt tota']
+
+crude
+[' production ', 'tandard oil ', 'standard oil', ' standard oi', 'ected instal', ' plan offsho', 'offshore pla', '00 barrels o', ' platform in', 'gineering in']
+
+crude
+['exploration ', 'rooklyn unio', 'ooklyn union', ' exploration', 'oklyn union ', 'brooklyn uni', 'xas louisian', 'ploration co', 's louisiana ', 'xploration c']
+
+crude
+['ernational o', ' credibility', 'ternational ', 'credibility ', 'rnational oi', 'internationa', 'nternational', 'ational oil ', ' internation', 'national oil']
+
+crude
+[' credit line', 'redit lines ', ' court filin', 'credit lines', 'court filing', ' chapter 11 ', ' oil supplie', ' texaco said', ' oil company', 'ourt filing ']
+
+crude
+['ernational o', ' credibility', 'ternational ', 'credibility ', 'rnational oi', 'internationa', 'nternational', 'ational oil ', ' internation', 'national oil']
+
+crude
+[' oil pricing', 'royal dutch ', 'n dlrs settl', ' agreement r', ' pricing iss', 'ln dlrs sett', ' dlrs settle', 'ricing issue', 'cing issues ', '0 mln dlrs s']
+
+crude
+[' production ', 'refined prod', ' pct exporte', ' refined pro', 'ined product', 'reaching ope', ' marketing p', ' oteiba said', 'oteiba said ', 'aching opec ']
+
+crude
+['gulf canada ', ' concession ', 'rking intere', 'ing interest', 'working inte', ' working int', 'noco hurghad', 'co hurghada ', ' gulf canada', 'onoco hurgha']
+
+crude
+[' bankruptcy ', ' traders sai', 'otection cha', 'ection chapt', 'ankruptcy co', 'bankruptcy c', 'ction chapte', 'ruptcy code ', 'tection chap', 'n chapter 11']
+
+crude
+['ume limited ', 'resume limit', 'esume limite', ' resume limi', 'sume limited', ' lago agrio ', 'ungle oilfie', 'ipeline link', ' production ', 'me limited c']
+
+crude
+['saudi arabia', ' saudi arabi', 'audi arabia ', 'xports japan', 'rade saudi a', 'de saudi ara', 'orts japan e', 'ports japan ', 'e saudi arab', 'exports japa']
+
+corn
+['irst quarter', 'first quarte', 'rst quarter ', ' first quart', ' billion bah', 'illion baht ', 'billion baht', ' trade defic', 'department s', 'artment said']
+
+corn
+[' agriculture', 'agriculture ', 'rm products ', ' farm produc', 'arm products', 'farm product', 'official sai', 'griculture m', ' official sa', 'lture minist']
+
+corn
+[' government ', ' price maize', 'roducer pric', 'ce increase ', ' retail pric', 'ice increase', 'etail price ', 'retail price', 'price maize ', ' increase pr']
+
+corn
+[' mln tonnes ', ' mln hectare', 'mln hectares', 'ln hectares ', ' last season', ' harvesting ', 'uenos aires ', 'buenos aires', ' buenos aire', 'last season ']
+
+corn
+[' mln tonnes ', ' production ', ' storage pro', 'storage capa', 'ge capacity ', 'age problems', 'orage capaci', 'torage probl', 'torage capac', 'age capacity']
+
+corn
+[' mln tonnes ', 'mln tonnes u', 'south korea ', 'department s', 'artment said', 'corn imports', 'orea corn im', 'onnes u corn', 'th korea cor', ' united stat']
+
+corn
+[' 000 tonnes ', ' discussing ', 'ture departm', ' pl 480 agre', ' 55 000 tonn', '480 agreemen', ' u agricultu', 'ure departme', 'u agricultur', ' agreement s']
+
+corn
+[' 000 tonnes ', '5 000 tonnes', ' free market', 'free market ', '000 tonnes f', '0 000 tonnes', 'onnes free m', '00 tonnes fr', 'quested tota', 'arley rebate']
+
+corn
+['trade source', 'rebate 130 e', 'es maize max', ' export 55 0', 'um rebate 13', 'mum rebate 1', 'aize maximum', 'ises export ', ' 000 tonnes ', ' / tonne tra']
+
+corn
+[' free market', '00 tonnes fr', ' 000 tonnes ', 'ree market b', 'arket barley', ' market barl', 'rket barley ', 'market barle', '000 tonnes f', 's free marke']
+
+corn
+[' report said', 'report said ', ' expected re', 'oybean yield', 'bean yields ', 'crop harvest', 'rana account', 'ybean yields', 'parana accou', 'ana accounts']
+
+corn
+[' interventio', 'ntervention ', 'intervention', ' commission ', 'horised buy ', 'aize interve', 'ission autho', 'commission a', 'ources said ', ' mln tonnes ']
+
+corn
+['nding corn s', 'ing corn sto', 'ding corn st', '1986 / 87 en', ' 240 mln bu ', ' / 87 ending', 'eat 1 848 ml', 'n stocks 5 2', ' u 1986 / 87', '986 / 87 end']
+
+corn
+[' 600 tonnes ', 'commitments ', ' commitments', 'fourth year ', 'corn commitm', ' transaction', '5 600 tonnes', 'transactions', 'ivery fourth', 'delivery fou']
+
+corn
+[' feedgrains ', ' / 09 / 87 0', '9 / 87 03 / ', ' 87 03 / 09 ', ' 04 / 09 / 8', '04 / 09 / 87', ' 09 / 87 03 ', '09 / 87 03 /', ' / 87 03 / 0', '4 / 09 / 87 ']
+
+corn
+[' mln tonnes ', '0 mln tonnes', ' last month ', ' tonnes last', 'onnes last m', 'n tonnes vs ', 'tonnes last ', 'mln tonnes v', 'nes last mon', 'ln tonnes vs']
+
+corn
+[' / 87 prev w', '4 / 2 / 87 p', '/ 2 / 87 pre', ' / 2 / 87 pr', '/ 87 prev wk', ' 2 / 87 prev', ' 4 / 2 / 87 ', ' 87 prev wk ', '2 / 87 prev ', 'nil nil nil ']
+
+corn
+[' / 09 / 87 0', '4 / 09 / 87 ', ' 09 / 87 03 ', '04 / 09 / 87', '/ 09 / 87 03', '09 / 87 03 /', '9 / 87 03 / ', ' 04 / 09 / 8', ' 03 / 09 / 8', ' / 87 03 / 0']
+
+corn
+[' mln tonnes ', '0 mln tonnes', 'nes last mon', 'ln tonnes vs', 'mln tonnes l', ' tonnes last', ' last month ', 'es last mont', 'nnes last mo', 'onnes last m']
+
+corn
+['s reported u', ' year sept a', ' 135 8 179 9', 't seasons ap', 'bean meal 4 ', '135 8 179 9 ', ' tonnes unle', 'ing commodit', '19 194 6 25 ', 'start curren']
+
+corn
+['eria 1986 / ', 's report 100', '1986 / 87 de', '86 / 87 deli', '0 tonnes cor', 't 100 000 to', 'ia 1986 / 87', ' 100 000 ton', 'orn sold alg', 'lgeria 1986 ']
+
+corn
+[' / 09 / 87 0', ' 87 03 / 09 ', ' 09 / 87 03 ', '03 / 09 / 87', ' 03 / 09 / 8', '04 / 09 / 87', ' / 87 03 / 0', '/ 09 / 87 03', '9 / 87 03 / ', ' 04 / 09 / 8']
+
+corn
+[' / 09 / 87 0', '9 / 87 03 / ', ' 87 03 / 09 ', ' 04 / 09 / 8', '04 / 09 / 87', ' 09 / 87 03 ', '09 / 87 03 /', ' / 87 03 / 0', '4 / 09 / 87 ', '/ 87 03 / 09']
+
+corn
+[' 000 tonnes ', '0 000 tonnes', '00 000 tonne', 'delivery 198', 'soybean meal', ' soybean mea', ' delivery 19', 'oybean meal ', ' / 87 season', 'department s']
+
+corn
+[' registratio', 'gistrations ', 'registration', 'egistrations', 'nflowerseed ', 'tive figures', 'ort registra', 'xport regist', 'rt registrat', ' export regi']
+
+corn
+['mer owned re', 'll avge rate', 'oan release ', 'el price pri', 'ate x level ', 'r owned rese', 'price price ', 'average pric', 'l price pric', 'all avge rat']
+
+corn
+[' 600 tonnes ', 'onnes u corn', ' year u ussr', '00 tonnes u ', ' 700 tonnes ', 'nnes u corn ', ' tonnes u co', 'ar u ussr gr', 'n shipments ', 'year u ussr ']
+
+corn
+[' 000 tonnes ', '00 tonnes co', ' tonnes corn', '00 000 tonne', '0 tonnes cor', 'tonnes corn ', '500 000 tonn', '0 000 tonnes', ' 500 000 ton', '000 tonnes c']
+
+corn
+[' buenos aire', 'buenos aires', 'a blanca inc', 'nca increase', ' increased 0', 'bahia blanca', 'a increased ', 'anca increas', 'creased 0 50', 'increased 0 ']
+
+corn
+['agriculture ', ' agriculture', ' production ', 'es agricultu', 's agricultur', 'icials said ', 'nes agricult', ' officials s', 'fficials sai', 'officials sa']
+
+Done with ssk.set_matrix()
+run for length of feature:  12
+Feature fetching (sec):  3.4116809368133545
+Prediction (sec):  0.0016658306121826172
+Results for iteration: 0, for feature length: 12
+[0.65, 0.5199999999999999, 0.43333333333333335, 0.575, 0.6571428571428571, 0.7666666666666667]
+Starting creation of SSK
+crude
+['n cubic meters', ' cubic meters ', 'mln cubic mete', 'ln cubic meter', ' mln cubic met', 'on cubic meter', 'billion cubic ', 'illion cubic m', ' billion cubic', 'ion cubic mete']
+
+crude
+['publicly held ', ' publicly held', ' pct standard ', 'ct standard oi', "tandard ' stoc", " standard ' st", 'blicly held sh', ' standard oil ', "ndard ' stock ", 't standard oil']
+
+crude
+['analysts said ', ' british petro', ' analysts said', 'ish petroleum ', 'ritish petrole', 'tish petroleum', 'itish petroleu', 'british petrol', ' standard oil ', 'argoshes said ']
+
+crude
+[' roderick said', 'roderick said ', 'derick said " ', 'id usx immedia', 'rading partner', 'd usx immediat', 'energy assets ', ' british petro', 'trading partne', 'oderick said "']
+
+crude
+['oyal dutch / s', 'dutch / shell ', 'l dutch / shel', ' dutch / shell', ' royal dutch /', 'royal dutch / ', 'yal dutch / sh', 'al dutch / she', 'analysts said ', ' minority shar']
+
+corn
+['epartment said', ' department sa', 'department sai', '86 / 87 season', '6 / 87 season ', 'eason amount 9', ' 1986 / 87 sea', 's 1986 / 87 se', '1986 / 87 seas', '987 / 88 seaso']
+
+corn
+['wned ferruzzi ', 'owned ferruzzi', 'c internationa', ' cpc internati', ' european suga', 'uropean sugar ', 'cpc internatio', ' corn wet mill', 'european sugar', ' owned ferruzz']
+
+corn
+['ear u ussr gra', 'r u ussr grain', 'ar u ussr grai', 'year u ussr gr', ' year u ussr g', 't 6 808 100 to', ' 6 808 100 ton', 'amounted 152 6', ' union week en', 'ain soybeans s']
+
+corn
+['r week average', 'four week aver', 'partment said ', 'our week avera', ' four week ave', ' week average ', 'ur week averag', 'department sai', 'epartment said', ' department sa']
+
+corn
+['dlrs per tonne', ' dlrs per tonn', 'lrs per tonne ', 'er tonne novem', 'ments totallin', 'ember 1 15 del', 'hipments total', ' 000 tonnes pr', 'nts totalling ', 'er 5 20 delive']
+
+crude
+['energy supply ', ' energy supply', 'ly / demand ou', 'electric power', ' electric powe', '/ demand outlo', ' supply / dema', 'ergy supply / ', 'officials said', 'supply / deman']
+
+crude
+[' petrochemical', 'hemical indust', 'emical industr', 'ical industry ', 'chemical indus', 'petrochemical ', 'mical industry', ' chemical indu', 'hemical busine', 'chemical busin']
+
+crude
+['statement said', ' statement sai', 'tatement said ', 'inistry statem', 'n ministry sta', 'ontinental she', 'foreign minist', 'eign ministry ', 'prime minister', 'rime minister ']
+
+crude
+[' communique sa', 'communique sai', 'ommunique said', 'mmunique said ', 'unique said ir', 'd communique s', 'nique said ira', 'munique said i', 'que said iraqi', 'ontinuing adva']
+
+crude
+['ion texas said', 'nion texas sai', ' union texas s', 'on texas said ', 'union texas sa', ' company said ', 'ls oil equival', ' barrels oil e', 'llion dlrs sal', 'lion dlrs sale']
+
+crude
+['ng oil exploit', ' reached tehra', ' oil annually ', 'ived london sa', 'aded foreign m', ' provide techn', 'rna said agree', 'ide technical ', ' tonnes crude ', 'y irna reporte']
+
+crude
+['ifts bans natu', 's bill sponsor', 'ial gas burnin', 'tion open new ', 'mental pricing', 'er alternate f', 'nate energy co', 'ctions higher ', 'res new baselo', 'ion lift ban n']
+
+crude
+['gasoline 200 0', ' crude 6 3 mln', 'ays distillate', 'cks unchanged ', 'istillate stoc', ' says distilla', 'ne 200 000 cru', 'asoline 200 00', 'stocks unchang', 'ate stocks unc']
+
+crude
+[' 1 mln barrels', '1 mln barrels ', 'nchanged week ', '00 000 barrels', 'ude oil stocks', '0 000 barrels ', '8 1 mln barrel', ' crude oil sto', 'de oil stocks ', 'rude oil stock']
+
+crude
+[' mln eia said ', ' gasoline dema', 'stillate deman', 'illate demand ', 'distillate dem', ' distillate de', 'esidual fuel d', 'soline demand ', 'ual fuel deman', ' u oil demand ']
+
+crude
+['energy futures', 'pen unchanged ', 'lled unchanged', 'raders expect ', ' gasoil future', 'called unchang', 'lower traders ', ' traders said ', 'es called unch', ' open unchange']
+
+crude
+[' lichtblau sai', 'lichtblau said', 'ichtblau said ', 'dependency for', 'y foreign oil ', 'dency foreign ', 'ndency foreign', 'pendency forei', 'ependency fore', 'cy foreign oil']
+
+crude
+['louisiana land', ' louisiana lan', 'ouisiana land ', 'isiana land sa', 's louisiana la', 't exploration ', 'ana land said ', 'uisiana land s', 'siana land sai', 'iana land said']
+
+crude
+[' netback value', 'netback values', 'etback values ', 'previous week ', ' previous week', 'etroleum produ', 'sharply europe', 'crude oil netb', 'troleum produc', ' petroleum pro']
+
+crude
+["ates field ' t", 'estimates fiel', 'nit closed acq', 'co 22 5 mln dl', "s field ' tota", 's cash nerco s', 'd undeveloped ', ' oil / gas acq', 'tion nerco inc', 'orking interes']
+
+crude
+['apr 1987 18 20', '1987 18 20 35 ', 'pr 1987 18 20 ', ' 1987 18 20 35', '87 18 20 35 91', ' apr 1987 18 2', 'r 1987 18 20 3', '987 18 20 35 9', '9 apr 1987 18 ', '35 91 9 apr 19']
+
+crude
+['ude oil output', 'rude oil outpu', 'spokesman said', ' spokesman sai', 'crude oil outp', ' crude oil out', 'de oil output ', 'alao pacific 1', ' km new link c', ' bpd ), built ']
+
+crude
+['diplomats said', 'soviet tankers', 'oviet tankers ', ' diplomats sai', 'iplomats said ', 'ats said expec', 'mats said expe', ' soviet tanker', 'viet tankers s', 'lomats said ex']
+
+crude
+['mln barrels ma', ' mln barrels m', 'es 39 pct trit', 'on lt oil says', 'is 50 pct held', 'rels march one', 't triton energ', 'l says paris b', '86 triton said', ' may 31 1986 t']
+
+crude
+[' standard oil ', 'rm expected in', 'roduction plat', 'led summer 198', 'signed produce', 'atform designe', 'ily platform e', 'lt prudential ', ' srd mobil lt ', 'g inc drilling']
+
+crude
+['rooklyn union ', 'brooklyn union', 'xas louisiana ', ' texas louisia', 'exploration co', 'texas louisian', 'exas louisiana', ' exploration c', ' brooklyn unio', 'xploration co ']
+
+crude
+['rnational oil ', 'ernational oil', 'ternational oi', ' international', 'international ', 'nternational o', ' said sources ', 'tional oil com', 'l oil companie', 'national oil c']
+
+crude
+[' credit lines ', " texaco ' oil ", 'aid court fili', 'id court filin', ' supreme court', 'said court fil', ' oil supplies ', 'supreme court ', ' demanding cas', ' court filing ']
+
+crude
+['rnational oil ', 'ernational oil', 'ternational oi', ' international', 'international ', 'nternational o', 'tional oil com', 'l oil companie', 'national oil c', 'ational oil co']
+
+crude
+['0 mln dlrs set', ' pricing issue', 'pricing issues', 'ricing issues ', 'n dlrs settle ', 'ln dlrs settle', ' mln dlrs sett', 'mln dlrs settl', 'olves issues r', 'il co oil pric']
+
+crude
+[' refined produ', ' breaching ope', 'breaching opec', 'reaching opec ', 'refined produc', 'efined product', ' pct exported ', 'g director abu', ' steps guarant', 'ion oil market']
+
+crude
+['orking interes', 'rking interest', 'noco hurghada ', 'conoco hurghad', 'onoco hurghada', ' conoco hurgha', ' working inter', 'working intere', 'gram planned 1', 'quires suez oi']
+
+crude
+['ankruptcy code', ' traders said ', 'ection chapter', 'rotection chap', 'nkruptcy code ', 'ion chapter 11', ' protection ch', ' bankruptcy co', 'otection chapt', 'ction chapter ']
+
+crude
+['esume limited ', ' resume limite', 'resume limited', 'ited crude out', ' oil productio', 'uction ecuador', 'ction ecuador ', 'grio puerto co', 'ted crude outp', 'ago agrio puer']
+
+crude
+['e saudi arabia', 'trade saudi ar', ' trade saudi a', 'de saudi arabi', 'ade saudi arab', ' exports japan', 'exports japan ', 'rade saudi ara', 'xports japan e', ' saudi arabia ']
+
+corn
+[' first quarter', 'first quarter ', ' billion baht ', 's department s', 'billion baht 5', ' trade deficit', 't first quarte', ' deficit widen', 'export growth ', 'ade deficit wi']
+
+corn
+[' farm products', 'farm products ', ' agriculture m', 'riculture mini', ' official said', 'culture minist', 'agriculture mi', 'griculture min', 'iculture minis', ' ministry offi']
+
+corn
+['price increase', ' price increas', ' retail price ', 'producer price', ' producer pric', 'roducer price ', 'rice increase ', 'ice increase p', 'ease president', 'aize meal offi']
+
+corn
+[' mln hectares ', ' buenos aires ', 'producers fear', 'eld estimates ', 'pct area sown ', ' pct area sown', 'yield estimate', ' yield estimat', ' producers fea', 'ield estimates']
+
+corn
+['torage problem', 'storage proble', ' storage probl', ' storage capac', 'rage problems ', 'rage capacity ', 'torage capacit', 'orage capacity', 'storage capaci', 'orage problems']
+
+corn
+['h korea corn i', 'rea corn impor', ' united states', ' corn imports ', ' korea corn im', 's united state', 'epartment said', '4 mln tonnes u', ' department sa', 'uth korea corn']
+
+corn
+['ture departmen', 'agreement sign', 'iculture depar', ' u agriculture', 'u agriculture ', 're department ', 'riculture depa', 'culture depart', ' 55 000 tonnes', 'l 480 agreemen']
+
+corn
+['tonnes free ma', 'nes free marke', 'y rebates 138 ', 'rley rebates 1', 'equested total', 'heat around 14', ' wheat around ', 'bread making w', ' tonnes free m', '0 tonnes maize']
+
+corn
+['xport 55 000 t', 'aize maximum r', 'e trade source', '55 000 tonnes ', 'nes maize maxi', 'ebate 130 ecus', '/ tonne trade ', 's export 55 00', 'us / tonne tra', 'tonne trade so']
+
+corn
+['market barley ', ' 000 tonnes fr', 's free market ', ' market barley', '5 000 tonnes f', '000 tonnes fre', ' free market b', 'ree market bar', 'free market ba', 'ee market barl']
+
+corn
+[' parana accoun', ' support price', 'parana account', ' soybean yield', 'rana accounts ', 'arana accounts', 'soybean yields', 'oybean yields ', 'r february hel', 'brief cold spe']
+
+corn
+[' intervention ', ' united states', 'authorised buy', 'mmission autho', 'ommission auth', 'ze interventio', 'ission authori', 'sion authorise', 'on authorised ', 's maize interv']
+
+corn
+['ending corn st', 'cks 5 240 mln ', ' soybeans 610 ', 'bu wheat 1 848', 'n stocks 5 240', 'tocks 5 240 ml', 'corn stocks 5 ', ' bu wheat 1 84', ' wheat 1 848 m', 't 1 848 mln so']
+
+corn
+['orn commitment', ' delivery four', 'rn commitments', 'n commitments ', 'elivery fourth', 'corn commitmen', ' corn commitme', 'commitments us', ' commitments u', 'delivery fourt']
+
+corn
+[' 87 03 / 09 / ', ' / 87 03 / 09 ', ' 03 / 09 / 87 ', '7 03 / 09 / 87', '9 / 87 03 / 09', '/ 87 03 / 09 /', '09 / 87 03 / 0', '04 / 09 / 87 0', '4 / 09 / 87 03', '/ 09 / 87 03 /']
+
+corn
+['es last month ', 'nes last month', 'n tonnes last ', 'mln tonnes vs ', 'onnes last mon', ' mln tonnes la', 'tonnes last mo', ' tonnes last m', 'ln tonnes last', ' mln tonnes vs']
+
+corn
+['4 / 2 / 87 pre', ' 4 / 2 / 87 pr', '/ 2 / 87 prev ', ' 2 / 87 prev w', ' / 87 prev wk ', ' / 2 / 87 prev', '2 / 87 prev wk', 'il nil nil nil', 'nil nil nil ni', 'l nil nil nil ']
+
+corn
+[' 04 / 09 / 87 ', '4 / 09 / 87 03', '/ 09 / 87 03 /', ' / 09 / 87 03 ', ' 09 / 87 03 / ', '04 / 09 / 87 0', '9 / 87 03 / 09', '/ 87 03 / 09 /', '7 03 / 09 / 87', ' 87 03 / 09 / ']
+
+corn
+['n tonnes last ', 'tonnes last mo', ' tonnes last m', 'nes last month', 'mln tonnes vs ', 'onnes last mon', 'ln tonnes last', ' mln tonnes vs', 'nnes last mont', 'mln tonnes las']
+
+corn
+[' added reflect', 'an oil 138 4 1', 'meal 4 098 0 3', '6 3 141 3 cott', ' 19 725 8 soyb', 'at 21 044 6 20', '3 19 725 8 soy', '300 tonnes cor', 'ted usda expor', 'xporters expor']
+
+corn
+['000 tonnes cor', 't 100 000 tonn', 'd algeria 1986', 'orn sold alger', 'onnes corn sol', 'exporters repo', 'eria 1986 / 87', 'geria 1986 / 8', 'tonnes corn so', '0 000 tonnes c']
+
+corn
+[' 87 03 / 09 / ', '7 03 / 09 / 87', '9 / 87 03 / 09', '09 / 87 03 / 0', '/ 09 / 87 03 /', ' / 87 03 / 09 ', ' / 09 / 87 03 ', ' 04 / 09 / 87 ', ' 09 / 87 03 / ', ' 03 / 09 / 87 ']
+
+corn
+[' 87 03 / 09 / ', ' / 87 03 / 09 ', ' 03 / 09 / 87 ', '7 03 / 09 / 87', '9 / 87 03 / 09', '/ 87 03 / 09 /', '09 / 87 03 / 0', '04 / 09 / 87 0', '4 / 09 / 87 03', '/ 09 / 87 03 /']
+
+corn
+['00 000 tonnes ', ' soybean meal ', '86 / 87 season', '6 / 87 season ', '0 tonnes corn ', ' delivery 1986', ' 1986 / 87 sea', ' marketing yea', 'arketing year ', 'ery 1986 / 87 ']
+
+corn
+[' registrations', 'registrations ', ' export regist', 'ative figures ', 'export registr', 't registration', ' sunflowerseed', ' 1986 / 87 cro', 'xport registra', 'rt registratio']
+
+corn
+['l avge rate x ', ' release call ', 'loan release c', ' average price', ' x 1986 rates ', 'ease call avge', 'call avge rate', ' loan release ', 'vel price pric', 'farmer owned r']
+
+corn
+['ear u ussr gra', '00 tonnes u co', '0 tonnes u cor', 'r u ussr grain', 'tonnes u corn ', 'ar u ussr grai', ' tonnes u corn', 'year u ussr gr', ' year u ussr g', 't 6 808 100 to']
+
+corn
+['00 tonnes corn', '500 000 tonnes', '00 000 tonnes ', '000 tonnes cor', ' 500 000 tonne', '0 000 tonnes c', '0 tonnes corn ', ' 000 tonnes co', 'nnes corn may ', 'rivate export ']
+
+corn
+['blanca increas', ' increased 0 5', 'bahia blanca i', ' bahia blanca ', 'anca increased', 'increased 0 50', 'a blanca incre', ' buenos aires ', 'ia blanca incr', 'a increased 0 ']
+
+corn
+['nes agricultur', 'officials said', ' officials sai', 's agriculture ', 'es agriculture', 'fficials said ', 'set expected i', '170 8 mln peso', ' sugar two yea', '111 350 hectar']
