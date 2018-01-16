@@ -273,9 +273,13 @@ class SSK:
                 b = label of the document
                 c = the document of a support vector
         '''
-        return np.sum([a[1] * self.label[a[0].category] *\
-            self.calc_kernel_ngram(a[0], doc) for a in self.alpha_list])
-
+        if(self.ngram):
+            return np.sum([a[1] * self.label[a[0].category] *\
+                self.calc_kernel_ngram(a[0], doc) for a in self.alpha_list])
+        else:
+            return np.sum([a[1] * self.label[a[0].category] * \
+                           self.calc_kernel(a[0], doc) for a in self.alpha_list])
+        
     def set_results(self, verbose=True):
         '''Print results for this Kernel'''
         # Class a is assigned positive values and B negative values
