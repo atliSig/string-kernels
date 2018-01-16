@@ -272,13 +272,12 @@ class SSK:
         return total
 
     def normalize_a_document(self,doc,words_in_document):
-        doc_cleaned = doc.clean_data
-        number_of_words_to_remove = len(doc_cleaned)-self.document_normalizing_size
+        number_of_words_to_remove = len(doc)-self.document_normalizing_size
         if(number_of_words_to_remove > 0):
             for i in number_of_words_to_remove:
                 word_to_remove = words_in_document.pop(random.randrange(len(words_in_document)))
-                doc_cleaned.replace(word_to_remove, '')
-        return doc_cleaned        
+                doc.replace(word_to_remove, '')
+        return doc
 
     def calc_kernel_wk(self, doc_1, doc_2):
        shared_words = set()
@@ -316,7 +315,7 @@ class SSK:
         return np.sum([a[1] * self.label[a[0].category] *\
             self.calc_kernel_ngram(a[0], doc) for a in self.alpha_list])
 
-    def set_results(self, verbose=True)):
+    def set_results(self, verbose=True):
         '''Print results for this Kernel'''
         # Class a is assigned positive values and B negative values
         a_tp = a_tn = a_fp = a_fn = b_tp = b_tn = b_fp = b_fn = 0
