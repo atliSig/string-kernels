@@ -4,6 +4,7 @@ import random
 import sys
 import time
 import numpy as np
+from math import log10
 from nltk.corpus import reuters, stopwords
 from collections import defaultdict
 from operator import getitem
@@ -70,7 +71,6 @@ class Document:
                         self.features.add(w)
                         self.noncont_features[w]['count']+=1
                         self.noncont_features[w]['weights'].append(c[-1]-c[0]+1)
-
     def sort_features(self):
         '''returns features in the order of number of occurrences'''
         tuples = {}
@@ -79,14 +79,20 @@ class Document:
         tuples_sorted = sorted(tuples, key=tuples.get, reverse=True)
         # self.freq_features is of type list
         self.freq_features = tuples_sorted
+        self.freq_features_counts = [tuples[tuples_sorted[i]] for i in range(len(tuples_sorted))]
         if not self.contigous:
             self.noncont_freq_features = sorted(self.noncont_features.items(), key=lambda x:getitem(x[1],'count'),
                 reverse=True)
 
+
     def get_top_features(self):
         '''Returns the list of top features for this Document'''
         return self.freq_features[:self.m]
-    
+
+    def get_top_features_counts(self):
+        '''Returns the number of occurrences for each top feature'''
+        return self.freq_features_counts[:self.m]
+
     def __repr__(self):
         return 'Doc: '+ self.index +' in category: ' + self.category
 
@@ -141,6 +147,7 @@ class SSK:
         # including both categories
         self.training_list = []
         self.testing_list = []
+        self.document_normalizing_size = 0
 
         if cat_a_tr_c+cat_a_tst_c > self.cat_a_count or cat_b_tr_c+cat_b_tst_c > self.cat_b_count:
             print('number of training/testing documents exceeds number of articles')
@@ -158,19 +165,14 @@ class SSK:
         for i in self.cat_b_testing[:cat_b_tst_c]:
             self.testing_list.append(Document(self.cat_b, i, self.max_features, self.k, contigous=self.contigous))
 
+        
+
         self.kernel_matrix = np.zeros([cat_a_tr_c+cat_b_tr_c, cat_a_tr_c+cat_b_tr_c])
         self.top_feature_list = set()
         self.all_feature_list = set()
         self.seed = seed
         self.alpha_list = []
-
-    def shuffle_train_test_data(self):
-        m = len(self.training_list)
-        all_data = self.training_list + self.testing_list
-        random.shuffle(all_data)
-        self.training_list, self.testing_list = all_data[:m], all_data[m:]
-
-
+    
     def set_matrix(self):
         '''Create the matrix here'''
         # create list of lists where each inner-list is [1/-1,index]
@@ -192,6 +194,8 @@ class SSK:
                     self.kernel_matrix[i, j] = self.calc_kernel(sample_i, sample_j)*\
                     self.label[sample_i.category]*self.label[sample_j.category]
                 self.kernel_matrix[j, i] = self.kernel_matrix[i, j]
+
+        self.get_document_normalizing_factor()
 
         #Normalizing results in rank issues with cvxopt.qp
         #self.normalize_kernel()
@@ -234,6 +238,14 @@ class SSK:
         '''Gets the list of support vectors'''
         return self.alpha_list
     
+    def get_document_normalizing_factor(self):
+        min_length = sys.maxint
+        for doc in self.training_list:
+            doc_length = len(doc.clean_data())
+            if doc_length<min_length:
+                min_length = doc_length
+        self.document_normalizing_size = min_length
+
     def calc_kernel(self, doc_a, doc_b):
         '''Calculates the kernel matrix value for K[i,j]'''
         total = 0
@@ -251,14 +263,46 @@ class SSK:
         return total
 
     def calc_kernel_ngram(self, doc_1, doc_2):
-        '''Calculates the kernel value for the ngram version'''
         shared_ngrams = set()
         shared_ngrams.update(doc_1.features)
         shared_ngrams.update(doc_2.features)
         total = 0
-        for n_gram in shared_ngrams:
-            total += doc_1.clean_data.count(n_gram) * doc_2.clean_data.count(n_gram)
+        for ngram in shared_ngrams:
+            total += doc_1.clean_data.count(ngram) * doc_2.clean_data.count(ngram)
         return total
+
+    def normalize_a_document(self,doc,words_in_document):
+        doc_cleaned = doc.clean_data
+        number_of_words_to_remove = len(doc_cleaned)-self.document_normalizing_size
+        if(number_of_words_to_remove > 0):
+            for i in number_of_words_to_remove:
+                word_to_remove = words_in_document.pop(random.randrange(len(words_in_document)))
+                doc_cleaned.replace(word_to_remove, '')
+        return doc_cleaned        
+
+    def calc_kernel_wk(self, doc_1, doc_2):
+       shared_words = set()
+       document_1_cleaned = doc_1.clean_data()
+       document_2_cleaned = doc_2.clean_data()
+       words_in_document_1 = re.findall('\w+', document_1_cleaned)
+       words_in_document_2 = re.findall('\w+', document_2_cleaned)
+       document_1_cleaned_and_normalized = self.normalize_a_document(document_1_cleaned,words_in_document_1)
+       document_2_cleaned_and_normalized = self.normalize_a_document(document_2_cleaned,words_in_document_2)
+       words_in_document_1_normalized = re.findall('\w+', document_1_cleaned_and_normalized)
+       words_in_document_2_normalized = re.findall('\w+', document_2_cleaned_and_normalized)
+       shared_words.update(words_in_document_1_normalized)
+       shared_words.update(words_in_document_2_normalized)
+       total = 0
+       for shared_word in shared_words:
+           count_doc_1 = document_1_cleaned_and_normalized.count(shared_word)
+           count_doc_2 = document_2_cleaned_and_normalized.count(shared_word)
+           tf_doc_1 = count_doc_1/len(document_1_cleaned_and_normalized)
+           tf_doc_2 = count_doc_2/len(document_2_cleaned_and_normalized)
+           idf = log10(2/(count_doc_1+count_doc_2))
+           tfidf_doc_1 = log10(1+tf_doc_1)*idf
+           tfidf_doc_2 = log10(1+tf_doc_2)*idf
+           total += tfidf_doc_1*tfidf_doc_2
+       return total
 
     def ind(self, doc):
         '''
@@ -269,14 +313,10 @@ class SSK:
                 b = label of the document
                 c = the document of a support vector
         '''
-        if(self.ngram):
-            return np.sum([a[1] * self.label[a[0].category] *\
-                self.calc_kernel_ngram(a[0], doc) for a in self.alpha_list])
-        else:
-            return np.sum([a[1] * self.label[a[0].category] * \
-                self.calc_kernel(a[0], doc) for a in self.alpha_list])
-        
-    def set_results(self, verbose=True):
+        return np.sum([a[1] * self.label[a[0].category] *\
+            self.calc_kernel_ngram(a[0], doc) for a in self.alpha_list])
+
+    def set_results(self, verbose=True)):
         '''Print results for this Kernel'''
         # Class a is assigned positive values and B negative values
         a_tp = a_tn = a_fp = a_fn = b_tp = b_tn = b_fp = b_fn = 0
@@ -355,6 +395,7 @@ if __name__ == '__main__':
         sys.exit(0)
 
     result_matrix = np.zeros((len(feature_it), len(output_labels)*2))
+
     for idx_feat, feat, in enumerate(feature_it):
         outputs = []
         outer_loop_time = time.time()
@@ -362,9 +403,8 @@ if __name__ == '__main__':
             time_init = time.time()
             print("Starting creation of SSK")
             ssk = SSK(cat_a, cat_b, max_features, feat, lamda, cat_a_tr_c,
-                      cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it, threshold, contigous=(not non_contigous), ngram=ngram)
+                      cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it, threshold, contigous=not non_contigous, ngram=ngram)
             ssk.set_matrix()
-            ssk.shuffle_train_test_data()
             print("Done with ssk.set_matrix()")
             if verbose_time:
                 print("run for length of feature: ", feat)
