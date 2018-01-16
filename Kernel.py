@@ -5,38 +5,42 @@ import sys
 import time
 import numpy as np
 from nltk.corpus import reuters, stopwords
+from collections import defaultdict
+from operator import getitem
 from cvxopt.solvers import qp
 import cvxopt.solvers as cvx_solver
 from cvxopt import matrix
 cvx_solver.options['show_progress'] = False
+from itertools import combinations
 
 class Document:
     '''A class for a document from the Reuters data-set'''
-    def __init__(self, category, index, m, n):
+    def __init__(self, category, index, m, n, contigous=True, blob_length=50):
         '''
             :param category: the name of the document's category
             :param m: the number of top features
             :param n: the length of each feature
             :param index: the index of the document into the Reuters data-set
-            :param label: -1 or 1 for labelling purposes
+            :param contigous: Boolean, True if features are contigous, True otherwise 
         '''
+
         self.m = m
         self.n = n
         self.index = index
         self.category = category
-        self.words = reuters.words(index)
+        self.contigous = contigous
+        if self.contigous:
+            self.features = set()
+            self.words = reuters.words(index)
+        else:
+            self.features = set()
+            self.blob_length = blob_length
+            self.noncont_features = defaultdict(lambda: {'count':0, 'weights':[]}, {})
+            self.words = reuters.words(index)[:self.blob_length]
         self.clean_data = self.remove_stops()
-        self.features = set()
-        for i in range(len(self.clean_data)-self.n+1):
-            self.features.add(self.clean_data[i:i+self.n])
-        tuples = {}
-        for feature in self.features:
-            tuples[feature] = self.clean_data.count(feature)
-        tuples_sorted = sorted(tuples, key=tuples.get, reverse=True)
-        self.freq_features = tuples_sorted
-        self.freq_features_counts = [tuples[tuples_sorted[i]] for i in range(len(tuples_sorted))]
-
-
+        self.set_features()
+        self.sort_features()
+    
     def get_words(self):
         '''Returns the original version of the Reuters document'''
         return reuters.words
@@ -52,18 +56,32 @@ class Document:
 
     def set_features(self):
         '''Sets the complete list of contigous letter combinations of length n'''
-        self.features = set()
-        for i in range(len(self.clean_data)-self.n+1):
-            self.features.add(self.clean_data[i:i+self.n])
-
-    def set_freq_features(self):
+        if self.contigous:
+            for i in range(len(self.clean_data)-self.n+1):
+                self.features.add(self.clean_data[i:i+self.n])
+        else:
+            # get all features, including non-congtigous that appear
+            # within the same word
+            for word in self.clean_data.split(' '):
+                if len(word) > self.n:
+                    comb = combinations(range(len(word)), self.n)
+                    for c in comb:
+                        w = ''.join([word[i] for i in c])
+                        self.features.add(w)
+                        self.noncont_features[w]['count']+=1
+                        self.noncont_features[w]['weights'].append(c[-1]-c[0]+1)
+    def sort_features(self):
         '''returns features in the order of number of occurrences'''
         tuples = {}
         for f in self.features:
             tuples[f] = self.clean_data.count(f)
         tuples_sorted = sorted(tuples, key=tuples.get, reverse=True)
+        # self.freq_features is of type list
         self.freq_features = tuples_sorted
         self.freq_features_counts = [tuples[tuples_sorted[i]] for i in range(len(tuples_sorted))]
+        if not self.contigous:
+            self.noncont_freq_features = sorted(self.noncont_features.items(), key=lambda x:getitem(x[1],'count'),
+                reverse=True)
 
 
     def get_top_features(self):
@@ -80,7 +98,7 @@ class Document:
 class SSK:
     '''A class for a lazy SSK implementation'''
     def __init__(self, cat_a, cat_b, max_features, k, lamda, cat_a_tr_c=0, cat_a_tst_c=0,
-        cat_b_tr_c=0, cat_b_tst_c=0, avg_it=5, threshold=10**-5, seed=None):
+        cat_b_tr_c=0, cat_b_tst_c=0, avg_it=5, threshold=10**-5, seed=None, contigous=True, ngram=False):
         '''
             :param cat_a: A category index for the Reuters data-set
             :param cat_b: A category index for the Reuters data-set
@@ -93,6 +111,7 @@ class SSK:
             :param k: the length of each feature
             :param lamda: the value of the distance constraint parameter
             :param seed: optional random seed
+            :param contigous: Boolean, True if features are contigous, True otherwise 
         '''
         self.k = k
         self.avg_it = avg_it
@@ -101,6 +120,8 @@ class SSK:
         self.threshold = threshold
         self.cat_a = cat_a
         self.cat_b = cat_b
+        self.contigous = contigous
+        self.ngram = ngram
         self.label = {
             self.cat_a:1,
             self.cat_b:-1
@@ -131,16 +152,16 @@ class SSK:
             sys.exit(0)
 
         for i in self.cat_a_training[:cat_a_tr_c]:
-            self.training_list.append(Document(self.cat_a, i, self.max_features, self.k))
+            self.training_list.append(Document(self.cat_a, i, self.max_features, self.k, contigous=self.contigous))
 
         for i in self.cat_b_training[:cat_b_tr_c]:
-            self.training_list.append(Document(self.cat_b, i, self.max_features, self.k))
+            self.training_list.append(Document(self.cat_b, i, self.max_features, self.k, contigous=self.contigous))
 
         for i in self.cat_a_testing[:cat_a_tst_c]:
-            self.testing_list.append(Document(self.cat_a, i, self.max_features, self.k))
+            self.testing_list.append(Document(self.cat_a, i, self.max_features, self.k, contigous=self.contigous))
 
         for i in self.cat_b_testing[:cat_b_tst_c]:
-            self.testing_list.append(Document(self.cat_b, i, self.max_features, self.k))
+            self.testing_list.append(Document(self.cat_b, i, self.max_features, self.k, contigous=self.contigous))
 
         self.kernel_matrix = np.zeros([cat_a_tr_c+cat_b_tr_c, cat_a_tr_c+cat_b_tr_c])
         self.top_feature_list = set()
@@ -162,15 +183,14 @@ class SSK:
             for j in range(i,len(self.training_list)):
                 sample_i = self.training_list[i]
                 sample_j = self.training_list[j]
-                self.kernel_matrix[i, j] = self.calc_kernel_ngram(sample_i, sample_j) * self.label[sample_i.category]*self.label[sample_j.category]
+                if self.ngram:
+                    self.kernel_matrix[i, j] = self.calc_kernel_ngram(sample_i, sample_j)*\
+                    self.label[sample_i.category]*self.label[sample_j.category]
+                else:
+                    self.kernel_matrix[i, j] = self.calc_kernel(sample_i, sample_j)*\
+                    self.label[sample_i.category]*self.label[sample_j.category]
                 self.kernel_matrix[j, i] = self.kernel_matrix[i, j]
-        '''
-        for i, sample_i in enumerate(self.training_list):
-            for j, sample_j in enumerate(self.training_list):
-                self.kernel_matrix[i, j] = self.calc_kernel(sample_i, sample_j)*\
-                self.label[sample_i.category]*self.label[sample_j.category]
-                self.kernel_matrix[j, i] = self.kernel_matrix[i, j]
-        '''
+
         #Normalizing results in rank issues with cvxopt.qp
         #self.normalize_kernel()
 
@@ -212,13 +232,20 @@ class SSK:
         '''Gets the list of support vectors'''
         return self.alpha_list
     
-    def calc_kernel(self, doc_1, doc_2):
+    def calc_kernel(self, doc_a, doc_b):
         '''Calculates the kernel matrix value for K[i,j]'''
         total = 0
         for feature in self.top_feature_list:
-            l = doc_1.clean_data.count(feature)
-            j = doc_2.clean_data.count(feature)
-            total += l*j*self.lamda**(2*self.k)
+            if self.contigous:
+                l = doc_a.clean_data.count(feature)
+                j = doc_b.clean_data.count(feature)
+                total += l*j*self.lamda**(2*self.k)
+            else:
+                weights_a = doc_a.noncont_features[feature]['weights']
+                val_a = sum([self.lamda**w for w in weights_a])
+                weights_b = doc_b.noncont_features[feature]['weights']
+                val_b = sum([self.lamda**w for w in weights_b])
+                total += val_a*val_b
         return total
 
     def calc_kernel_ngram(self, doc_1, doc_2):
@@ -278,8 +305,6 @@ class SSK:
         self.recall_b = b_tp/(b_tp+b_fn)
         self.f1_b = 2*((self.precision_b*self.recall_b)/(self.precision_b+self.recall_b))
 
-
-
     def print_kernel(self):
         '''A more readable way of printing the kernel matrix'''
         np.set_printoptions(precision=3, suppress=True)
@@ -328,7 +353,7 @@ if __name__ == '__main__':
             time_init = time.time()
             print("Starting creation of SSK")
             ssk = SSK(cat_a, cat_b, max_features, feat, lamda, cat_a_tr_c,
-                      cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it, threshold)
+                      cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it, threshold, contigous=False)
             ssk.set_matrix()
             print("Done with ssk.set_matrix()")
             if verbose_time:
