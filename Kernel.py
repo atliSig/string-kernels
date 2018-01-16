@@ -15,7 +15,7 @@ from itertools import combinations
 
 class Document:
     '''A class for a document from the Reuters data-set'''
-    def __init__(self, category, index, m, n, contigous=True, blob_length=50):
+    def __init__(self, category, index, m, n, contigous=True, blob_length=200):
         '''
             :param category: the name of the document's category
             :param m: the number of top features
@@ -253,10 +253,8 @@ class SSK:
         shared_ngrams.update(doc_1.features)
         shared_ngrams.update(doc_2.features)
         total = 0
-
         for ngram in shared_ngrams:
             total += doc_1.clean_data.count(ngram) * doc_2.clean_data.count(ngram)
-
         return total
 
     def ind(self, doc):
@@ -336,11 +334,14 @@ if __name__ == '__main__':
     threshold = float(input("Threshold value (default 0.00001):") or 10**-5)
     max_features = int(input("Number of features (default 30): ") or 30)
     feature_it = input("number of different length of features (default [3,..,8,10,12,14]): ")\
-        or [3, 4, 5, 6, 7, 8, 10, 12, 14]
+        or [3, 4, 5, 6]
     avg_it = int(input("number of iterations (default 10): ") or 10)
-    contigous = bool(input("Are strings contigous ([True,False], default: True)?: ") or True)
-    ngram = bool(input("Use ngram version? ([True,False], default: False)?: ") or False)
-    verbose_time = bool(input("Print updates ([True,False], default: False): ") or False)
+    non_contigous = input("Are strings non-contigous ([True,False], default: False)?: ")
+    non_contigous = (non_contigous == "True")
+    ngram = input("Use ngram version? ([True,False], default: False)?: ")
+    ngram = (ngram == "True")
+    verbose_time = input("Print updates ([True,False], default: False): ")
+    verbose_time = (verbose_time == "True")
     output_labels = ['precision_a', 'f1_a', 'recall_a', 'precision_b', 'f1_b', 'recall_b']
     if lamda <= 0 or lamda > 1:
         print('lamda must be in ]0,1]')
@@ -355,7 +356,7 @@ if __name__ == '__main__':
             time_init = time.time()
             print("Starting creation of SSK")
             ssk = SSK(cat_a, cat_b, max_features, feat, lamda, cat_a_tr_c,
-                      cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it, threshold, contigous=contigous, ngram=ngram)
+                      cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it, threshold, contigous=not non_contigous, ngram=ngram)
             ssk.set_matrix()
             print("Done with ssk.set_matrix()")
             if verbose_time:
