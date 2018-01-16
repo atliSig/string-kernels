@@ -65,6 +65,7 @@ class Document:
         self.freq_features = tuples_sorted
         self.freq_features_counts = [tuples[tuples_sorted[i]] for i in range(len(tuples_sorted))]
 
+
     def get_top_features(self):
         '''Returns the list of top features for this Document'''
         return self.freq_features[:self.m]
@@ -143,6 +144,7 @@ class SSK:
 
         self.kernel_matrix = np.zeros([cat_a_tr_c+cat_b_tr_c, cat_a_tr_c+cat_b_tr_c])
         self.top_feature_list = set()
+        self.all_feature_list = set()
         self.seed = seed
         self.alpha_list = []
     
@@ -154,13 +156,21 @@ class SSK:
 
         for doc in self.training_list:
             self.top_feature_list.update(doc.get_top_features())
+            self.all_feature_list.update(doc.features)
 
+        for i in range(len(self.training_list)):
+            for j in range(i,len(self.training_list)):
+                sample_i = self.training_list[i]
+                sample_j = self.training_list[j]
+                self.kernel_matrix[i, j] = self.calc_kernel_ngram(sample_i, sample_j) * self.label[sample_i.category]*self.label[sample_j.category]
+                self.kernel_matrix[j, i] = self.kernel_matrix[i, j]
+        '''
         for i, sample_i in enumerate(self.training_list):
             for j, sample_j in enumerate(self.training_list):
                 self.kernel_matrix[i, j] = self.calc_kernel(sample_i, sample_j)*\
                 self.label[sample_i.category]*self.label[sample_j.category]
                 self.kernel_matrix[j, i] = self.kernel_matrix[i, j]
-
+        '''
         #Normalizing results in rank issues with cvxopt.qp
         #self.normalize_kernel()
 
@@ -211,6 +221,17 @@ class SSK:
             total += l*j*self.lamda**(2*self.k)
         return total
 
+    def calc_kernel_ngram(self, doc_1, doc_2):
+        shared_ngrams = set()
+        shared_ngrams.update(doc_1.features)
+        shared_ngrams.update(doc_2.features)
+        total = 0
+
+        for ngram in shared_ngrams:
+            total += doc_1.clean_data.count(ngram) * doc_2.clean_data.count(ngram)
+
+        return total
+
     def ind(self, doc):
         '''
             takes in a document and calculates
@@ -221,7 +242,7 @@ class SSK:
                 c = the document of a support vector
         '''
         return np.sum([a[1] * self.label[a[0].category] *\
-            self.calc_kernel(a[0], doc) for a in self.alpha_list])
+            self.calc_kernel_ngram(a[0], doc) for a in self.alpha_list])
 
     def set_results(self, verbose=True):
         '''Print results for this Kernel'''
@@ -315,9 +336,9 @@ if __name__ == '__main__':
                 time_secondary = time.time()
                 print("Feature fetching (sec): ", time.time()-time_init)
             ssk.predict()
+            ssk.set_results(verbose=False)
             if verbose_time:
                 print("Prediction (sec): ", time.time()-time_secondary)
-            ssk.set_results(verbose=False)
             print("Results for iteration: "+ str(j) +", for feature length: " +str(feat))
             print(ssk.get_results(verbose=False))
             outputs.append(ssk.get_results(verbose=False))
