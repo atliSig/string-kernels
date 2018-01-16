@@ -338,6 +338,8 @@ if __name__ == '__main__':
     feature_it = input("number of different length of features (default [3,..,8,10,12,14]): ")\
         or [3, 4, 5, 6, 7, 8, 10, 12, 14]
     avg_it = int(input("number of iterations (default 10): ") or 10)
+    contigous = bool(input("Are strings contigous ([True,False], default: True)?: ") or True)
+    ngram = bool(input("Use ngram version? ([True,False], default: False)?: ") or False)
     verbose_time = bool(input("Print updates ([True,False], default: False): ") or False)
     output_labels = ['precision_a', 'f1_a', 'recall_a', 'precision_b', 'f1_b', 'recall_b']
     if lamda <= 0 or lamda > 1:
@@ -353,7 +355,7 @@ if __name__ == '__main__':
             time_init = time.time()
             print("Starting creation of SSK")
             ssk = SSK(cat_a, cat_b, max_features, feat, lamda, cat_a_tr_c,
-                      cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it, threshold, contigous=False)
+                      cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it, threshold, contigous=contigous, ngram=ngram)
             ssk.set_matrix()
             print("Done with ssk.set_matrix()")
             if verbose_time:
