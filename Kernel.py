@@ -168,7 +168,14 @@ class SSK:
         self.all_feature_list = set()
         self.seed = seed
         self.alpha_list = []
-    
+
+    def shuffle_train_test_data(self):
+        m = len(self.training_list)
+        all_data = self.training_list + self.testing_list
+        random.shuffle(all_data)
+        self.training_list, self.testing_list = all_data[:m], all_data[m:]
+
+
     def set_matrix(self):
         '''Create the matrix here'''
         # create list of lists where each inner-list is [1/-1,index]
@@ -358,6 +365,7 @@ if __name__ == '__main__':
             ssk = SSK(cat_a, cat_b, max_features, feat, lamda, cat_a_tr_c,
                       cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it, threshold, contigous=not non_contigous, ngram=ngram)
             ssk.set_matrix()
+            ssk.shuffle_train_test_data()
             print("Done with ssk.set_matrix()")
             if verbose_time:
                 print("run for length of feature: ", feat)
