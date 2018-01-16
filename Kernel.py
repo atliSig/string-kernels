@@ -70,6 +70,7 @@ class Document:
                         self.features.add(w)
                         self.noncont_features[w]['count']+=1
                         self.noncont_features[w]['weights'].append(c[-1]-c[0]+1)
+
     def sort_features(self):
         '''returns features in the order of number of occurrences'''
         tuples = {}
@@ -78,20 +79,14 @@ class Document:
         tuples_sorted = sorted(tuples, key=tuples.get, reverse=True)
         # self.freq_features is of type list
         self.freq_features = tuples_sorted
-        self.freq_features_counts = [tuples[tuples_sorted[i]] for i in range(len(tuples_sorted))]
         if not self.contigous:
             self.noncont_freq_features = sorted(self.noncont_features.items(), key=lambda x:getitem(x[1],'count'),
                 reverse=True)
 
-
     def get_top_features(self):
         '''Returns the list of top features for this Document'''
         return self.freq_features[:self.m]
-
-    def get_top_features_counts(self):
-        '''Returns the number of occurrences for each top feature'''
-        return self.freq_features_counts[:self.m]
-
+    
     def __repr__(self):
         return 'Doc: '+ self.index +' in category: ' + self.category
 
@@ -256,12 +251,13 @@ class SSK:
         return total
 
     def calc_kernel_ngram(self, doc_1, doc_2):
+        '''Calculates the kernel value for the ngram version'''
         shared_ngrams = set()
         shared_ngrams.update(doc_1.features)
         shared_ngrams.update(doc_2.features)
         total = 0
-        for ngram in shared_ngrams:
-            total += doc_1.clean_data.count(ngram) * doc_2.clean_data.count(ngram)
+        for n_gram in shared_ngrams:
+            total += doc_1.clean_data.count(n_gram) * doc_2.clean_data.count(n_gram)
         return total
 
     def ind(self, doc):
@@ -278,7 +274,7 @@ class SSK:
                 self.calc_kernel_ngram(a[0], doc) for a in self.alpha_list])
         else:
             return np.sum([a[1] * self.label[a[0].category] * \
-                           self.calc_kernel(a[0], doc) for a in self.alpha_list])
+                self.calc_kernel(a[0], doc) for a in self.alpha_list])
         
     def set_results(self, verbose=True):
         '''Print results for this Kernel'''
@@ -359,7 +355,6 @@ if __name__ == '__main__':
         sys.exit(0)
 
     result_matrix = np.zeros((len(feature_it), len(output_labels)*2))
-
     for idx_feat, feat, in enumerate(feature_it):
         outputs = []
         outer_loop_time = time.time()
@@ -367,7 +362,7 @@ if __name__ == '__main__':
             time_init = time.time()
             print("Starting creation of SSK")
             ssk = SSK(cat_a, cat_b, max_features, feat, lamda, cat_a_tr_c,
-                      cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it, threshold, contigous=not non_contigous, ngram=ngram)
+                      cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it, threshold, contigous=(not non_contigous), ngram=ngram)
             ssk.set_matrix()
             ssk.shuffle_train_test_data()
             print("Done with ssk.set_matrix()")
