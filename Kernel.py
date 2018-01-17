@@ -281,8 +281,8 @@ class SSK:
 
     def normalize_a_document(self, doc):
         number_of_words_to_remove = len(doc.words)-self.document_normalizing_size
-        random_words_to_remove = random.sample(xrange(len(doc.words), number_of_words_to_remove))
-        doc.words = list(set(doc.words)-set(random_words_to_remove))
+        random_words_to_remove = random.sample(range(len(doc.words), number_of_words_to_remove))
+        doc.words[-random_words_to_remove]
         return doc
 
     def calc_kernel_wk(self, doc_1, doc_2):
