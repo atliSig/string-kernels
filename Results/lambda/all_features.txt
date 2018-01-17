@@ -5,6 +5,9 @@
 0.57143 0.00000 0.70588 0.00000 0.48000 0.00000 0.68966 0.00000 0.60606 0.00000 0.80000 0.00000
 0.37662 0.00000 0.56863 0.00000 0.28155 0.00000 0.60976 0.00000 0.50336 0.00000 0.77320 0.00000
 
+röðin er sú sama og í skjalinu
+
+
 Name of category A (default earn):
 Name of category B (default acq):
 Number of training samples from category A (default 152): 20
