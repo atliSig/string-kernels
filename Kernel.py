@@ -173,6 +173,7 @@ class SSK:
         self.all_feature_list = set()
         self.seed = seed
         self.alpha_list = []
+        self.get_document_normalizing_factor()
     
     def set_matrix(self):
         '''Create the matrix here'''
@@ -184,6 +185,7 @@ class SSK:
             self.top_feature_list.update(doc.get_top_features())
             self.all_feature_list.update(doc.features)
 
+        self.get_document_normalizing_factor()
         for i in range(len(self.training_list)):
             for j in range(i,len(self.training_list)):
                 sample_i = self.training_list[i]
@@ -197,7 +199,6 @@ class SSK:
                 self.kernel_matrix[j, i] = self.kernel_matrix[i, j]
 
         # this is required from the word kernel
-        # self.get_document_normalizing_factor()
 
         #Normalizing results in rank issues with cvxopt.qp
         #self.normalize_kernel()
@@ -245,11 +246,12 @@ class SSK:
     def get_alpha(self):
         '''Gets the list of support vectors'''
         return self.alpha_list
-    
+
     def get_document_normalizing_factor(self):
-        min_length = sys.maxint
-        for doc in self.training_list:
-            doc_length = len(doc.clean_data())
+        min_length = sys.maxsize
+        l = self.training_list + self.testing_list
+        for doc in l:
+            doc_length = len(doc.words)
             if doc_length<min_length:
                 min_length = doc_length
         self.document_normalizing_size = min_length
@@ -280,17 +282,23 @@ class SSK:
         return total
 
     def normalize_a_document(self, doc):
+        self.get_document_normalizing_factor()
         number_of_words_to_remove = len(doc.words)-self.document_normalizing_size
         random_words_to_remove = random.sample(range(len(doc.words)), number_of_words_to_remove)
-        for i in sorted(random_words_to_remove,reverse=True):
-            del doc.words[i]
+        join_words = [doc.words[i] for i in range(len(doc.words)) if i not in random_words_to_remove]
+        # print(len(join_words))
+        # for i in sorted(random_words_to_remove,reverse=True):
+        #     del doc.words[i]
+        cleaned_data = ' '.join(join_words)
         # doc.words[-random_words_to_remove]
-        return doc
+        return cleaned_data
 
     def calc_kernel_wk(self, doc_1, doc_2):
        shared_words = set()
-       document_1_cleaned_and_normalized = self.normalize_a_document(doc_1).clean_data
-       document_2_cleaned_and_normalized = self.normalize_a_document(doc_2).clean_data
+       # print(len(doc_1.clean_data),len(doc_2.clean_data))
+       document_1_cleaned_and_normalized = self.normalize_a_document(doc_1)#.clean_data
+       document_2_cleaned_and_normalized = self.normalize_a_document(doc_2)#.clean_data
+       # print(len(document_1_cleaned_and_normalized),len(document_2_cleaned_and_normalized))
        words_in_document_1_normalized = re.findall('\w+', document_1_cleaned_and_normalized)
        words_in_document_2_normalized = re.findall('\w+', document_2_cleaned_and_normalized)
        shared_words.update(words_in_document_1_normalized)
