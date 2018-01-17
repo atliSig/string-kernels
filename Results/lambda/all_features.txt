@@ -1,0 +1,21 @@
+0.78947 0.00000 0.71429 0.00000 0.88235 0.00000 0.72093 0.00000 0.83784 0.00000 0.63265 0.00000
+0.78756 0.00000 0.80000 0.00000 0.77551 0.00000 0.80193 0.00000 0.79048 0.00000 0.81373 0.00000
+0.67358 0.00000 0.67708 0.00000 0.67010 0.00000 0.69565 0.00000 0.69231 0.00000 0.69903 0.00000
+0.65969 0.00000 0.67021 0.00000 0.64948 0.00000 0.68900 0.00000 0.67925 0.00000 0.69903 0.00000
+0.57143 0.00000 0.70588 0.00000 0.48000 0.00000 0.68966 0.00000 0.60606 0.00000 0.80000 0.00000
+0.37662 0.00000 0.56863 0.00000 0.28155 0.00000 0.60976 0.00000 0.50336 0.00000 0.77320 0.00000
+
+Name of category A (default earn):
+Name of category B (default acq):
+Number of training samples from category A (default 152): 20
+Number of training samples from category B (default 114): 20
+Number of testing samples from category A (default 40): 100
+Number of testing samples from category B (default 25): 100
+Lambda value (default 1.0): 0.8
+Threshold value (default 0.00001):
+Number of features (default 30):
+number of different length of features (default [3,..,8,10,12,14]):
+number of iterations (default 10): 1
+Are strings non-contigous ([True,False], default: False)?: True
+Use ngram version? ([True,False], default: False)?: False
+Print updates ([True,False], default: False): True
