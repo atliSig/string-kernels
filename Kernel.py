@@ -40,6 +40,7 @@ class Document:
             self.words = self.words[:self.blob_length]
 
         self.set_features()
+        self.m = min(self.m, len(self.features))
         self.sort_features()
     
     def get_words(self):
