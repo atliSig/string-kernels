@@ -16,7 +16,7 @@ from itertools import combinations
 
 class Document:
     '''A class for a document from the Reuters data-set'''
-    def __init__(self, category, index, m, n, contigous=True, blob_length=200):
+    def __init__(self, category, index, m, k, contigous=True, blob_length=100000):
         '''
             :param category: the name of the document's category
             :param m: the number of top features
@@ -26,19 +26,19 @@ class Document:
         '''
 
         self.m = m
-        self.n = n
+        self.k = k
         self.index = index
         self.category = category
         self.contigous = contigous
-        if self.contigous:
-            self.features = set()
-            self.words = reuters.words(index)
-        else:
-            self.features = set()
-            self.blob_length = blob_length
-            self.noncont_features = defaultdict(lambda: {'count':0, 'weights':[]}, {})
-            self.words = reuters.words(index)[:self.blob_length]
+        self.features = set()
+        self.words = reuters.words(index)
         self.clean_data = self.remove_stops()
+
+        if not self.contigous:
+            self.blob_length = min(blob_length, len(self.words))
+            self.noncont_features = defaultdict(lambda: {'count':0, 'weights':[]}, {})
+            self.words = self.words[:self.blob_length]
+
         self.set_features()
         self.sort_features()
     
@@ -51,47 +51,49 @@ class Document:
             Removes stopwords and low-case-ifies the document into
             into a list, split on spaces
         '''
-        return ' '.join([s.lower() for s in self.words if not
+        self.words = [s.lower() for s in self.words if not
             re.match(r"[.,:;_\-&%<>!?=]", s) and s.lower() not
-            in stopwords.words('english')])
+            in stopwords.words('english')]
+        return ' '.join(self.words)
+
 
     def set_features(self):
         '''Sets the complete list of contigous letter combinations of length n'''
         if self.contigous:
-            for i in range(len(self.clean_data)-self.n+1):
-                self.features.add(self.clean_data[i:i+self.n])
+            for i in range(len(self.clean_data)-self.k+1):
+                self.features.add(self.clean_data[i:i+self.k])
         else:
             # get all features, including non-congtigous that appear
             # within the same word
-            for word in self.clean_data.split(' '):
-                if len(word) > self.n:
-                    comb = combinations(range(len(word)), self.n)
+            for word in self.words:
+                if len(word) > self.k:
+                    comb = combinations(range(len(word)), self.k)
                     for c in comb:
                         w = ''.join([word[i] for i in c])
                         self.features.add(w)
                         self.noncont_features[w]['count']+=1
                         self.noncont_features[w]['weights'].append(c[-1]-c[0]+1)
+
     def sort_features(self):
         '''returns features in the order of number of occurrences'''
         tuples = {}
+
         for f in self.features:
             tuples[f] = self.clean_data.count(f)
         tuples_sorted = sorted(tuples, key=tuples.get, reverse=True)
         # self.freq_features is of type list
         self.freq_features = tuples_sorted
-        self.freq_features_counts = [tuples[tuples_sorted[i]] for i in range(len(tuples_sorted))]
+
         if not self.contigous:
             self.noncont_freq_features = sorted(self.noncont_features.items(), key=lambda x:getitem(x[1],'count'),
                 reverse=True)
 
-
     def get_top_features(self):
         '''Returns the list of top features for this Document'''
-        return self.freq_features[:self.m]
-
-    def get_top_features_counts(self):
-        '''Returns the number of occurrences for each top feature'''
-        return self.freq_features_counts[:self.m]
+        if self.contigous:
+            return self.freq_features[:self.m]
+        else:
+            return [item[0] for item in self.noncont_freq_features[:self.m]]
 
     def __repr__(self):
         return 'Doc: '+ self.index +' in category: ' + self.category
@@ -165,8 +167,6 @@ class SSK:
         for i in self.cat_b_testing[:cat_b_tst_c]:
             self.testing_list.append(Document(self.cat_b, i, self.max_features, self.k, contigous=self.contigous))
 
-        
-
         self.kernel_matrix = np.zeros([cat_a_tr_c+cat_b_tr_c, cat_a_tr_c+cat_b_tr_c])
         self.top_feature_list = set()
         self.all_feature_list = set()
@@ -195,10 +195,17 @@ class SSK:
                     self.label[sample_i.category]*self.label[sample_j.category]
                 self.kernel_matrix[j, i] = self.kernel_matrix[i, j]
 
-        self.get_document_normalizing_factor()
+        # this is required from the word kernel
+        # self.get_document_normalizing_factor()
 
         #Normalizing results in rank issues with cvxopt.qp
         #self.normalize_kernel()
+
+    def shuffle_train_test_data(self):
+        m = len(self.training_list)
+        all_data = self.training_list + self.testing_list
+        random.shuffle(all_data)
+        self.training_list, self.testing_list = all_data[:m], all_data[m:]
 
     def normalize_kernel(self):
         '''Frobenius-Normalization of the kernel'''
@@ -312,8 +319,12 @@ class SSK:
                 b = label of the document
                 c = the document of a support vector
         '''
-        return np.sum([a[1] * self.label[a[0].category] *\
-            self.calc_kernel_ngram(a[0], doc) for a in self.alpha_list])
+        if self.ngram:
+            return np.sum([a[1] * self.label[a[0].category] *\
+                self.calc_kernel_ngram(a[0], doc) for a in self.alpha_list])
+        else:
+            return np.sum([a[1] * self.label[a[0].category] *\
+                self.calc_kernel(a[0], doc) for a in self.alpha_list])
 
     def set_results(self, verbose=True):
         '''Print results for this Kernel'''
@@ -362,9 +373,8 @@ class SSK:
             print("precision b " + str(self.precision_b))
             print("recall b " + str(self.recall_b))
             print("f1 b " + str(self.f1_b))
-        return [self.precision_a, self.f1_a, self.recall_a, 
-            self.precision_b, self.f1_b, self.recall_b]
-
+        return [self.f1_a, self.precision_a, self.recall_a,
+                self.f1_b, self.precision_b, self.recall_b]
 
     def __repr__(self):
         return 
@@ -380,7 +390,7 @@ if __name__ == '__main__':
     threshold = float(input("Threshold value (default 0.00001):") or 10**-5)
     max_features = int(input("Number of features (default 30): ") or 30)
     feature_it = input("number of different length of features (default [3,..,8,10,12,14]): ")\
-        or [3, 4, 5, 6]
+        or [3, 4, 5, 6, 7, 8]
     avg_it = int(input("number of iterations (default 10): ") or 10)
     non_contigous = input("Are strings non-contigous ([True,False], default: False)?: ")
     non_contigous = (non_contigous == "True")
@@ -388,7 +398,7 @@ if __name__ == '__main__':
     ngram = (ngram == "True")
     verbose_time = input("Print updates ([True,False], default: False): ")
     verbose_time = (verbose_time == "True")
-    output_labels = ['precision_a', 'f1_a', 'recall_a', 'precision_b', 'f1_b', 'recall_b']
+    output_labels = ['f1_a', 'precision_a', 'recall_a', 'f1_b', 'precision_b', 'recall_b']
     if lamda <= 0 or lamda > 1:
         print('lamda must be in ]0,1]')
         sys.exit(0)
@@ -403,6 +413,7 @@ if __name__ == '__main__':
             print("Starting creation of SSK")
             ssk = SSK(cat_a, cat_b, max_features, feat, lamda, cat_a_tr_c,
                       cat_a_tst_c, cat_b_tr_c, cat_b_tst_c, avg_it, threshold, contigous=not non_contigous, ngram=ngram)
+            ssk.shuffle_train_test_data()
             ssk.set_matrix()
             print("Done with ssk.set_matrix()")
             if verbose_time:
