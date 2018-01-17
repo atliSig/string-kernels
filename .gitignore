@@ -3,3 +3,6 @@
 .idea/**/workspace.xml
 .vscode/
 out.txt
+Report.aux
+Report.log
+Report.synctex.gz

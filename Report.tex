@@ -16,10 +16,10 @@
   Carlsson, Hugo\\
   \texttt{first2.last2@xxxxx.com}
   \and
-  Brynjarsson, Guðjón Ragnar\\
+  Brynjarsson, Guï¿½jï¿½n Ragnar\\
   \texttt{grbr@kth.se}
     \and
-  Sigurgeirsson, Atli Þór\\
+  Sigurgeirsson, Atli ï¿½ï¿½r\\
   \texttt{first2.last2@xxxxx.com}
 }
 \date{}
@@ -56,9 +56,10 @@ The feature mapping for a string $s$ in the paper is defined by giving the $u$ c
 \end{equation*}
 Which depicts the number of times the subsequence occurs in the string $s$, weighted by how continuous it is.
 The kernel function then represents the inner product of the feature vectors for strings $s$ and $t$ as the sum of the products of the above $u$ coordinate for all the substrings in $u$.
-\begin{equation*}
-    K_n(s,t)=\sum_{\mathclap{u\in\sum^n}}\langle\phi_u(s)\cdot\phi_u(t)\rangle=\sum\limits_{u\in\sum^n}\sum\limits_{i:u=s[i]}\lambda^{l(i)}\sum_{\mathclap{j:u=t[j]}}\lambda^{l(j)}=\sum\limits_{u\in\sum^n}\sum\limits_{i:u=s[i]}\sum\limits_{j:u=t[j]}\lambda^{l(i)+l(j)}
-\end{equation*}
+\begin{align}
+    K_n(s,t)=\sum_{\mathclap{u\in\sum^n}}\langle\phi_u(s)\cdot\phi_u(t)\rangle&=\sum\limits_{u\in\sum^n}\sum\limits_{i:u=s[i]}\lambda^{l(i)}\sum_{\mathclap{j:u=t[j]}}\lambda^{l(j)}\\
+    &=\sum\limits_{u\in\sum^n}\sum\limits_{i:u=s[i]}\sum\limits_{j:u=t[j]}\lambda^{l(i)+l(j)}
+\end{align}
 
 \end{definition}
 
@@ -126,7 +127,7 @@ Tables 1 and 2 show our results in the same format as the original paper for eas
 \begin{table}[]
 \centering
 \caption{Results: earn vs. acquisition}
-\label{my-label}
+\label{}
 \begin{tabular}{|l|r|r|r|r|r|r|r|r|}
 \hline
 \multicolumn{1}{|c|}{Category} & 
@@ -186,7 +187,7 @@ Tables 1 and 2 show our results in the same format as the original paper for eas
 \begin{table}[]
 \centering
 \caption{Result: crude vs. corn}
-\label{my-label}
+\label{}
 \begin{tabular}{|l|r|r|r|r|r|r|r|r|}
 \hline
 \multicolumn{1}{|c|}{Category} & 
@@ -245,7 +246,7 @@ Tables 1 and 2 show our results in the same format as the original paper for eas
 \begin{table}[]
 \centering
 \caption{Results: earn vs. acquisition}
-\label{my-label}
+\label{}
 \begin{tabular}{|l|r|r|r|r|r|r|r|r|}
 \hline
 \multicolumn{1}{|c|}{Category} & 
@@ -291,6 +292,27 @@ Tables 1 and 2 show our results in the same format as the original paper for eas
 \end{tabular}
 \end{table}
 
-
+\begin{table}[]
+    \centering
+    \caption{Comparing feature lengths when all features are considered}
+    % relevant informations in results/lambda/all_features.txt
+    \label{all-features}
+    \begin{tabular}{|l|c|l|l|l|}
+    \hline
+    Category              & \multicolumn{1}{l|}{Length} & F1      & Precision & Recall  \\ \hline
+    \multirow{6}{*}{earn} & 3                           & 0.78947 & 0.71429   & 0.88235 \\ \cline{2-5} 
+                          & 4                           & 0.78756 & 0.80000   & 0.77551 \\ \cline{2-5} 
+                          & 5                           & 0.67358 & 0.67708   & 0.67010 \\ \cline{2-5} 
+                          & 6                           & 0.65969 & 0.67021   & 0.64948 \\ \cline{2-5} 
+                          & 7                           & 0.57143 & 0.70588   & 0.48000 \\ \cline{2-5} 
+                          & 8                           & 0.37662 & 0.56863   & 0.28155 \\ \hline
+    \multirow{6}{*}{acq}  & 3                           & 0.72093 & 0.83784   & 0.63265 \\ \cline{2-5} 
+                          & 4                           & 0.80193 & 0.79048   & 0.81373 \\ \cline{2-5} 
+                          & 5                           & 0.69565 & 0.69231   & 0.69903 \\ \cline{2-5} 
+                          & 6                           & 0.68900 & 0.67925   & 0.69903 \\ \cline{2-5} 
+                          & 7                           & 0.68966 & 0.60606   & 0.80000 \\ \cline{2-5} 
+                          & 8                           & 0.60976 & 0.50336   & 0.77320 \\ \hline
+    \end{tabular}
+\end{table}
 
 \end{document}
