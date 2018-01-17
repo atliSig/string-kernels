@@ -281,14 +281,16 @@ class SSK:
 
     def normalize_a_document(self, doc):
         number_of_words_to_remove = len(doc.words)-self.document_normalizing_size
-        random_words_to_remove = random.sample(range(len(doc.words), number_of_words_to_remove))
-        doc.words[-random_words_to_remove]
+        random_words_to_remove = random.sample(range(len(doc.words)), number_of_words_to_remove)
+        for i in sorted(random_words_to_remove,reverse=True):
+            del doc.words[i]
+        # doc.words[-random_words_to_remove]
         return doc
 
     def calc_kernel_wk(self, doc_1, doc_2):
        shared_words = set()
-       document_1_cleaned_and_normalized = self.normalize_a_document(doc_1)
-       document_2_cleaned_and_normalized = self.normalize_a_document(doc_2)
+       document_1_cleaned_and_normalized = self.normalize_a_document(doc_1).clean_data
+       document_2_cleaned_and_normalized = self.normalize_a_document(doc_2).clean_data
        words_in_document_1_normalized = re.findall('\w+', document_1_cleaned_and_normalized)
        words_in_document_2_normalized = re.findall('\w+', document_2_cleaned_and_normalized)
        shared_words.update(words_in_document_1_normalized)
