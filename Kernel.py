@@ -192,7 +192,7 @@ class SSK:
                     self.kernel_matrix[i, j] = self.calc_kernel_ngram(sample_i, sample_j)*\
                     self.label[sample_i.category]*self.label[sample_j.category]
                 else:
-                    self.kernel_matrix[i, j] = self.calc_kernel(sample_i, sample_j)*\
+                    self.kernel_matrix[i, j] = self.calc_kernel_wk(sample_i, sample_j)*\
                     self.label[sample_i.category]*self.label[sample_j.category]
                 self.kernel_matrix[j, i] = self.kernel_matrix[i, j]
 
@@ -279,22 +279,16 @@ class SSK:
             total += doc_1.clean_data.count(ngram) * doc_2.clean_data.count(ngram)
         return total
 
-    def normalize_a_document(self,doc,words_in_document):
-        number_of_words_to_remove = len(doc)-self.document_normalizing_size
-        if(number_of_words_to_remove > 0):
-            for i in number_of_words_to_remove:
-                word_to_remove = words_in_document.pop(random.randrange(len(words_in_document)))
-                doc.replace(word_to_remove, '')
+    def normalize_a_document(self, doc):
+        number_of_words_to_remove = len(doc.words)-self.document_normalizing_size
+        my_randoms = random.sample(xrange(len(3), number_of_words_to_remove))
+        doc.words[-my_randoms]
         return doc
 
     def calc_kernel_wk(self, doc_1, doc_2):
        shared_words = set()
-       document_1_cleaned = doc_1.clean_data()
-       document_2_cleaned = doc_2.clean_data()
-       words_in_document_1 = re.findall('\w+', document_1_cleaned)
-       words_in_document_2 = re.findall('\w+', document_2_cleaned)
-       document_1_cleaned_and_normalized = self.normalize_a_document(document_1_cleaned,words_in_document_1)
-       document_2_cleaned_and_normalized = self.normalize_a_document(document_2_cleaned,words_in_document_2)
+       document_1_cleaned_and_normalized = self.normalize_a_document(doc_1)
+       document_2_cleaned_and_normalized = self.normalize_a_document(doc_2)
        words_in_document_1_normalized = re.findall('\w+', document_1_cleaned_and_normalized)
        words_in_document_2_normalized = re.findall('\w+', document_2_cleaned_and_normalized)
        shared_words.update(words_in_document_1_normalized)
@@ -325,7 +319,7 @@ class SSK:
                 self.calc_kernel_ngram(a[0], doc) for a in self.alpha_list])
         else:
             return np.sum([a[1] * self.label[a[0].category] *\
-                self.calc_kernel(a[0], doc) for a in self.alpha_list])
+                self.calc_kernel_wk(a[0], doc) for a in self.alpha_list])
 
     def set_results(self, verbose=True):
         '''Print results for this Kernel'''
