@@ -173,7 +173,7 @@ class SSK:
         self.all_feature_list = set()
         self.seed = seed
         self.alpha_list = []
-        self.get_document_normalizing_factor()
+        #self.get_document_normalizing_factor()
     
     def set_matrix(self):
         '''Create the matrix here'''
@@ -185,7 +185,7 @@ class SSK:
             self.top_feature_list.update(doc.get_top_features())
             self.all_feature_list.update(doc.features)
 
-        self.get_document_normalizing_factor()
+        #self.get_document_normalizing_factor()
         for i in range(len(self.training_list)):
             for j in range(i,len(self.training_list)):
                 sample_i = self.training_list[i]
@@ -194,7 +194,7 @@ class SSK:
                     self.kernel_matrix[i, j] = self.calc_kernel_ngram(sample_i, sample_j)*\
                     self.label[sample_i.category]*self.label[sample_j.category]
                 else:
-                    self.kernel_matrix[i, j] = self.calc_kernel_wk(sample_i, sample_j)*\
+                    self.kernel_matrix[i, j] = self.calc_kernel_combined(sample_i, sample_j)*\
                     self.label[sample_i.category]*self.label[sample_j.category]
                 self.kernel_matrix[j, i] = self.kernel_matrix[i, j]
 
@@ -281,6 +281,9 @@ class SSK:
             total += doc_1.clean_data.count(ngram) * doc_2.clean_data.count(ngram)
         return total
 
+    def calc_kernel_combined(self, doc_1, doc_2):
+        return 0.5 * self.calc_kernel(doc_1,doc_2) + 0.5 * self.calc_kernel_ngram(doc_1,doc_2)
+
     def normalize_a_document(self, doc):
         self.get_document_normalizing_factor()
         number_of_words_to_remove = len(doc.words)-self.document_normalizing_size
@@ -329,7 +332,7 @@ class SSK:
                 self.calc_kernel_ngram(a[0], doc) for a in self.alpha_list])
         else:
             return np.sum([a[1] * self.label[a[0].category] *\
-                self.calc_kernel_wk(a[0], doc) for a in self.alpha_list])
+                self.calc_kernel_combined(a[0], doc) for a in self.alpha_list])
 
     def set_results(self, verbose=True):
         '''Print results for this Kernel'''
@@ -394,8 +397,8 @@ if __name__ == '__main__':
     lamda = float(input("Lambda value (default 1.0): ") or 1)
     threshold = float(input("Threshold value (default 0.00001):") or 10**-5)
     max_features = int(input("Number of features (default 30): ") or 30)
-    feature_it = input("number of different length of features (default [3,..,8,10,12,14]): ")\
-        or [3, 4, 5, 6, 7, 8]
+    feature_it = input("number of different length of features (default [5]): ")\
+        or [5]
     avg_it = int(input("number of iterations (default 10): ") or 10)
     non_contigous = input("Are strings non-contigous ([True,False], default: False)?: ")
     non_contigous = (non_contigous == "True")
